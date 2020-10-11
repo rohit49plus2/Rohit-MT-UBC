@@ -1,0 +1,4 @@
+ID,Group,TotalTimeWithContent ,TimePageRelSG,TimePageIrrelSG,ProportionTimeRelSGOverReading,ProportionTimeIrrelSGOverReading,TotalTimeWithRelTextCntent,TotalTimeWithRelFullContent,TotalTimeWithIrrelTextContent,TotalTimeWithIrrelFullContent,NoteTakingDuration,NoteCheckingDuration,Number of subgoals set,Total Time Spent On setting Subgoals,Average Time Setting SG,Duration of Reading Overall,TimeSpentWithContentOverall,TimePaperNotes,TimeINF,TimePKA,TimeSummary
+MT208PN41009,Feedback,3079299,1435732,1643567,0.5336148100032478,0.0,1435732,0,0,26282,0,188640,2,712,356,4785875,4215392,0,0,495859,240799
+MT208PN41010,Control,3639151,2814063,825088,0.2267106347897774,0.0,2222648,591415,0,208874,0,0,2,577,288,4900972,4548557,15625,0,90978,0
+MT208PN41089,Feedback,3504808,1610568,1894240,0.5405251141552512,0.0,612014,954129,30719,1654630,0,0,2,668,334,4780309,4274374,126237,0,262844,47766

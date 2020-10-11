@@ -1,0 +1,51 @@
+ID,Group,Name,Gender,Age,Ethnicity,Education,GPA,Major,School,#Courses
+Elisa Chan,Female,21,Asian,Senior,~3.5,Biology,McGill University,"[['Developmental biology', '303', 'no'], ['molecular biology', '200', 'no'], ['Topics on human genome', '568', 'no'], ['Genetics of mammalian development', '416?', 'no'], ['none']]",5
+Stephanie Beadman,Female,22,Other,Senior,3.0,Biology,McGill University,"[['Human Genetics', 'BIOL 202', 'No'], ['Molecular Cell Biology', 'BIOL 200', 'No'], ['Respiratory, Renal, and Cardiovascular Physiology', 'PHGY 312', 'Yes'], ['Synapses, Hormones, Channels', 'PHGY 311', 'No'], ['Lab assistant in Microbiology and Immunology laboratory#NL#First Responder on McGill Student Emergency Response Team#NL#First Aid Responder a nd lifeguard at Wild Water Kingdom (waterpark)']]",5
+Balazs Kisgergely,Male,21,White/ Caucasian,Junior,X,Business Administration (International),McGill University,"[['', '', ''], ['', '', ''], ['', '', ''], ['', '', ''], ['']]",0
+segolene rolin,Female,19,White/ Caucasian,Freshman,3.08,Management Information Systems,McGill University,"[['', '', ''], ['', '', ''], ['', '', ''], ['', '', ''], ['']]",0
+Andrea Pecatikov,Male,20,White/ Caucasian,Sophomore,2.0,Electrical Engineering,McGill University,"[['', '', ''], ['', '', ''], ['', '', ''], ['', '', ''], ['']]",0
+MADINAH SHAIKH,Female,21,Spanish/Hispanic/Latino,Sophomore,3.5,Sociology,Concordia University,"[['', '', ''], ['', '', ''], ['', '', ''], ['', '', ''], ['']]",0
+Jeanine Kushnir,Female,19,White/ Caucasian,Sophomore,3.0,Psychology,McGill University,"[['Biology', '120', 'no'], ['', '', ''], ['', '', ''], ['', '', ''], ['Highschool co-op in emergency room, and operating room']]",2
+Wei Shi Lai,Female,19,Asian,Freshman,3.46,N/A (Non applicable),McGill University,"[['', '', ''], ['', '', ''], ['', '', ''], ['', '', ''], ['']]",0
+Shefali Varma,Female,21,Asian,Sophomore,2.7,Engineering,McGill University,"[['', '', ''], ['', '', ''], ['', '', ''], ['', '', ''], ['']]",0
+Rachael Benjamin,Female,22,White/ Caucasian,Senior,3.57,English,McGill University,"[['', '', ''], ['', '', ''], ['', '', ''], ['', '', ''], ['']]",0
+Kathryn Helin-Glick,Female,21,White/ Caucasian,Junior,3.64,Economics,McGill University,"[['', '', ''], ['', '', ''], ['', '', ''], ['', '', ''], ['']]",0
+Dina El-baradie,Female,19,Other,Freshman,3.67,N/A (Non applicable),McGill University,"[['', '', ''], ['', '', ''], ['', '', ''], ['', '', ''], ['']]",0
+Erin Eady,Female,21,White/ Caucasian,Sophomore,3.7,International Studies,McGill University,"[['', '', ''], ['', '', ''], ['', '', ''], ['', '', ''], ['Intern at Arctic Health Research Network. Data collection - not related to the circulartory system. ']]",1
+Emily Saul,Female,19,White/ Caucasian,Freshman,2.9,International Studies,McGill University,"[['', '', ''], ['', '', ''], ['', '', ''], ['', '', ''], ['']]",0
+KRISTA HENNIGAR,Female,20,White/ Caucasian,Sophomore,3.0,Political Science,McGill University,"[['', '', ''], ['', '', ''], ['', '', ''], ['', '', ''], ['']]",0
+Holly LaRiviere,Female,21,White/ Caucasian,Junior,3.2,Earth Sciences,McGill University,"[['BIOL (introductory course)', '111', 'Yes, fish circulatory system etc'], ['Biology 12', '', 'Human circulatory system'], ['', '', ''], ['', '', ''], ['']]",2
+Jocelyn Harrington,Female,21,White/ Caucasian,Junior,3.5,Political Science,McGill University,"[['Essential Biology', '', 'No'], ['', '', ''], ['', '', ''], ['', '', ''], ['']]",1
+Candace Thompson,Female,21,White/ Caucasian,Senior,3.3,Psychology,McGill University,"[['Biology', 'BIO 215', 'No'], ['', '', ''], ['', '', ''], ['', '', ''], ['']]",1
+Sonia Rasquinha,Female,20,Asian,Senior,3.50,Economics,McGill University,"[['Molecular Biology', 'BIOL 200', 'NO'], ['', '', ''], ['', '', ''], ['', '', ''], ['']]",1
+Beau Johnson,Male,23,White/ Caucasian,Senior,3.12,Psychology,McGill University,"[['Intro Biology', '111', 'No'], ['', '', ''], ['', '', ''], ['', '', ''], ['']]",1
+NEAH KELLY,Female,31,White/ Caucasian,Senior,3.2,Art,Concordia University,"[['', '', ''], ['', '', ''], ['', '', ''], ['', '', ''], ['']]",0
+Meaghan Kennedy,Female,21,White/ Caucasian,Senior,3.4,Psychology,McGill University,"[['Introductory Biology 1', 'BIOL 111', ''], ['Introductory Biology 2', 'BIOL 112', 'Yes, broad overview of the physiology of the heart and circulatory system'], ['', '', ''], ['', '', ''], ['Lab Intern, Beth Israel Deaconness Medical Center, Center for Vascular Biology Research, Boston MA.']]",3
+Heather Hardie,Female,27,White/ Caucasian,Senior,3.76,Other,Concordia University,"[['', '', ''], ['', '', ''], ['', '', ''], ['', '', ''], ['I work in the kitchen of the Royal Victoria Hospital, so I have some knowledge of diet restrictions relating to certain health conditions. ']]",1
+Samuel Desranleau,Male,19,White/ Caucasian,Freshman,2.7,Computer Science,Concordia University,"[['', '', ''], ['', '', ''], ['', '', ''], ['', '', ''], ['Worked as a Ski Patroller and learned the human anatomy']]",1
+Aimee Bell-Pasht,Female,21,White/ Caucasian,Senior,3.1,Economics,McGill University,"[['', '', ''], ['', '', ''], ['', '', ''], ['', '', ''], ['']]",0
+CAITLIN MACDONALD,Female,21,White/ Caucasian,Senior,3.3,Political Science,McGill University,"[['', '', ''], ['', '', ''], ['', '', ''], ['', '', ''], ['N/A']]",1
+Nora Esposito,Female,20,White/ Caucasian,Senior,3.23,Economics,McGill University,"[['', '', ''], ['', '', ''], ['', '', ''], ['', '', ''], ['']]",0
+Rachel Amster,Female,21,White/ Caucasian,Senior,3.2,History,McGill University,"[['', '', ''], ['', '', ''], ['', '', ''], ['', '', ''], ['']]",0
+Bushra Ebadi,Female,20,Other,Sophomore,3.47,Political Science,McGill University,"[['', '', ''], ['', '', ''], ['', '', ''], ['', '', ''], ['Also majoring in philosophy.']]",1
+Mashal,Female,21,Other,Senior,3.5,Other,McGill University,"[['Intro', 'Bio 200', 'No'], ['Intro', 'Bio 201', 'No'], ['Genetics', 'Bio 202', 'No'], ['Intro to Mammilion Physiology 1', 'Physiology 209', 'No ( just blood composition etc)'], ['Volunteer at a speech pathology clinic']]",5
+Inderpal Dhillon,Male,21,Asian,Senior,3.75,Psychology,McGill University,"[['', 'Biol 111', ''], ['', 'Biol 112', ''], ['', '', ''], ['', '', ''], ['Trillium Health Centre volunteer #NL#Global Medical Training Trip volunteer (Dominican Republic) ']]",1
+ALIZE DIRIK,Female,19,White/ Caucasian,Sophomore,3.60,Electrical Engineering,McGill University,"[['', '', ''], ['', '', ''], ['', '', ''], ['', '', ''], ['']]",0
+Anna Zisa,Female,19,White/ Caucasian,Sophomore,3.1,Earth Sciences,McGill University,"[['', '', ''], ['', '', ''], ['', '', ''], ['', '', ''], ['']]",0
+Valérie Bélanger-Cantara,Female,21,White/ Caucasian,Junior,2.72,Other,McGill University,"[['Mammalian Physiology I', 'PHGY 212', 'Yes, basic circulatory system functions and anatomy.'], ['Mammalian Physiology II', 'PHGY 213', 'Yes, continuation of PHGY 212, basic circulatory system functions and anatomy.'], ['Respiration, Renal and Cardiovascular Physiology', 'PHGY 312', 'Yes, detailed anatomy, evolution and function of the heart and circulatory system.'], ['Dynamic Histology', 'ANAT 261', 'Basic histology of components of the circulatory system.'], ['Observation days in both a hospital and ambulance.']]",5
+Mrunali Das,Female,19,Other,Junior,2.8,Biology,McGill University,"[['Molecular Biology', 'BIOL 200', 'No'], ['Cell Metabolism', 'BIOL 201', 'No'], ['Neural Basis of Behavior', 'BIOL 306', 'No'], ['AP Biology', 'BIOL 110/112', 'Yes, parts of the system and brief description of the system as a whole'], ['']]",4
+Mary Lam ,Female,18,Asian,Freshman,3.65,Finance,McGill University,"[['', '', ''], ['', '', ''], ['', '', ''], ['', '', ''], ['']]",0
+CHULHYUK CHANG,Male,25,Asian,Senior,3.0,Mechanical Engineering,McGill University,"[['', '', ''], ['', '', ''], ['', '', ''], ['', '', ''], ['']]",0
+JESSICA SHANNON,Female,20,White/ Caucasian,Junior,2.76,International Studies,McGill University,"[['', '', ''], ['', '', ''], ['', '', ''], ['', '', ''], ['']]",0
+Joanne Haboucha,Female,24,White/ Caucasian,Senior,3.7,Civil Engineering,McGill University,"[['General Biology', '100', 'No'], ['Biology 2', '200', 'No'], ['', '', ''], ['', '', ''], ['Volunteer EMT (2007)']]",3
+Caroline Lucas-Conwell,Female,20,White/ Caucasian,Senior,3.10,Political Science,McGill University,"[['', '', ''], ['', '', ''], ['', '', ''], ['', '', ''], ['']]",0
+CONOR MOTYER,Male,20,White/ Caucasian,Sophomore,3.73,Management,McGill University,"[['', '', ''], ['', '', ''], ['', '', ''], ['', '', ''], ['']]",0
+Harriet Clarkson,Female,21,White/ Caucasian,Junior,3.5,Psychology,McGill University,"[['', '', ''], ['', '', ''], ['', '', ''], ['', '', ''], ['']]",0
+Giulia Bova,Female,20,White/ Caucasian,Junior,3.8,International Studies,McGill University,"[['', '', ''], ['', '', ''], ['', '', ''], ['', '', ''], ['']]",0
+vinca merriman,Female,22,White/ Caucasian,Senior,3.3,English,McGill University,"[['', '', ''], ['', '', ''], ['', '', ''], ['', '', ''], ['']]",0
+Philip Lee,Male,31,Other,Freshman,3.2,Sociology,Concordia University,"[['', '', ''], ['', '', ''], ['', '', ''], ['', '', ''], ['']]",0
+Tara Glickman,Female,24,White/ Caucasian,Senior,3.5,Other,McGill University,"[['', '', ''], ['', '', ''], ['', '', ''], ['', '', ''], ['Volunteering as assistant to Speech-Language Pathologist, RA at MNI']]",1
+nuri hwang,Female,20,Asian,Senior,3.4,Psychology,McGill University,"[['biology', '100', 'dont remember '], ['', '', ''], ['', '', ''], ['', '', ''], ['']]",1
+Leiba Feldman,Female,21,White/ Caucasian,Sophomore,3.0,Law,McGill University,"[['', '', ''], ['', '', ''], ['', '', ''], ['', '', ''], ['']]",0
+Malek Yalaoui,Female,24,White/ Caucasian,Senior,3.4,Political Science,McGill University,"[['None', '', ''], ['', '', ''], ['', '', ''], ['', '', ''], ['None']]",2
+Alexandra Calcagno,Female,25,White/ Caucasian,Senior,2.7,Other,Concordia University,"[['', '', ''], ['', '', ''], ['', '', ''], ['', '', ''], ['']]",0

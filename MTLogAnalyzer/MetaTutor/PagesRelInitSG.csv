@@ -1,0 +1,5 @@
+ID,Group,RatioPagesRelevantToInitialSubgoal1ReadWhenSubgoal1Active,RatioPagesRelevantToInitialSubgoal2ReadWhenSubgoal2Active,RatioPagesRelevantToInitialSubgoal1ReadAtAnytime,RatioPagesRelevantToInitialSubgoal2ReadAtAnytime
+MT208PN41005,Control,0.7777777777777778,0.15,1.0,0.7
+MT208PN41006,Feedback,0.2,0.0,0.2,0.2857142857142857
+MT208PN41007,Control,0.65,0.0,0.9,0.8947368421052632
+MT208PN41008,Feedback,1.0,0.2222222222222222,1.0,1.0

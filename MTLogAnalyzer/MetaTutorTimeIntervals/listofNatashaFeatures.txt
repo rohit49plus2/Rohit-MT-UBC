@@ -1,0 +1,50 @@
+ID
+Group
+Name
+Gender
+Age
+Ethnicity
+Education
+GPA
+Major
+School
+Courses
+#Courses
+Session duration
+Reading duration
+#Subgoals validated
+#Subgoals attempted
+Worked without subgoal
+#Subgoals changes
+#Note Taking
+#Note Checking
+#Summaries added to notes
+Note Taking Duration
+Note Checking Duration
+#PLAN
+#SUMM
+#TN
+#MPTG
+#RR
+#COIS
+#PKA
+#JOL
+#FOK
+#CE
+#INF
+#DEPENDS
+#Unknown
+DurationDay2InSecs
+TimeSpentWithContentOverall
+TimePageRelSG
+TimePageIrrelSG
+TotalTimeWithRelTextContent
+TotalTimeWithRelFullContent
+TotalTimeWithIrrelTextContent
+TotalTimeWithIrrelFullContent
+NumberSG
+TotalTimeSettingSG
+TimePaperNotes
+TimeINF
+ImagesOpened_num
+TimeFullView_total
