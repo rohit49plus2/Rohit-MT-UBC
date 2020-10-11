@@ -19,6 +19,7 @@ from timestamps import * #Rohit: for time intervals
 AgTalk = []
 JSON_MASTER_FILE = "C:/Users/Francois/Documents/Work/McGill/LOGS/MetaTutorSubjectsInfo.json"
 
+main_path = os.path.dirname(os.path.dirname(dir_path))
 
 def analyzePages(offsetMode, thresholdTime):
     """Analyze the visits on each page for each participants
@@ -449,7 +450,7 @@ if __name__ == "__main__":
                                 f.write(el +"\n")
 
                     rows.append(subj.getSummaryRowList(logger,["ID", "subject", "times", "subgoals", "notes", "SRLEvents", "NatashaDariaFeatures"], [], False))
-                    Utils.exportList2Excel(rows, dir_path+"/test_file_rohit.csv")
+                    Utils.exportList2Excel(rows, main_path+"/Action Features Rohit/test_file_rohit" + str(eiv_counter)+ ".csv")
                 else:
                     print ("No predefined format. Processing as usual.")
                     data += subj.getEventListAsString(dictDataToAnalyze[dataToAnalyze][2], dictDataToAnalyze[dataToAnalyze][1])
