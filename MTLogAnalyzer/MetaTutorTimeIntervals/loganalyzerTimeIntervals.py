@@ -21,113 +21,6 @@ JSON_MASTER_FILE = "C:/Users/Francois/Documents/Work/McGill/LOGS/MetaTutorSubjec
 
 main_path = os.path.dirname(os.path.dirname(dir_path))
 
-def analyzePages(offsetMode, thresholdTime):
-    """Analyze the visits on each page for each participants
-    (using the fileSubjectsInfo file to load the relevant information)
-    and produce two files: one with the number of total visits for each page (in descending order)
-    and another with the timestamps for the visits of each page by each participant
-    (using the videotime referential if possible, the MetaTutorLogTime referential otherwise)"""
-    #: Dictionary counting the number of visits for each page. Elements of the form: {pageNumber, numberOfVisits}.
-    cptPages = []
-    # Initialize each page counter with 0
-    for i in range(0, 41):
-        cptPages.append([i, 0])
-    # Transforms the list into a dictionary
-    cptPages = dict(cptPages)
-
-    #: Dictionary of time differences in seconds between the beginning of the video file and the beginning of the MetaTutor log recording. Elements of the form: {subjectID:[ScreenCaptureOffset,WebcamOnlyOffset]}. A positive offset means MT is launched AFTER the start of the video, which should always be the case.
-    timeOffsetSubj = {"33019":[74, 69], "33025":[-1, 117.5], "33038":[-1, 77], "33043":[63, -1], "33056":[-1, 58.5]}
-    #FIXME: should use the dictionary in Subject instead of having another one here
-    #: List of timestamps when each participant accessed each page. Elements of the form: [[subjectID1, offsetKnown(True/False), [pageNumber1, [timestamp1, ...]], [pageNumber2, [...]], ...], ..., [subjectN, ...]]. The timestamps take into account the offset if it is known.
-    timePageSubj = []
-
-    #: Minimum time difference between two pages views for the first one to be considered significant
-    minPageViewsTimeDiff = datetime.timedelta(seconds=thresholdTime)
-
-    # Using the subjects info file
-    with open("./subjinfo.txt", 'r') as f:
-        fcsv = csv.reader(f, delimiter=',')
-        # for each subject from the file
-        for subjectLine, subject in enumerate(fcsv):
-            i = 0
-            # Initialize the list of timestamps for this participant
-            curTimePageSubj = []
-            for pageNb in range(0, 41):
-                curTimePageSubj.append([pageNb, []])
-            # Add the participant number and the referential for the timestamps (either "MetaTutor" or "Video")
-            curTimePageSubj.insert(0, subject[0])
-            # Initialize the offset to get into the video referential for timestamps, if the value is available
-            if subject[0] in timeOffsetSubj:
-                curOffsetSubj = datetime.timedelta(seconds=timeOffsetSubj[subject[0]][offsetMode])
-                #curOffsetKnown = True
-                if (offsetMode == 0):
-                    curTimePageSubj.insert(1, "ScreenCapture time referential")
-                else:
-                    curTimePageSubj.insert(1, "Webcam only time referential")
-            else:
-                curOffsetSubj = datetime.timedelta(seconds=0)
-                #curOffsetKnown = False
-                curTimePageSubj.insert(1, "MetaTutor time referential")
-
-            # Initialize those two values to prevent an error message, whenever precautions are taken not to use them before their real initialization
-            pageIdx = 0
-            prevTimeStamp = 0
-            # Retrieve the (page, timestamps) elements to insert them properly in curTimePageSubj, and count the pages in cptPages
-            if (subjectLine != 0):  # ignore the title line
-                for elt in subject[2:]:
-                    if (i % 2) == 0:  # first element is page number
-                        if i > 1:
-                            prevPageIdx = pageIdx               # save the previous page index
-                        pageIdx = int(elt.split(" - ")[1])      # get the page index
-                        cptPages[pageIdx] += 1                  # increment the counter corresponding to the current page
-                    else:           # second element is corresponding to the timestamp
-                        curTimeStamp = datetime.datetime.strptime(str(elt) + "000", "%H:%M:%S.%f")     # generate a time structure from the text of the timestamp
-                        #print type(curTimeStamp)
-                        #curTimeStamp = datetime.time(*curTimeStamp[0:6])                        # convert it into a datetime
-                        #print curTimeStamp
-                        #print time.mktime(curTimeStamp)
-                        #curTimeStamp2 = datetime.fromtimestamp(time.mktime(curTimeStamp))        # convert it into a datetime
-                        #curTimeStamp3 = datetime.time()                                          # convert it into a time object (of the datetime module), != time structure
-                        curTimeStamp = curTimeStamp + curOffsetSubj                                   # add the potential offset
-                        #print curTimeStamp
-                        if i > 1:
-                            if ((curTimeStamp - prevTimeStamp) < minPageViewsTimeDiff):             # the new page is loaded too soon after the previous one for the previous one to really matter
-                                cptPages[prevPageIdx] -= 1                                                  # decrement the counter for the previous page
-                                curTimePageSubj[prevPageIdx + 2][1] = curTimePageSubj[prevPageIdx + 2][1][:-1]  # delete the timestamp of the previous page
-
-                        prevTimeStamp = curTimeStamp                                                # save the previous timestamp
-                        curTimeStamp = datetime.datetime.strftime(curTimeStamp, "%H:%M:%S.%f")[:12]  # regenerate a new text timestamp
-
-                        curTimePageSubj[pageIdx + 2][1].append(curTimeStamp)                          # pageIdx+2 as there are 2 elements stored at the beginning of the list that are not pages (subjectID and offset)
-
-
-                    i += 1
-            # Add information about the current subject into the general list
-            timePageSubj.append(curTimePageSubj)
-    print (timePageSubj)
-
-    #: Number of visits per page, reformatted in a human-friendlier way
-    cptPagesFormated = []
-    for idx, i in enumerate(cptPages.values()):
-        cptPagesFormated.append([i, "Page " + str(idx)])
-    cptPagesFormated.sort()
-    cptPagesFormated.reverse()
-    print (cptPagesFormated)
-
-    # Save information about global page views into a file
-    with open("./pageinfo.txt", 'wb') as f:
-        writer = csv.writer(f, dialect='excel')
-        for page in cptPagesFormated:
-            writer.writerow(page)
-    # Save information about timestamps of page view per subject into a file
-    with open("./pageSubjTime.txt", 'wb') as f:
-        writer = csv.writer(f, dialect='excel')
-        for subject in timePageSubj[1:]:
-            for pageInfo in subject[2:]:
-                tmp = [subject[0], subject[1], "Page " + str(pageInfo[0])]
-                tmp.extend(pageInfo[1:][0])
-                writer.writerow(tmp)
-
 if __name__ == "__main__":
 #    tmpIgnoreThis = False        # temporary variable to ignore the part of goal setting that fails for now
 
@@ -145,7 +38,8 @@ if __name__ == "__main__":
     # -- saving information related arguments
     parser.add_argument('-p', '--pickle', action='store_true', help="generate .pkl files for each analyzed participants not to have to parse logs again")
     parser.add_argument('-j', '--generateJSONfile', action='store_true', help="generate a JSON file with the location of log files for the participants analyzed")
-    parser.add_argument('-t', '--times', action='store', type=str, nargs=1, default='full', help="Either full or shortened (since previous EV) interval, use 'full' for full windows and 'prev' for shortened intervals. Defaults as full ")
+    parser.add_argument('-t', '--times', action='store', type=str, nargs=1, default='full', help="Either full or shortened (since previous EV) interval, use 'full' for full windows and 'prev' for shortened intervals. Defaults as full")
+    parser.add_argument('-n', '--eivnum', action='store', type=int, nargs=1, default=[1], help="Pass EIV number to look at only those specific EIV numbers for log file. Defaults as 1. You'll get an error if it exceeds the max number of EVS")
     args = parser.parse_args()
 
     # Configure the logging with the level of messages to be displayed: debug, info, warning or error
@@ -155,10 +49,11 @@ if __name__ == "__main__":
 
     stopt=dict()
     startt=dict()
-
     if args.times != None:
         times = args.times[0]
-    if times=='full':
+    if args.eivnum != None:
+        eiv_counter = args.eivnum[0]
+    if times=='full':#change time dictionary based on case
         times=times_full
     elif times=='prev':
         times=times_interval
@@ -166,11 +61,13 @@ if __name__ == "__main__":
         print(times)
         logger.error("Wrong argument for times. Check --help for details")
         sys.exit(-1)
-    eiv_counter = 1
+
+    ids = ids_with_eiv_number#dict of ids
+
     for subjID in times[eiv_counter].keys():
         # startt[subjID] = times[eiv_counter][subjID][0]
         # stopt[subjID] = times[eiv_counter][subjID][1]
-        if not(isnan(times[eiv_counter][subjID][0])):
+        if not(isnan(times[eiv_counter][subjID][0])): #passing stuff to start and stop
             startt[subjID] = Event.Event.convertAbsTimeMT2Standard(times[eiv_counter][subjID][0])
             stopt[subjID] = Event.Event.convertAbsTimeMT2Standard(times[eiv_counter][subjID][1])
 
@@ -190,8 +87,8 @@ if __name__ == "__main__":
         logger.error("A path to MT logs needs to be provided using either -m or -s")
         sys.exit(-1)
 
-    mtla = MTLogAnalyzer(logger, readSummary, args.generateJSONfile, args.pickle, mtlogspath,subjectsIDToDebug=ids_with_eiv_number[eiv_counter], stopTimeStamps=stopt, startTimeStamps=startt) #NJ CHANGED
-    # subjectsIDToDebug=["23072"]#, maxFilesToConsider=2)#, "SRLbysubj.txt")
+    mtla = MTLogAnalyzer(logger, readSummary, args.generateJSONfile, args.pickle, mtlogspath,subjectsIDToDebug=ids[eiv_counter], stopTimeStamps=stopt, startTimeStamps=startt) #NJ CHANGED
+    # subjectsIDToDebug=["23072"]#, maxFilesToConsider=2)#, "SRLbysubj.txt"); Rohit: Pass dictionary of times and subject ids
 
     # Creation of an analyzer for FaceReader logs
     if args.frlogspath != None:
@@ -450,7 +347,7 @@ if __name__ == "__main__":
                                 f.write(el +"\n")
 
                     rows.append(subj.getSummaryRowList(logger,["ID", "subject", "times", "subgoals", "notes", "SRLEvents", "NatashaDariaFeatures"], [], False))
-                    Utils.exportList2Excel(rows, main_path+"/Action Features Rohit/test_file_rohit" + str(eiv_counter)+ ".csv")
+                    Utils.exportList2Excel(rows, main_path+"/Action Features Rohit/test_file_rohit " + args.times[0]+ str(eiv_counter)+ ".csv")
                 else:
                     print ("No predefined format. Processing as usual.")
                     data += subj.getEventListAsString(dictDataToAnalyze[dataToAnalyze][2], dictDataToAnalyze[dataToAnalyze][1])

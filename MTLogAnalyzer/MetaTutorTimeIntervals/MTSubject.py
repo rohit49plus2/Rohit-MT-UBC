@@ -426,7 +426,6 @@ class MTSubject(object):
         currentPageRelevant = False
         for evt in evtslist:
             if isinstance(evt, Custom.CEvtPursuingNewSubgoal):
-                print("hi")
                 currentSubgoal = int(evt.currentSubgoalID)
                 currentPageRelevant = (matPageSubgoal[currentSubgoal-1][currentPage] > 0)   # the page is relevant to the current subgoal
             elif isinstance(evt, Browsing.MTBrowsingPageEvent):
@@ -501,17 +500,17 @@ class MTSubject(object):
                     self.TimeFullView_total += evt.timestamp - FullViewStart
                     FlagFullView = False
         #calculate duration of session without questionnaires and videos
-        # IT USED TO BE: self.DurationDay2 = self.day2Events[-1].timestamp - self.day2Events[0].timestamp#duration of session during day 2
+        # IT USED TO BE: self.DurationDay2 = self.day2AllEvents[-1].timestamp - self.day2AllEvents[0].timestamp#duration of session during day 2
 
         #based on Daria:
-        if not isinstance(self.day2Events[-1], Custom.CEvent):
-            timeend = self.day2Events[-1].timestamp
+        if not isinstance(self.day2AllEvents[-1], Custom.CEvent):
+            timeend = self.day2AllEvents[-1].timestamp
         else:
-            timeend = self.day2Events[-1].timeEnd
-        if not isinstance (self.day2Events[0], Custom.CEvent):
-            timestart = self.day2Events[0].timestamp
+            timeend = self.day2AllEvents[-1].timeEnd
+        if not isinstance (self.day2AllEvents[0], Custom.CEvent):
+            timestart = self.day2AllEvents[0].timestamp
         else:
-            timestart = self.day2Events[0].timeStart
+            timestart = self.day2AllEvents[0].timeStart
         self.DurationDay2 = timeend - timestart
 
         self.DurationMTInteractionDay2 = self.DurationDay2
@@ -1585,9 +1584,9 @@ class MTSubject(object):
         allEvtList = []
 
         if day == 1 or day == 0:
-            allEvtList.extend(self.day1Events)
+            allEvtList.extend(self.day1AllEvents)
         if day == 2 or day == 0:
-            allEvtList.extend(self.day2Events)
+            allEvtList.extend(self.day2AllEvents)
 
         # if the event is of one of the types to be retrieved, add it to a list
         for event in allEvtList:
@@ -1621,9 +1620,9 @@ class MTSubject(object):
         allEvtList = []
 
         if day == 1 or day == 0:
-            allEvtList.extend(self.day1Events)
+            allEvtList.extend(self.day1AllEvents)
         if day == 2 or day == 0:
-            allEvtList.extend(self.day2Events)
+            allEvtList.extend(self.day2AllEvents)
 
         return allEvtList
 
@@ -1668,9 +1667,9 @@ class MTSubject(object):
 
     def getPageInViewWhenEvent(self, logger, event):
         """Check in the log of events which page the participant was viewing when one of the events from this log took place"""
-        if event in self.day2Events:
-            idxEvt = self.day2Events.index(event)    # retrieve all the elements that could be relevant
-            li = reversed(self.day2Events[:idxEvt])  # get a reverse list iterator of events before
+        if event in self.day2AllEvents:
+            idxEvt = self.day2AllEvents.index(event)    # retrieve all the elements that could be relevant
+            li = reversed(self.day2AllEvents[:idxEvt])  # get a reverse list iterator of events before
             for i in li:                                # check for the first page event and get the ID to return it
                 if isinstance(i, Browsing.MTBrowsingPageEvent):
                     return i.pageIdx
@@ -1681,9 +1680,9 @@ class MTSubject(object):
 
     def getSubgoalWhenEvent(self, logger, event):
         """Check in the log of events which subgoal the participant was trying to achieve when one of the events from this log took place"""
-        if event in self.day2Events:
-            idxEvt = self.day2Events.index(event)    # retrieve all the elements that could be relevant
-            li = reversed(self.day2Events[:idxEvt])  # get a reverse list iterator of events before
+        if event in self.day2AllEvents:
+            idxEvt = self.day2AllEvents.index(event)    # retrieve all the elements that could be relevant
+            li = reversed(self.day2AllEvents[:idxEvt])  # get a reverse list iterator of events before
             for i in li:
                 if isinstance(i, Custom.CEvtPursuingNewSubgoal):
                     return i.currentSubgoalID

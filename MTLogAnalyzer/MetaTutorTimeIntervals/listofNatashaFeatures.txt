@@ -34,6 +34,10 @@ Note Checking Duration
 #INF
 #DEPENDS
 #Unknown
+Mean # of SRL processes per relevant page while on SG0
+Mean # of SRL processes per relevant page while on SG1
+Mean # of SRL processes per relevant page to SG0 at anytime in the session (NB: some processes can end up being counted multiple times)
+Mean # of SRL processes per relevant page to SG1 at anytime in the session (NB: some processes can end up being counted multiple times)
 DurationDay2InSecs
 TimeSpentWithContentOverall
 TimePageRelSG
@@ -46,5 +50,9 @@ NumberSG
 TotalTimeSettingSG
 TimePaperNotes
 TimeINF
+RatioPagesRelevantToInitialSubgoal1ReadWhenSubgoal1Active
+RatioPagesRelevantToInitialSubgoal2ReadWhenSubgoal2Active
+RatioPagesRelevantToInitialSubgoal1ReadAtAnytime
+RatioPagesRelevantToInitialSubgoal2ReadAtAnytime
 ImagesOpened_num
 TimeFullView_total
