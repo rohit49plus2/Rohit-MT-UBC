@@ -4,7 +4,7 @@ import sys, time, datetime, calendar, csv
 import pandas as pd
 #List of user ID with valid data
 # MODIFIE ICI
-ul = ["109", "111", "113", "121", "122", "123", "125", "145", "147", "148", "150", "151", "152", "153", "154", "155", "160", "161", "162", "163", "164", "165", "166", "167", "168", "169", "170", "173", "174", "177"] # removed 116 and 172 because invalid date for aois
+# ul = ["109", "111", "113", "121", "122", "123", "125", "145", "147", "148", "150", "151", "152", "153", "154", "155", "160", "161", "162", "163", "164", "165", "166", "167", "168", "169", "170", "173", "174", "177"] # removed 116 and 172 because invalid date for aois
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
@@ -61,7 +61,6 @@ with open (emotion_file, 'rt') as f:
 				(threshold4[sc_id])[emotion(emotionq)]=0
 		EIV_count += 1
 
-print(threshold3)
 #================
 f_full_threshold3 = open(dir_path+"/Eye_Tracking_Classes/data_2014_full_threshold3.csv", "wt")
 f_full_threshold4 = open(dir_path+"/Eye_Tracking_Classes/data_2014_full_threshold4.csv", "wt")
