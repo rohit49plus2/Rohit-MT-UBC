@@ -19,9 +19,9 @@ from recordtype import  *  # for recordtype elements, which are mutable version 
 
 class MTLogAnalyzer(object):
     """Analyzer of logs information"""
-    versionsSupported = ["1.1.16", "1.1.17", "1.1.18", "1.1.20", "1.1.21", "1.2.8", "1.3.2.2", "1.3.3.1" ,"1.3.4.0","1.4.9.8"]
+    versionsSupported = ["1.1.16", "1.1.17", "1.1.18", "1.1.20", "1.1.21", "1.2.8", "1.3.2.2", "1.3.3.1" ,"1.3.4.0"]
     """versions of MetaTutor logs supported by the analyzer"""
-    summaryLogLevelOfDetails = [0, 0, 0, 0, 1, 2, 2, 2, 2,2]
+    summaryLogLevelOfDetails = [0, 0, 0, 0, 1, 2, 2, 2, 2]
     """amount of information kept in the log, one number per version in versionsSupported.
     Before 1.1.21, the day 1 didn't have a questionnaire about the subject."""
     tabSubjectsInfo = map(lambda x:[x], ["SubjectID", "SubjectName", "Gender", "Age", "Ethnicity", "Education", "GPA", "Major", "School", "# Courses", "Experimenter1", "Experimenter2"])
