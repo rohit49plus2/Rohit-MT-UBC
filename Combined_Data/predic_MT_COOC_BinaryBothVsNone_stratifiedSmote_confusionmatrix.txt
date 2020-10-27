@@ -1,0 +1,24 @@
+
+> sink()
+[1] "data_full_prev_3.csv"
+[1] "LB"
+          Reference
+Prediction  Both  None
+      Both  22.3  41.0
+      None  32.0 146.4
+[1] "RF"
+          Reference
+Prediction  Both  None
+      Both  11.5  24.7
+      None  49.5 183.3
+[1] "NN"
+          Reference
+Prediction  Both  None
+      Both  31.1 101.1
+      None  29.9 106.9
+[1] "SVM"
+          Reference
+Prediction Both None
+      Both   61  208
+      None    0    0
+[1] ""
