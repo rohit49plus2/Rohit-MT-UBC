@@ -3,9 +3,16 @@ import sys, time, datetime, calendar, csv
 import pandas as pd
 import pickle
 import numpy as np
+
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
-data=pd.read_pickle(dir_path+'/../Combined_Data/data_full_prev_3.pkl')
+datafiles_thres=['/../../Combined_Data/data_full_prev_3.pkl','/../../Combined_Data/data_15s_prev_3.pkl','/../../Combined_Data/data_full_prev_4.pkl','/../../Combined_Data/data_15s_prev_4.pkl']
+result_suffixes=['_full_prev_3.pkl','_15s_prev_3.pkl','_full_prev_4.pkl','_15s_prev_4.pkl']
+
+num=2#index for choosing data
+
+data=pd.read_pickle(dir_path+datafiles_thres[num])
+result_suffix=result_suffixes[num]
 
 
 data=data.sort_values(by=['key'])
@@ -21,7 +28,7 @@ eye_and_log=data.dropna(thresh=480)
 eye_and_log=eye_and_log.drop(['Mean # of SRL processes per relevant page while on SG1'],axis=1)
 
 # print(eye_and_log.isnull().sum())
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from gen_classes import emotions
 #
 numerics = ['int16', 'int32', 'int64', 'float16', 'float32', 'float64']

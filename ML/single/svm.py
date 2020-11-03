@@ -34,24 +34,14 @@ def correlation(dataset, threshold):
 
 X=eye_and_log.drop(emotions,axis=1)
 X = X.select_dtypes(include=numerics)
-X = X.select_dtypes(include=numerics)
 X=correlation(X,0.9)
 X=X.to_numpy()
 X=normalize(X)
 
-y_temp=eye_and_log[["Frustration","Boredom"]]
-y_temp=y_temp.to_numpy()
-y=[]
-for i in range(len(y_temp)):
-    if np.array_equal(y_temp[i],np.array([0,0])):
-        y.append(0)
-    elif np.array_equal(y_temp[i],np.array([1,0])):
-        y.append(1)
-    elif np.array_equal(y_temp[i],np.array([0,1])):
-        y.append(2)
-    elif np.array_equal(y_temp[i],np.array([1,1])):
-        y.append(3)
-y=np.array(y)
+ep=["Curiosity"]
+y=eye_and_log[ep]
+y=y.to_numpy()
+y=y.ravel()
 
 model = DummyClassifier(strategy="most_frequent")
 model.fit(X, y)
@@ -63,8 +53,8 @@ print('accuracy',accuracy1)
 model = SVC()
 # evaluate model
 cv = RepeatedStratifiedKFold(n_splits=8, n_repeats=10, random_state=2)
-parameters = {'kernel':['rbf'], 'C':range(1,1000,10),'gamma':np.arange(0.05,0.55,.05)}
-clf = GridSearchCV(model, parameters,cv=cv, n_jobs=-1)
+parameters = {'kernel':['rbf'], 'C':range(1,100,10),'gamma':np.arange(0.05,0.55,.05)}
+clf = GridSearchCV(model, parameters,cv=cv, n_jobs=4)
 clf.fit(X,y)
 print('Accuracy: ', clf.best_score_)
 print('Best Parameters: ', clf.best_params_)
@@ -81,11 +71,18 @@ for train_index, test_index in cv.split(X, y):
     y_train, y_test = y[train_index], y[test_index]
 
     model.fit(X_train, y_train)
-    conf_matrix = confusion_matrix(y_test, model.predict(X_test))
+    pred = model.predict(X_test)
+    conf_matrix = confusion_matrix(y_test, pred)
     conf_matrix_list_of_arrays.append(conf_matrix)
-    score=accuracy_score(y_test, model.predict(X_test))
+    score=accuracy_score(y_test, pred)
     scores.append(score)
 
 mean_of_conf_matrix_arrays = np.mean(conf_matrix_list_of_arrays, axis=0)
 print(mean_of_conf_matrix_arrays)
 print('Accuracy: %.7f (%.7f)' % (np.mean(scores), np.std(scores)))
+
+
+dict_results={'Model':'SVM','baseline_accuracy':accuracy1 ,'cv best parameters':clf.best_params_,'mean_accuracy':np.mean(scores), 'std_dev_accuracy':np.std(scores), 'mean_confusion_matrix':mean_of_conf_matrix_arrays}
+
+with open(dir_path+'/results/SVM'+result_suffix+'_'+ep[0]+'.pickle', 'wb') as handle:
+    pickle.dump(dict_results, handle, protocol=pickle.HIGHEST_PROTOCOL)

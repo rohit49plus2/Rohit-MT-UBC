@@ -51,4 +51,10 @@ for pair in relative_co_occur_percent:
 rcop['Emotion 1']=fe
 rcop['Emotion 2']=se
 rcop['Coocurring percent']=cop
+print(emotion_percent)
+ep=pd.DataFrame()
+ep['Emotion']=emotion_percent.keys()
+ep['Percentage']=list(emotion_percent.values())
+ep=ep.sort_values(['Percentage'],ascending=False)
 print(rcop.head(30))
+print(ep.head(10))
