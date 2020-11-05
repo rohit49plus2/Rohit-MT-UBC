@@ -28,82 +28,88 @@ def correlation(dataset, threshold):
 
     return(dataset)
 
-X=eye_and_log.drop(emotions,axis=1)
-X = X.select_dtypes(include=numerics)
-X=correlation(X,0.9)
-print('shape of X: ',X.shape)
-X=X.to_numpy()
-X=normalize(X)
+datasets=['eye','log','both']
+for data in datasets:
+    ep=["Curiosity"]
+    f = open(dir_path+'/results/NN'+result_suffix+'_'+ep[0]+'_'+data+'.txt', 'w')
 
-ep=["Curiosity"]
-y=eye_and_log[ep]
-y=y.to_numpy()
-y=y.ravel()
+    print("Dataset: ", data,file=f)
 
+    X=eye_and_log.drop(emotions,axis=1)
+    if data=='eye':
+        X=X[X.columns[:-57]]
+    elif data=='log':
+        X=X[X.columns[-57:]]
+    X = X.select_dtypes(include=numerics)
+    X=correlation(X,0.9)
+    X=X.to_numpy()
+    X=normalize(X)
+    from sklearn.decomposition import IncrementalPCA
+    print('Shape of X before PCA:', X.shape,file=f)
+    ipca = IncrementalPCA(n_components=X.shape[1]//5, batch_size=120)
+    ipca.fit(X)
+    X=ipca.transform(X)
+    print('Shape of X after PCA:', X.shape,file=f)
 
-model = DummyClassifier(strategy="most_frequent")
-model.fit(X, y)
-y_pred = model.predict(X)
-accuracy1 = accuracy_score(y, y_pred)
-print('accuracy',accuracy1)
+    y=eye_and_log[ep]
+    y=y.to_numpy()
+    y=y.ravel()
 
-import tensorflow as tf
-from tensorflow import keras
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense
-from tensorflow.keras.wrappers.scikit_learn import KerasClassifier
-from tensorflow.keras.layers import Dropout
+    model = DummyClassifier(strategy="most_frequent")
+    model.fit(X, y)
+    y_pred = model.predict(X)
+    accuracy1 = accuracy_score(y, y_pred)
+    print('Base Accuracy',accuracy1,file=f)
 
-def create_model():
-    model = Sequential()
-    model.add(Dense(500, input_dim=X.shape[1], activation='relu'))
-    model.add(Dropout(0.3))
-    model.add(Dense(2, activation='softmax'))
-    model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
-    return model
+    import tensorflow as tf
+    from tensorflow import keras
+    from tensorflow.keras.models import Sequential
+    from tensorflow.keras.layers import Dense
+    from tensorflow.keras.wrappers.scikit_learn import KerasClassifier
+    from tensorflow.keras.layers import Dropout
 
-model = KerasClassifier(build_fn=create_model,verbose=0)
-cv = RepeatedStratifiedKFold(n_splits=8, n_repeats=10, random_state=2)
-parameters = {'epochs':[10,20,30]
-}
-clf = GridSearchCV(model, parameters,cv=cv,n_jobs=4)
-clf.fit(X,y,verbose=0)
-print('Accuracy: ', clf.best_score_)
-print('Best Parameters: ', clf.best_params_)
+    def create_model():
+        model = Sequential()
+        model.add(Dense(500, input_dim=X.shape[1], activation='relu'))
+        model.add(Dropout(0.3))
+        model.add(Dense(2, activation='softmax'))
+        model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+        return model
 
-
-cv = RepeatedStratifiedKFold(n_splits=8, n_repeats=10, random_state=2)
-
-conf_matrix_list_of_arrays = []
-scores=[]
-for train_index, test_index in cv.split(X, y):
-    model = KerasClassifier(build_fn=create_model, epochs=clf.best_params_['epochs'])
-    X_train, X_test = X[train_index], X[test_index]
-    y_train, y_test = y[train_index], y[test_index]
-
-    ohe=OneHotEncoder()
-    y_train=ohe.fit_transform(y_train.reshape(-1,1)).toarray()
-
-    model.fit(X_train, y_train,verbose=0)
-
-    y_pred = model.predict(X_test)
-
-    #Converting predictions to label
-    pred = list()
-    for i in range(len(y_pred)):
-        pred.append(np.argmax(y_pred[i]))
-    conf_matrix = confusion_matrix(y_test, pred)
-    conf_matrix_list_of_arrays.append(conf_matrix)
-    score=accuracy_score(y_test, pred)
-    scores.append(score)
-    clear_session()
-
-mean_of_conf_matrix_arrays = np.mean(conf_matrix_list_of_arrays, axis=0)
-print(mean_of_conf_matrix_arrays)
-print('Accuracy: %.7f (%.7f)' % (np.mean(scores), np.std(scores)))
+    model = KerasClassifier(build_fn=create_model,verbose=0)
+    cv = RepeatedStratifiedKFold(n_splits=8, n_repeats=10, random_state=2)
+    parameters = {'epochs':[10,20,30]
+    }
+    clf = GridSearchCV(model, parameters,cv=cv,n_jobs=4)
+    clf.fit(X,y,verbose=0)
+    print('Accuracy: ', clf.best_score_,file=f)
+    print('Best Parameters: ', clf.best_params_,file=f)
 
 
-dict_results={'Model':'NN','baseline_accuracy':accuracy1 ,'cv best parameters':clf.best_params_,'mean_accuracy':np.mean(scores), 'std_dev_accuracy':np.std(scores), 'mean_confusion_matrix':mean_of_conf_matrix_arrays}
+    cv = RepeatedStratifiedKFold(n_splits=8, n_repeats=10, random_state=2)
 
-with open(dir_path+'/results/NN'+result_suffix+'_'+ep[0]+'.pickle', 'wb') as handle:
-    pickle.dump(dict_results, handle, protocol=pickle.HIGHEST_PROTOCOL)
+    conf_matrix_list_of_arrays = []
+    scores=[]
+    for train_index, test_index in cv.split(X, y):
+        model = KerasClassifier(build_fn=create_model, epochs=clf.best_params_['epochs'])
+        X_train, X_test = X[train_index], X[test_index]
+        y_train, y_test = y[train_index], y[test_index]
+
+        model.fit(X_train, y_train,verbose=0)
+        pred = model.predict(X_test)
+        conf_matrix = confusion_matrix(y_test, pred)
+        conf_matrix_list_of_arrays.append(conf_matrix)
+        score=accuracy_score(y_test, pred)
+        scores.append(score)
+        clear_session()
+
+    mean_of_conf_matrix_arrays = np.mean(conf_matrix_list_of_arrays, axis=0)
+    print(mean_of_conf_matrix_arrays,file=f)
+    print('Accuracy: %.7f (%.7f)' % (np.mean(scores), np.std(scores)),file=f)
+
+    f.close()
+
+    dict_results={'Model':'NN','baseline_accuracy':accuracy1 ,'cv best parameters':clf.best_params_,'mean_accuracy':np.mean(scores), 'std_dev_accuracy':np.std(scores), 'mean_confusion_matrix':mean_of_conf_matrix_arrays}
+
+    with open(dir_path+'/results/NN'+result_suffix+'_'+ep[0]+'_'+data+'.pickle', 'wb') as handle:
+        pickle.dump(dict_results, handle, protocol=pickle.HIGHEST_PROTOCOL)

@@ -7,16 +7,15 @@ import numpy as np
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
 datafiles_thres3=['/../../Combined_Data/data_full_prev_3.pkl','/../../Combined_Data/data_15s_prev_3.pkl','/../../Combined_Data/data_full_prev_4.pkl','/../../Combined_Data/data_15s_prev_4.pkl']
-result_suffixes=['_full_prev_3.pkl','_15s_prev_3.pkl','_full_prev_4.pkl','_15s_prev_4.pkl']
+result_suffixes=['_full_prev_3','_15s_prev_3','_full_prev_4','_15s_prev_4']
 
-num=0#index for choosing data
+num=2#index for choosing data
 
 data=pd.read_pickle(dir_path+datafiles_thres3[num])
 result_suffix=result_suffixes[num]
 
 
 data=data.sort_values(by=['key'])
-print(data.shape)
 np.set_printoptions(threshold=sys.maxsize)
 pd.set_option('display.max_rows', None)
 pd.set_option('display.max_columns', None)
@@ -26,6 +25,8 @@ pd.set_option('display.max_colwidth', None)
 eye_and_log=data.dropna(thresh=480)
 # print(eye_and_log.isnull().sum())
 eye_and_log=eye_and_log.drop(['Mean # of SRL processes per relevant page while on SG1'],axis=1)
+# print(eye_and_log.columns[-57:])
+# print(eye_and_log.columns[:-57])
 
 # print(eye_and_log.isnull().sum())
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))

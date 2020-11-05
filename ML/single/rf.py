@@ -30,60 +30,76 @@ def correlation(dataset, threshold):
 
     return(dataset)
 
-X=eye_and_log.drop(emotions,axis=1)
-X = X.select_dtypes(include=numerics)
-X=correlation(X,0.9)
-X=X.to_numpy()
-X=normalize(X)
+datasets=['eye','log','both']
+for data in datasets:
+    ep=["Curiosity"]
+    f = open(dir_path+'/results/RF'+result_suffix+'_'+ep[0]+'_'+data+'.txt', 'w')
 
-ep=["Frustration"]
-y=eye_and_log[ep]
-y=y.to_numpy()
-y=y.ravel()
+    print("Dataset: ", data,file=f)
 
-model = DummyClassifier(strategy="most_frequent")
-model.fit(X, y)
-y_pred = model.predict(X)
-accuracy1 = accuracy_score(y, y_pred)
-print('accuracy',accuracy1)
+    X=eye_and_log.drop(emotions,axis=1)
+    if data=='eye':
+        X=X[X.columns[:-57]]
+    elif data=='log':
+        X=X[X.columns[-57:]]
+    X = X.select_dtypes(include=numerics)
+    X=correlation(X,0.9)
+    X=X.to_numpy()
+    X=normalize(X)
+    from sklearn.decomposition import IncrementalPCA
+    print('Shape of X before PCA:', X.shape,file=f)
+    ipca = IncrementalPCA(n_components=X.shape[1]//5, batch_size=120)
+    ipca.fit(X)
+    X=ipca.transform(X)
+    print('Shape of X after PCA:', X.shape,file=f)
 
+    y=eye_and_log[ep]
+    y=y.to_numpy()
+    y=y.ravel()
 
-model = RandomForestClassifier()
-# evaluate model
-cv = RepeatedStratifiedKFold(n_splits=8, n_repeats=10, random_state=2)
-parameters = {'max_depth':[1,2,3,4,5],
-    'n_estimators': [100,200,300],
-    'max_features': [5, 10]
-}
-clf = GridSearchCV(model, parameters,cv=cv,n_jobs=-1)
-clf.fit(X,y)
-print('Accuracy: ', clf.best_score_)
-print('Best Parameters: ', clf.best_params_)
-# print('\n\ncv results: ', clf.cv_results_)
-
-
-model = RandomForestClassifier(max_depth=clf.best_params_['max_depth'],n_estimators=clf.best_params_['n_estimators'],max_features=clf.best_params_['max_features'])
-cv = RepeatedStratifiedKFold(n_splits=8, n_repeats=10, random_state=2)
-
-conf_matrix_list_of_arrays = []
-scores=[]
-for train_index, test_index in cv.split(X, y):
-    X_train, X_test = X[train_index], X[test_index]
-    y_train, y_test = y[train_index], y[test_index]
-
-    model.fit(X_train, y_train)
-    pred = model.predict(X_test)
-    conf_matrix = confusion_matrix(y_test, pred)
-    conf_matrix_list_of_arrays.append(conf_matrix)
-    score=accuracy_score(y_test, pred)
-    scores.append(score)
-
-mean_of_conf_matrix_arrays = np.mean(conf_matrix_list_of_arrays, axis=0)
-print(mean_of_conf_matrix_arrays)
-print('Accuracy: %.7f (%.7f)' % (np.mean(scores), np.std(scores)))
+    model = DummyClassifier(strategy="most_frequent")
+    model.fit(X, y)
+    y_pred = model.predict(X)
+    accuracy1 = accuracy_score(y, y_pred)
+    print('Base Accuracy',accuracy1,file=f)
 
 
-dict_results={'Model':'RF','baseline_accuracy':accuracy1 ,'cv best parameters':clf.best_params_,'mean_accuracy':np.mean(scores), 'std_dev_accuracy':np.std(scores), 'mean_confusion_matrix':mean_of_conf_matrix_arrays}
+    model = RandomForestClassifier()
+    # evaluate model
+    cv = RepeatedStratifiedKFold(n_splits=8, n_repeats=10, random_state=2)
+    parameters = {'max_depth':[1,2,3,4,5],
+        'n_estimators': [10,50,100],
+        'max_features': [1,2,3,4,5]
+    }
+    clf = GridSearchCV(model, parameters,cv=cv,n_jobs=-1)
+    clf.fit(X,y)
+    print('Accuracy: ', clf.best_score_,file=f)
+    print('Best Parameters: ', clf.best_params_,file=f)
+    # print('\n\ncv results: ', clf.cv_results_)
 
-with open(dir_path+'/results/RF'+result_suffix+'_'+ep[0]+'.pickle', 'wb') as handle:
-    pickle.dump(dict_results, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+    model = RandomForestClassifier(max_depth=clf.best_params_['max_depth'],n_estimators=clf.best_params_['n_estimators'],max_features=clf.best_params_['max_features'])
+    cv = RepeatedStratifiedKFold(n_splits=8, n_repeats=10, random_state=2)
+
+    conf_matrix_list_of_arrays = []
+    scores=[]
+    for train_index, test_index in cv.split(X, y):
+        X_train, X_test = X[train_index], X[test_index]
+        y_train, y_test = y[train_index], y[test_index]
+
+        model.fit(X_train, y_train)
+        pred = model.predict(X_test)
+        conf_matrix = confusion_matrix(y_test, pred)
+        conf_matrix_list_of_arrays.append(conf_matrix)
+        score=accuracy_score(y_test, pred)
+        scores.append(score)
+
+    mean_of_conf_matrix_arrays = np.mean(conf_matrix_list_of_arrays, axis=0)
+    print(mean_of_conf_matrix_arrays,file=f)
+    print('Accuracy: %.7f (%.7f)' % (np.mean(scores), np.std(scores)),file=f)
+
+
+    dict_results={'Model':'RF','baseline_accuracy':accuracy1 ,'cv best parameters':clf.best_params_,'mean_accuracy':np.mean(scores), 'std_dev_accuracy':np.std(scores), 'mean_confusion_matrix':mean_of_conf_matrix_arrays}
+
+    with open(dir_path+'/results/RF'+result_suffix+'_'+ep[0]+'_'+data+'.pickle', 'wb') as handle:
+        pickle.dump(dict_results, handle, protocol=pickle.HIGHEST_PROTOCOL)

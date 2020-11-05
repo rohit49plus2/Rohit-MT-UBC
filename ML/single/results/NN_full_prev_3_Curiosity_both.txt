@@ -1,0 +1,9 @@
+Dataset:  both
+Shape of X before PCA: (269, 399)
+Shape of X after PCA: (269, 79)
+Base Accuracy 0.620817843866171
+Accuracy:  0.6026738040149212
+Best Parameters:  {'epochs': 10}
+[[ 0.775 11.975]
+ [ 1.25  19.625]]
+Accuracy: 0.6067402 (0.0429476)
