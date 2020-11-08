@@ -54,9 +54,9 @@ if __name__ == "__main__":
     if args.eivnum != None:
         eiv_counter = args.eivnum[0]
     if times=='full':#change time dictionary based on case
-        times=times_full
-    elif times=='prev':
         times=times_interval
+    elif times=='prev':
+        times=times_interval #temporarilty times_interval
     else:
         print(times)
         logger.error("Wrong argument for times. Check --help for details")

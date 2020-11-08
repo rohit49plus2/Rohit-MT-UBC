@@ -9,7 +9,7 @@ def make_id_tuple(part_id,sc_id):
 if year==2014:
     eye_15s_name='/Eye_Tracking_Classes/data_2014_15s_threshold'
     eye_full_name='/Eye_Tracking_Classes/data_2014_full_threshold'
-    log_prev_name='/Action Features Rohit/test_file_rohit prev'
+    log_prev_name='/Action Features Rohit/test_file_rohit full' #temporarily keeping full
     log_full_name='/Action Features Rohit/test_file_rohit full'
 for threshold in {3,4}:
     log_prev=pd.DataFrame()

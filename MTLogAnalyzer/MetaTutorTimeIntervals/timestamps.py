@@ -35,14 +35,10 @@ for i in {1,2,3,4,5,6,7,8}:
     ids_with_eiv_number[i]=[]
 for index in range(data.shape[0]):
     ids_with_eiv_number[data['eiv_count'][index]].append(data['Participant ID'][index])
-times_full=dict()#for each eiv_count, dict of subject_id, start and stop times when taking in the full window until the EIV
 times_interval=dict()#for each eiv_count, dict of subject_id, start and stop times when taking in the last interval of the EIV (from the previous EIV to this one)
 for i in {1,2,3,4,5,6,7,8}:
-    times_full[i]=dict()
     times_interval[i]=dict()
 for index in range(data.shape[0]):
-    times_full[data['eiv_count'][index]][data['Participant ID'][index]]=(data['TimeStartSession'][index],data['Absolute time'][index])
-    # times_interval[data['eiv_count'][index]][data['Participant ID'][index]]=(data['TimeStartSession'][index],data['Absolute time'][index])
     if data['eiv_count'][index] > 1:
         times_interval[data['eiv_count'][index]][data['Participant ID'][index]]=(data['Absolute time'][index-1],data['Absolute time'][index])
     else:

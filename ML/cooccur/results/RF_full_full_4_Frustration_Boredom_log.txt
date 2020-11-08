@@ -1,0 +1,11 @@
+Dataset:  log
+Shape of X before PCA: (269, 42)
+Shape of X after PCA: (269, 8)
+Base Accuracy 0.5724907063197026
+Accuracy:  0.6522393048128343
+Best Parameters:  {'max_depth': 5, 'max_features': 4, 'n_estimators': 100}
+[[17.0125  0.75    1.0625  0.425 ]
+ [ 2.9     0.7875  0.15    0.5375]
+ [ 3.2     0.15    1.65    0.625 ]
+ [ 1.4625  0.2875  0.3375  2.2875]]
+Accuracy: 0.6466466 (0.0627419)
