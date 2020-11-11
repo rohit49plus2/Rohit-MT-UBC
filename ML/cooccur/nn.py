@@ -84,7 +84,7 @@ for data in datasets:
         model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
         return model
 
-    model = KerasClassifier(build_fn=create_model)
+    model = KerasClassifier(build_fn=create_model,verbose=0)
     cv = RepeatedStratifiedKFold(n_splits=8, n_repeats=10, random_state=2)
     parameters = {'epochs':[10,20,30]
     }
