@@ -38,7 +38,7 @@ if __name__ == "__main__":
     # -- saving information related arguments
     parser.add_argument('-p', '--pickle', action='store_true', help="generate .pkl files for each analyzed participants not to have to parse logs again")
     parser.add_argument('-j', '--generateJSONfile', action='store_true', help="generate a JSON file with the location of log files for the participants analyzed")
-    parser.add_argument('-t', '--times', action='store', type=str, nargs=1, default='full', help="Either full or shortened (since previous EV) interval, use 'full' for full windows and 'prev' for shortened intervals. Defaults as full")
+    parser.add_argument('-t', '--times', action='store', type=str, nargs=1, default='full', help="Either full or shortened (since previous EV) interval, use 'full' for full windows and 'half' for half intervals. Defaults as full")
     parser.add_argument('-n', '--eivnum', action='store', type=int, nargs=1, default=[1], help="Pass EIV number to look at only those specific EIV numbers for log file. Defaults as 1. You'll get an error if it exceeds the max number of EVS")
     args = parser.parse_args()
 
@@ -55,8 +55,8 @@ if __name__ == "__main__":
         eiv_counter = args.eivnum[0]
     if times=='full':#change time dictionary based on case
         times=times_interval
-    elif times=='prev':
-        times=times_interval #temporarilty times_interval
+    elif times=='half':
+        times=times_half_interval #temporarilty times_interval
     else:
         print(times)
         logger.error("Wrong argument for times. Check --help for details")

@@ -30,7 +30,7 @@ def correlation(dataset, threshold):
 datasets=['eye','log','both']
 for data in datasets:
     ep=["Frustration","Boredom"]
-    f = open(dir_path+'/results/SVM'+result_suffix+'_'+ep[0]+'_'+ep[1]+'_'+data+'.txt', 'w')
+    f = open(dir_path+'/results'+folder+'/SVM'+result_suffix+'_'+ep[0]+'_'+ep[1]+'_'+data+'.txt', 'w')
 
     print("Dataset: ", data,file=f)
 
@@ -107,5 +107,5 @@ for data in datasets:
 
     dict_results={'Model':'SVM','baseline_accuracy':accuracy1 ,'cv best parameters':clf.best_params_,'mean_accuracy':np.mean(scores), 'std_dev_accuracy':np.std(scores), 'mean_confusion_matrix':mean_of_conf_matrix_arrays}
 
-    with open(dir_path+'/results/SVM'+result_suffix+'_'+ep[0]+'_'+ep[1]+'_'+data+'.pickle', 'wb') as handle:
+    with open(dir_path+'/results'+folder+'/SVM'+result_suffix+'_'+ep[0]+'_'+ep[1]+'_'+data+'.pickle', 'wb') as handle:
         pickle.dump(dict_results, handle, protocol=pickle.HIGHEST_PROTOCOL)

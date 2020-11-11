@@ -35,11 +35,28 @@ for i in {1,2,3,4,5,6,7,8}:
     ids_with_eiv_number[i]=[]
 for index in range(data.shape[0]):
     ids_with_eiv_number[data['eiv_count'][index]].append(data['Participant ID'][index])
+
+
+data=data.dropna().reset_index(drop=True)
+def half_time(t1,t2):
+    sec1=secs = sum(int(x) * 60 ** i for i, x in enumerate(reversed(t1.split(':'))))
+    sec2=secs = sum(int(x) * 60 ** i for i, x in enumerate(reversed(t2.split(':'))))
+    return(time.strftime('%H:%M:%S', time.gmtime((sec1+sec2)/2)))
+
 times_interval=dict()#for each eiv_count, dict of subject_id, start and stop times when taking in the last interval of the EIV (from the previous EIV to this one)
+times_half_interval=dict()
 for i in {1,2,3,4,5,6,7,8}:
     times_interval[i]=dict()
+    times_half_interval[i]=dict()
 for index in range(data.shape[0]):
+    time_curr_eiv=data['Absolute time'][index]
     if data['eiv_count'][index] > 1:
-        times_interval[data['eiv_count'][index]][data['Participant ID'][index]]=(data['Absolute time'][index-1],data['Absolute time'][index])
+        time_prev_eiv=data['Absolute time'][index-1]
+        time_half=half_time(time_prev_eiv, time_curr_eiv)
+        times_interval[data['eiv_count'][index]][data['Participant ID'][index]]=(time_prev_eiv, time_curr_eiv)
+        times_half_interval[data['eiv_count'][index]][data['Participant ID'][index]]=(time_half, time_curr_eiv)
     else:
-        times_interval[data['eiv_count'][index]][data['Participant ID'][index]]=(data['TimeStartSession'][index],data['Absolute time'][index])
+        time_zero = data['TimeStartSession'][index]
+        time_half=half_time(time_zero,time_curr_eiv)
+        times_interval[data['eiv_count'][index]][data['Participant ID'][index]]=(time_zero,time_curr_eiv)
+        times_half_interval[data['eiv_count'][index]][data['Participant ID'][index]]=(time_half,time_curr_eiv)

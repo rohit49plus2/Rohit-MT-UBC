@@ -8,11 +8,12 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 
 datafiles_thres3=['/../../Combined_Data/data_full_full_3.pkl','/../../Combined_Data/data_15s_full_3.pkl','/../../Combined_Data/data_full_full_4.pkl','/../../Combined_Data/data_15s_full_4.pkl']
 result_suffixes=['_full_full_3','_15s_full_3','_full_full_4','_15s_full_4']
-
-num=2#index for choosing data
+folders=['/full_full','/15s_full','/full_full','/15s_full']
+num=1#index for choosing data
 
 data=pd.read_pickle(dir_path+datafiles_thres3[num])
 result_suffix=result_suffixes[num]
+folder=folders[num]
 
 
 data=data.sort_values(by=['key'])
