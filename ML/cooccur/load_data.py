@@ -6,12 +6,12 @@ import numpy as np
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
-datafiles_thres3=['/../../Combined_Data/data_full_full_3.pkl','/../../Combined_Data/data_15s_full_3.pkl','/../../Combined_Data/data_full_full_4.pkl','/../../Combined_Data/data_15s_full_4.pkl']
-result_suffixes=['_full_full_3','_15s_full_3','_full_full_4','_15s_full_4']
-folders=['/full_full','/15s_full','/full_full','/15s_full']
-num=3#index for choosing data
+datafiles_thres=['/../../Combined_Data/data_full_full_3.pkl','/../../Combined_Data/data_15s_full_3.pkl','/../../Combined_Data/data_full_full_4.pkl','/../../Combined_Data/data_15s_full_4.pkl', '/../../Combined_Data/data_full_half_3.pkl','/../../Combined_Data/data_15s_half_3.pkl','/../../Combined_Data/data_full_half_4.pkl','/../../Combined_Data/data_15s_half_4.pkl']
+result_suffixes=['_full_full_3','_15s_full_3','_full_full_4','_15s_full_4', '_full_half_3','_15s_half_3','_full_half_4','_15s_half_4']
+folders=['/full_full','/15s_full','/full_full','/15s_full', '/full_half','/15s_half','/full_half','/15s_half']
+num=6#index for choosing data
 
-data=pd.read_pickle(dir_path+datafiles_thres3[num])
+data=pd.read_pickle(dir_path+datafiles_thres[num])
 result_suffix=result_suffixes[num]
 folder=folders[num]
 

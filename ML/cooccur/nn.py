@@ -106,7 +106,7 @@ for data in datasets:
         ohe=OneHotEncoder()
         y_train=ohe.fit_transform(y_train.reshape(-1,1)).toarray()
 
-        model.fit(X_train, y_train)
+        model.fit(X_train, y_train,verbose=0)
 
         y_pred = model.predict(X_test)
 

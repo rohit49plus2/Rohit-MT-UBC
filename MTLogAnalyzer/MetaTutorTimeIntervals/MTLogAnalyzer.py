@@ -60,7 +60,7 @@ class MTLogAnalyzer(object):
     """list of 7 values corresponding to the number of pages relevant to each of the subgoals in study 4"""
     maxNbRelevantPagesPerSubgoal = {"MT2":matPageSubgoalStudy23, "MT3":matPageSubgoalStudy23, "MT4":matPageSubgoalStudy4, "MT4.5":matPageSubgoalStudy4}
     """dictionary linking the value of subject.study with the correct number of pages relevant to each subgoal for that study"""
-    nbPagesInSystem = {"MT2":41, "MT3":41, "MT4":38, "MT4.5":38}
+    nbPagesInSystem = {"MT2":41, "MT3":41, "MT4":38, "MT4.5":38,"MT5":38}#added MT5 to 38
     """dictionary linking the value of subject.study with the total number of pages in the system for that study"""
 
     matTestPageStudy23 = [[38, 2, 37, 4, 4, 4, 21, 6, 7, 20, 35, 6, 11, 33, 2, 34, 7, 0, 22, 7, 16, 5, 3, 15, 9],              # version A
@@ -88,7 +88,7 @@ class MTLogAnalyzer(object):
     possibleSubgoalsIDNames = dict((v, k) for k, v in possibleSubgoalsNamesID.items())
     """dictionary of possible ID for subgoals, associating each of them to a name"""
 
-    nbSubgoalsSetInitially = {"MT2":3, "MT3":3, "MT4":2,"MT4.5":2}
+    nbSubgoalsSetInitially = {"MT2":3, "MT3":3, "MT4":2,"MT4.5":2, "MT5":2}#added 2 for study 56
     """number of subgoals set in the initial subgoals setting phase, depending on the study"""
     nbMaxSubgoalsInStudy = {"MT2":7, "MT3":7, "MT4":7, "MT4.5":7}
     """maximum number of subgoals that are available in the study and can be set during the learning session"""
