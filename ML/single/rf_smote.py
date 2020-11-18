@@ -33,7 +33,7 @@ def correlation(dataset, threshold):
 datasets=['eye','log','both']
 for data in datasets:
     ep=["Curiosity"]
-    f = open(dir_path+'/results'+folder+'/RF'+result_suffix+'_'+ep[0]+'_'+data+'.txt', 'w')
+    f = open(dir_path+'/results_smote'+folder+'/RF'+result_suffix+'_'+ep[0]+'_'+data+'.txt', 'w')
 
     print("Dataset: ", data,file=f)
 
@@ -63,22 +63,34 @@ for data in datasets:
     accuracy1 = accuracy_score(y, y_pred)
     print('Base Accuracy',accuracy1,file=f)
 
+    from imblearn.over_sampling import SMOTE
+    from imblearn.under_sampling import RandomUnderSampler
+    from imblearn.pipeline import Pipeline
+
+    # X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=2)
+    over = SMOTE(sampling_strategy='all',random_state=2)
+    under = RandomUnderSampler(random_state=2)
+
 
     model = RandomForestClassifier()
+    steps = [('o', over), ('u', under),('m',model)]
+    pipeline = Pipeline(steps=steps)
     # evaluate model
     cv = RepeatedStratifiedKFold(n_splits=8, n_repeats=10, random_state=2)
-    parameters = {'max_depth':[1,2,3,4,5],
-        'n_estimators': [10,50,100],
-        'max_features': [1,2,3,4,5]
+    parameters = {'m__max_depth':[1,2,3,4,5],
+        'm__n_estimators': [10,50,100],
+        'm__max_features': [1,2,3,4,5]
     }
-    clf = GridSearchCV(model, parameters,cv=cv,n_jobs=-1)
+    clf = GridSearchCV(pipeline, parameters,cv=cv,n_jobs=4)
     clf.fit(X,y)
     print('Accuracy: ', clf.best_score_,file=f)
     print('Best Parameters: ', clf.best_params_,file=f)
     # print('\n\ncv results: ', clf.cv_results_)
 
 
-    model = RandomForestClassifier(max_depth=clf.best_params_['max_depth'],n_estimators=clf.best_params_['n_estimators'],max_features=clf.best_params_['max_features'])
+    model = RandomForestClassifier(max_depth=clf.best_params_['m__max_depth'],n_estimators=clf.best_params_['m__n_estimators'],max_features=clf.best_params_['m__max_features'])
+    steps = [('o', over), ('u', under),('m',model)]
+    pipeline = Pipeline(steps=steps)
     cv = RepeatedStratifiedKFold(n_splits=8, n_repeats=10, random_state=2)
 
     conf_matrix_list_of_arrays = []
@@ -99,8 +111,10 @@ for data in datasets:
     print('Accuracy: %.7f (%.7f)' % (np.mean(scores), np.std(scores)),file=f)
 
     f.close()
-
+    
     dict_results={'Model':'RF','baseline_accuracy':accuracy1 ,'cv best parameters':clf.best_params_,'mean_accuracy':np.mean(scores), 'std_dev_accuracy':np.std(scores), 'mean_confusion_matrix':mean_of_conf_matrix_arrays}
 
-    with open(dir_path+'/results'+folder+'/RF'+result_suffix+'_'+ep[0]+'_'+data+'.pickle', 'wb') as handle:
+    with open(dir_path+'/results_smote'+folder+'/RF'+result_suffix+'_'+ep[0]+'_'+data+'.pickle', 'wb') as handle:
         pickle.dump(dict_results, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+    f.close()
