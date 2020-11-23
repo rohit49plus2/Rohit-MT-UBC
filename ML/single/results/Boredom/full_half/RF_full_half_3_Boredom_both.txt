@@ -1,0 +1,9 @@
+Dataset:  both
+Shape of X before PCA: (269, 399)
+Shape of X after PCA: (269, 79)
+Base Accuracy 0.5278810408921933
+Accuracy:  0.5572192513368984
+Best Parameters:  {'max_depth': 3, 'max_features': 4, 'n_estimators': 100}
+[[14.15   3.6  ]
+ [11.575  4.3  ]]
+Accuracy: 0.5488302 (0.0714028)
