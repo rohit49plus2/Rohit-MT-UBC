@@ -1,0 +1,9 @@
+Dataset:  eye
+Shape of X before PCA: (258, 338)
+Shape of X after PCA: (258, 67)
+Base Accuracy 0.7209302325581395
+Accuracy:  0.7208806872367859
+Best Parameters:  {'epochs': 10}
+[[23.25  0.  ]
+ [ 9.    0.  ]]
+Accuracy: 0.7208807 (0.0036904)
