@@ -1,14 +1,11 @@
 Dataset:  both
-Shape of X before PCA: (269, 399)
-Shape of X after PCA: (269, 79)
-Base Accuracy 0.3903345724907063
-Accuracy:  0.40200534759358286
-Best Parameters:  {'C': 41, 'gamma': 0.05, 'kernel': 'rbf'}
-[[11.7625  0.      0.325   1.0375]
- [ 4.1375  0.      0.1125  0.375 ]
- [ 7.6375  0.      0.025   0.5875]
- [ 5.8375  0.      0.0625  1.725 ]]
-Accuracy: 0.4020053 (0.0492760)
+Majority Class Base Accuracy 0.3925925925925926
+Stratified Class Base Accuracy 0.3
+[[11.775   0.0375  0.6125  0.825 ]
+ [ 4.225   0.      0.2     0.2   ]
+ [ 7.725   0.0125  0.15    0.3625]
+ [ 6.6625  0.025   0.175   0.7625]]
+Accuracy: 0.3760918 (0.0512412)
 
 
 

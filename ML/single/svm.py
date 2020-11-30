@@ -40,21 +40,23 @@ for data in datasets:
 
     print("Dataset: ", data,file=f)
 
-    X=eye_and_log.drop(emotions,axis=1)
-    if data=='eye':
-        X=X[X.columns[:-57]]
-    elif data=='log':
-        X=X[X.columns[-57:]]
+    if data=='log':
+        d=pd.read_pickle(dir_path+datafiles_thres[num])
+        # print(eye_and_log.isnull().sum())
+        d=d.drop(['Mean # of SRL processes per relevant page while on SG1'],axis=1)
+        y=d[ep]
+        X=d.drop(emotions,axis=1)
+        X=d[d.columns[-57:]]
+    else:
+        X=eye_and_log.drop(emotions,axis=1)
+        if data=='eye':
+            X=X[X.columns[:-57]]
+        y=eye_and_log[ep]
     X = X.select_dtypes(include=numerics)
     X=correlation(X,0.9)
     X=X.to_numpy()
     X=normalize(X)
     from sklearn.decomposition import IncrementalPCA
-    print('Shape of X before PCA:', X.shape,file=f)
-    ipca = IncrementalPCA(n_components=X.shape[1]//5, batch_size=120)
-    ipca.fit(X)
-    X=ipca.transform(X)
-    print('Shape of X after PCA:', X.shape,file=f)
 
     y=eye_and_log[ep]
     y=y.to_numpy()
@@ -64,22 +66,17 @@ for data in datasets:
     model.fit(X, y)
     y_pred = model.predict(X)
     accuracy1 = accuracy_score(y, y_pred)
-    print('Base Accuracy',accuracy1,file=f)
+    print('Majority Class Base Accuracy',accuracy1,file=f)
 
+    model = DummyClassifier(strategy="stratified")
+    model.fit(X, y)
+    y_pred = model.predict(X)
+    accuracy2 = accuracy_score(y, y_pred)
+    print('Stratified Class Base Accuracy',accuracy2,file=f)
 
-    model = SVC()
-    # evaluate model
-    cv = RepeatedStratifiedKFold(n_splits=8, n_repeats=10, random_state=2)
     parameters = {'kernel':['rbf'], 'C':range(1,100,10),'gamma':np.arange(0.05,0.55,.05)}
-    clf = GridSearchCV(model, parameters,cv=cv, n_jobs=4)
-    clf.fit(X,y)
-    print('Accuracy: ', clf.best_score_,file=f)
-    print('Best Parameters: ', clf.best_params_,file=f)
-    # print('\n\ncv results: ', clf.cv_results_)
-
-
-    model = SVC(kernel=clf.best_params_['kernel'],C=clf.best_params_['C'],gamma=clf.best_params_['gamma'])
     cv = RepeatedStratifiedKFold(n_splits=8, n_repeats=10, random_state=2)
+    model = SVC()
 
     conf_matrix_list_of_arrays = []
     scores=[]
@@ -87,8 +84,14 @@ for data in datasets:
         X_train, X_test = X[train_index], X[test_index]
         y_train, y_test = y[train_index], y[test_index]
 
-        model.fit(X_train, y_train)
-        pred = model.predict(X_test)
+        ipca = IncrementalPCA(n_components=X_train.shape[1]//5, batch_size=120)
+        ipca.fit(X_train)
+        X_train=ipca.transform(X_train)
+        X_test=ipca.transform(X_test)
+
+        clf = GridSearchCV(model, parameters,cv=5, n_jobs=4)
+        clf.fit(X_train, y_train)
+        pred = clf.predict(X_test)
         conf_matrix = confusion_matrix(y_test, pred)
         conf_matrix_list_of_arrays.append(conf_matrix)
         score=accuracy_score(y_test, pred)
@@ -97,10 +100,11 @@ for data in datasets:
     mean_of_conf_matrix_arrays = np.mean(conf_matrix_list_of_arrays, axis=0)
     print(mean_of_conf_matrix_arrays,file=f)
     print('Accuracy: %.7f (%.7f)' % (np.mean(scores), np.std(scores)),file=f)
+    print('\n\n',file=f)
 
     f.close()
 
-    dict_results={'Model':'SVM','baseline_accuracy':accuracy1 ,'cv best parameters':clf.best_params_,'mean_accuracy':np.mean(scores), 'std_dev_accuracy':np.std(scores), 'mean_confusion_matrix':mean_of_conf_matrix_arrays}
+    dict_results={'Model':'SVM','majority_baseline_accuracy':accuracy1,'stratified_baseline_accuracy':accuracy2,'mean_accuracy':np.mean(scores), 'std_dev_accuracy':np.std(scores), 'mean_confusion_matrix':mean_of_conf_matrix_arrays}
 
     with open(dir_path+'/results/'+ep[0]+'/'+folder+'/SVM'+result_suffix+'_'+ep[0]+'_'+data+'.pickle', 'wb') as handle:
         pickle.dump(dict_results, handle, protocol=pickle.HIGHEST_PROTOCOL)

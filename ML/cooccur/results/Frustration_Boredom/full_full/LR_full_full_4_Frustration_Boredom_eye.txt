@@ -1,11 +1,8 @@
 Dataset:  eye
-Shape of X before PCA: (269, 357)
-Shape of X after PCA: (269, 71)
-Base Accuracy 0.5724907063197026
-Accuracy:  0.5727495543672013
-Best Parameters:  {'n_estimators': 1}
-[[19.25   0.     0.     0.   ]
+Base Accuracy 0.5740740740740741
+Stratified Class Base Accuracy 0.4111111111111111
+[[19.375  0.     0.     0.   ]
  [ 4.375  0.     0.     0.   ]
  [ 5.625  0.     0.     0.   ]
  [ 4.375  0.     0.     0.   ]]
-Accuracy: 0.5727496 (0.0199937)
+Accuracy: 0.5743093 (0.0206436)

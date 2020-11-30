@@ -1,11 +1,8 @@
 Dataset:  log
-Shape of X before PCA: (269, 42)
-Shape of X after PCA: (269, 8)
-Base Accuracy 0.5724907063197026
-Accuracy:  0.5727495551109314
-Best Parameters:  {'epochs': 10}
-[[19.25   0.     0.     0.   ]
- [ 4.375  0.     0.     0.   ]
- [ 5.625  0.     0.     0.   ]
- [ 4.375  0.     0.     0.   ]]
-Accuracy: 0.5727496 (0.0199937)
+Majority Class Base Accuracy 0.5876923076923077
+Stratified Class Base Accuracy 0.4338461538461538
+[[23.875  0.     0.     0.   ]
+ [ 5.125  0.     0.     0.   ]
+ [ 6.125  0.     0.     0.   ]
+ [ 5.5    0.     0.     0.   ]]
+Accuracy: 0.5878049 (0.0121951)
