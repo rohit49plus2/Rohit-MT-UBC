@@ -1,6 +1,6 @@
 Dataset:  both
 Majority Class Base Accuracy 0.3925925925925926
-Stratified Class Base Accuracy 0.3
+Stratified Class Base Accuracy 0.27037037037037037
 [[11.775   0.0375  0.6125  0.825 ]
  [ 4.225   0.      0.2     0.2   ]
  [ 7.725   0.0125  0.15    0.3625]

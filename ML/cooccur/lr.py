@@ -1,10 +1,6 @@
 from load_data import *
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
-from sklearn.model_selection import validation_curve
-from sklearn.model_selection import KFold
-from sklearn.model_selection import cross_val_score
-from sklearn.model_selection import cross_val_predict
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import r2_score
@@ -111,7 +107,7 @@ for data in datasets:
 
     f.close()
 
-    dict_results={'Model':'LR','majority_baseline_accuracy':accuracy1,'stratified_baseline_accuracy':accuracy2 ,'mean_accuracy':np.mean(scores), 'std_dev_accuracy':np.std(scores), 'mean_confusion_matrix':mean_of_conf_matrix_arrays}
+    dict_results={'Model':'LR','majority_baseline_accuracy':accuracy1,'stratified_baseline_accuracy':accuracy2 ,'mean_accuracy':np.mean(scores), 'std_dev_accuracy':np.std(scores), 'mean_confusion_matrix':mean_of_conf_matrix_arrays,'confusion_matrices':conf_matrix_list_of_arrays}
 
     with open(dir_path+'/results/'+ep[0]+'_'+ep[1]+'/'+folder+'/LR'+result_suffix+'_'+ep[0]+'_'+ep[1]+'_'+data+'.pickle', 'wb') as handle:
         pickle.dump(dict_results, handle, protocol=pickle.HIGHEST_PROTOCOL)
