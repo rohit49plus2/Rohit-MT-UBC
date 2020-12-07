@@ -1,8 +1,0 @@
-Dataset:  both
-Majority Class Base Accuracy 0.5740740740740741
-Stratified Class Base Accuracy 0.3888888888888889
-[[19.375  0.     0.     0.   ]
- [ 4.375  0.     0.     0.   ]
- [ 5.625  0.     0.     0.   ]
- [ 4.375  0.     0.     0.   ]]
-Accuracy: 0.5743093 (0.0206436)
