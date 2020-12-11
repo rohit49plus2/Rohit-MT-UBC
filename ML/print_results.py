@@ -133,16 +133,16 @@ def plot_accuracy(smote,eye_window,log_window,ep,data,threshold,models):
         plt.annotate(y[i], (-0.1 + i, y[i] +1),fontsize=15)
     plt.savefig(dir_path+'/../graphs/'+title+'.png',bbox_inches='tight')
     plt.show()
-ep=["Frustration","Boredom"]
+# ep=["Frustration","Boredom"]
 # ep=["Curiosity"]
-# ep=["Curiosity","Anxiety"]
+ep=["Curiosity","Anxiety"]
 # ep=["Boredom"]
 # smote = False
-smote = True
-# models=['RF','SVM','LR','NN']
-models=['RF']
-print(class_accuracy(smote,'full','full',ep,'log','3',models).to_latex())
+smote = False
+models=['RF','SVM','LR','NN']
+# models=['RF']
+print(class_accuracy(smote,'full','full',ep,'both','3',models).to_latex())
 print('\n')
 # print(accuracy(smote,'full','full',ep,'log','3',models))
 # print('\n')
-plot_accuracy(smote,'full','full',ep,'log','3',models)
+plot_accuracy(smote,'full','full',ep,'both','3',models)
