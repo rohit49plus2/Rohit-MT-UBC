@@ -43,7 +43,7 @@ pd.set_option('display.max_colwidth', None)  # or 199
 # print(accuracies.T)
 # accuracies.T.to_excel(dir_path+'/temp_excel.ods')
 
-def class_accuracy(smote,eye_window,log_window,ep,data,threshold,models):
+def class_accuracy(smote,eye_window,log_window,ep,data,threshold,models,usercv):
     if smote:
         results='/results_smote/'
     else:
@@ -53,7 +53,10 @@ def class_accuracy(smote,eye_window,log_window,ep,data,threshold,models):
         eps=ep[0]
         classes = ['None',ep[0]]
     else:
-        type='/cooccur'
+        if usercv:
+            type='/cooccur-usercv'
+        else:
+            type='/cooccur'
         eps=ep[0]+'_'+ep[1]
         classes = ['None',ep[0],ep[1],ep[0]+' and '+ ep[1]]
     folder='/'+eye_window+'_'+log_window
@@ -74,7 +77,7 @@ def class_accuracy(smote,eye_window,log_window,ep,data,threshold,models):
     class_acc=class_acc.set_index(['Class'])
     return(class_acc.round(2))
 
-def accuracy(smote,eye_window,log_window,ep,data,threshold,models):
+def accuracy(smote,eye_window,log_window,ep,data,threshold,models,usercv):
     if smote:
         results='/results_smote/'
     else:
@@ -83,7 +86,10 @@ def accuracy(smote,eye_window,log_window,ep,data,threshold,models):
         type='/single'
         eps=ep[0]
     else:
-        type='/cooccur'
+        if usercv:
+            type='/cooccur-usercv'
+        else:
+            type='/cooccur'
         eps=ep[0]+'_'+ep[1]
     folder='/'+eye_window+'_'+log_window
     result_suffix='_'+eye_window+'_'+log_window+'_'+threshold
@@ -101,12 +107,12 @@ def accuracy(smote,eye_window,log_window,ep,data,threshold,models):
     acc=acc.set_index(['Model'])
     return(acc.round(2))
 
-def plot_accuracy(smote,eye_window,log_window,ep,data,threshold,models):
+def plot_accuracy(smote,eye_window,log_window,ep,data,threshold,models,usercv):
     if len(ep)==1:
         eps=ep[0]
     else:
         eps=ep[0]+' and '+ep[1]
-    df=accuracy(smote,eye_window,log_window,ep,data,threshold,models)
+    df=accuracy(smote,eye_window,log_window,ep,data,threshold,models,usercv)
     x=list(df.index)
     y=list(df.Accuracy)
     y_pos = np.arange(len(x))
@@ -133,16 +139,23 @@ def plot_accuracy(smote,eye_window,log_window,ep,data,threshold,models):
         plt.annotate(y[i], (-0.1 + i, y[i] +1),fontsize=15)
     plt.savefig(dir_path+'/../graphs/'+title+'.png',bbox_inches='tight')
     plt.show()
+
 # ep=["Frustration","Boredom"]
 # ep=["Curiosity"]
 ep=["Curiosity","Anxiety"]
 # ep=["Boredom"]
-# smote = False
+
+# smote = True
 smote = False
+
 models=['RF','SVM','LR','NN']
 # models=['RF']
-print(class_accuracy(smote,'full','full',ep,'both','3',models).to_latex())
+
+usercv=False
+# usercv=True
+
+print(class_accuracy(smote,'full','full',ep,'both','3',models,usercv).to_latex())
 print('\n')
 # print(accuracy(smote,'full','full',ep,'log','3',models))
 # print('\n')
-plot_accuracy(smote,'full','full',ep,'both','3',models)
+plot_accuracy(smote,'full','full',ep,'both','3',models,usercv)

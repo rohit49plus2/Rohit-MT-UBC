@@ -9,6 +9,8 @@ from sklearn.preprocessing import normalize
 from sklearn.model_selection import RepeatedStratifiedKFold
 from sklearn.pipeline import Pipeline
 from sklearn.dummy import DummyClassifier
+import random
+from collections import Counter, defaultdict
 
 def correlation(dataset, threshold):
     col_corr = set() # Set of all the names of deleted columns
@@ -80,9 +82,13 @@ for data in datasets:
         d=d.drop(['Mean # of SRL processes per relevant page while on SG1'],axis=1)
         y_temp=d[ep]
         X=d.drop(emotions,axis=1)
+        ids=list(d['key'])
+        ids=np.array([id[0] for id in ids])
         X=d[d.columns[-57:]]
     else:
         X=eye_and_log.drop(emotions,axis=1)
+        ids=list(X['key'])
+        ids=np.array([id[0] for id in ids])
         if data=='eye':
             X=X[X.columns[:-57]]
         y_temp=eye_and_log[ep]
@@ -119,27 +125,29 @@ for data in datasets:
     print('Stratified Class Base Accuracy',accuracy2,file=f)
 
     parameters = {'kernel':['rbf'], 'C':range(1,100,10),'gamma':np.arange(0.05,0.55,.05)}
-    cv = RepeatedStratifiedKFold(n_splits=8, n_repeats=10, random_state=2)
     model = SVC()
-
     conf_matrix_list_of_arrays = []
     scores=[]
-    for train_index, test_index in cv.split(X, y):
-        X_train, X_test = X[train_index], X[test_index]
-        y_train, y_test = y[train_index], y[test_index]
+    cv = RepeatedStratifiedKFold(n_splits=8, n_repeats=10, random_state=2)
 
-        ipca = IncrementalPCA(n_components=X_train.shape[1]//5, batch_size=120)
-        ipca.fit(X_train)
-        X_train=ipca.transform(X_train)
-        X_test=ipca.transform(X_test)
+    for i in range(10):
+        for fold_ind, (train_index, test_index) in enumerate(stratified_group_k_fold(X, y, ids, k=8)):
+            X_train, X_test = X[train_index], X[test_index]
+            y_train, y_test = y[train_index], y[test_index]
+            train_groups, test_groups = ids[train_index], ids[test_index]
 
-        clf = GridSearchCV(model, parameters,cv=5, n_jobs=4)
-        clf.fit(X_train, y_train)
-        pred = clf.predict(X_test)
-        conf_matrix = confusion_matrix(y_test, pred)
-        conf_matrix_list_of_arrays.append(conf_matrix)
-        score=accuracy_score(y_test, pred)
-        scores.append(score)
+            ipca = IncrementalPCA(n_components=X_train.shape[1]//5, batch_size=120)
+            ipca.fit(X_train)
+            X_train=ipca.transform(X_train)
+            X_test=ipca.transform(X_test)
+
+            clf = GridSearchCV(model, parameters,cv=5, n_jobs=4)
+            clf.fit(X_train, y_train)
+            pred = clf.predict(X_test)
+            conf_matrix = confusion_matrix(y_test, pred)
+            conf_matrix_list_of_arrays.append(conf_matrix)
+            score=accuracy_score(y_test, pred)
+            scores.append(score)
 
     mean_of_conf_matrix_arrays = np.mean(conf_matrix_list_of_arrays, axis=0)
     print(mean_of_conf_matrix_arrays,file=f)

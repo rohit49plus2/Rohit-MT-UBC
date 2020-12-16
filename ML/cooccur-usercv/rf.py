@@ -69,8 +69,8 @@ def stratified_group_k_fold(X, y, groups, k, seed=None):
 
         yield train_indices, test_indices
 
-datasets=['log']
-# datasets=['eye','log','both']
+# datasets=['log']
+datasets=['eye','log','both']
 for data in datasets:
     if not os.path.exists(dir_path+'/results/'+ep[0]+'_'+ep[1]+'/'+folder):
         os.makedirs(dir_path+'/results/'+ep[0]+'_'+ep[1]+'/'+folder)
@@ -89,6 +89,8 @@ for data in datasets:
         X=d[d.columns[-57:]]
     else:
         X=eye_and_log.drop(emotions,axis=1)
+        ids=list(X['key'])
+        ids=np.array([id[0] for id in ids])
         if data=='eye':
             X=X[X.columns[:-57]]
         y_temp=eye_and_log[ep]
