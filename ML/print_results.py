@@ -151,8 +151,8 @@ smote = False
 models=['RF','SVM','LR','NN']
 # models=['RF']
 
-usercv=False
-# usercv=True
+# usercv=False
+usercv=True
 
 print(class_accuracy(smote,'full','full',ep,'both','3',models,usercv).to_latex())
 print('\n')
