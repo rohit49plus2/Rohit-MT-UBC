@@ -130,7 +130,8 @@ for data in datasets:
     # X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=2)
     over = SMOTE(sampling_strategy='all',random_state=2)
     under = RandomUnderSampler(random_state=2)
-    steps = [('o', over), ('u', under)]
+    # steps = [('o', over), ('u', under)]
+    steps = [('o', over)]
     pipeline = Pipeline(steps=steps)
     parameters = {'max_depth':[1,2,3,4,5],
     'n_estimators': [10,50,100],

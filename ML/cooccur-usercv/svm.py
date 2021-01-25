@@ -156,7 +156,7 @@ for data in datasets:
 
     f.close()
 
-    dict_results={'Model':'SVM','majority_baseline_accuracy':accuracy1,'stratified_baseline_accuracy':accuracy2,'mean_accuracy':np.mean(scores), 'std_dev_accuracy':np.std(scores), 'mean_confusion_matrix':mean_of_conf_matrix_arrays}
+    dict_results={'Model':'SVM','majority_baseline_accuracy':accuracy1,'stratified_baseline_accuracy':accuracy2,'mean_accuracy':np.mean(scores), 'std_dev_accuracy':np.std(scores), 'mean_confusion_matrix':mean_of_conf_matrix_arrays,'confusion_matrices':conf_matrix_list_of_arrays}
 
     with open(dir_path+'/results/'+ep[0]+'_'+ep[1]+'/'+folder+'/SVM'+result_suffix+'_'+ep[0]+'_'+ep[1]+'_'+data+'.pickle', 'wb') as handle:
         pickle.dump(dict_results, handle, protocol=pickle.HIGHEST_PROTOCOL)

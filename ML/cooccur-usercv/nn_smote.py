@@ -134,7 +134,8 @@ for data in datasets:
     # X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=2)
     over = SMOTE(sampling_strategy='all',random_state=2)
     under = RandomUnderSampler(random_state=2)
-    steps = [('o', over), ('u', under)]
+    # steps = [('o', over), ('u', under)]
+    steps = [('o', over)]
     pipeline = Pipeline(steps=steps)
     parameters = {'epochs':[10,20,30]}
 
@@ -167,15 +168,15 @@ for data in datasets:
             clf.fit(X_train, y_train)
             y_pred = clf.predict(X_test)
 
-        #Converting predictions to label
-        pred = list()
-        for i in range(len(y_pred)):
-            pred.append(np.argmax(y_pred[i]))
-        conf_matrix = confusion_matrix(y_test, pred)
-        conf_matrix_list_of_arrays.append(conf_matrix)
-        score=accuracy_score(y_test, pred)
-        scores.append(score)
-        clear_session()
+            #Converting predictions to label
+            pred = list()
+            for i in range(len(y_pred)):
+                pred.append(np.argmax(y_pred[i]))
+            conf_matrix = confusion_matrix(y_test, pred)
+            conf_matrix_list_of_arrays.append(conf_matrix)
+            score=accuracy_score(y_test, pred)
+            scores.append(score)
+            clear_session()
 
     mean_of_conf_matrix_arrays = np.mean(conf_matrix_list_of_arrays, axis=0)
     print(mean_of_conf_matrix_arrays,file=f)

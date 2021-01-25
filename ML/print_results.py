@@ -3,6 +3,9 @@ import pandas as pd
 import numpy as np
 import pickle
 import matplotlib.pyplot as plt
+from scipy.stats import f_oneway
+from scipy.stats import ttest_ind
+from statsmodels.stats.multitest import multipletests
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
 pd.set_option('display.max_columns', None)  # or 1000
@@ -72,7 +75,7 @@ def class_accuracy(smote,eye_window,log_window,ep,data,threshold,models,usercv):
         for i in range(len(classes)):
             accs.append(conf[i][i]/conf[i].sum()*100)
             base.append(conf[i].sum()/conf.sum()*100)
-        class_acc[model + ' Accuracy']=accs
+        class_acc[model]=accs
     class_acc.insert(0, 'Distribution', base)
     class_acc=class_acc.set_index(['Class'])
     return(class_acc.round(2))
@@ -94,15 +97,12 @@ def accuracy(smote,eye_window,log_window,ep,data,threshold,models,usercv):
     folder='/'+eye_window+'_'+log_window
     result_suffix='_'+eye_window+'_'+log_window+'_'+threshold
     acc=pd.DataFrame()
-    acc['Model']=['Majority','Stratified']+models
+    acc['Model']=models
     accs=[]
     for model in models:
         with open(dir_path+type+results+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'_'+data+'.pickle', 'rb') as handle:
             res=pickle.load(handle)
         accs.append(res['mean_accuracy']*100)
-        base1=res['majority_baseline_accuracy']*100
-        base2=res['stratified_baseline_accuracy']*100
-    accs=[base1,base2]+accs
     acc['Accuracy']=accs
     acc=acc.set_index(['Model'])
     return(acc.round(2))
@@ -137,25 +137,80 @@ def plot_accuracy(smote,eye_window,log_window,ep,data,threshold,models,usercv):
     plt.axhline(y = y[0], color = 'black', linestyle = '--')
     for i in range(len(x)):
         plt.annotate(y[i], (-0.1 + i, y[i] +1),fontsize=15)
-    plt.savefig(dir_path+'/../graphs/'+title+'.png',bbox_inches='tight')
     plt.show()
+
+def anova_class(smote,eye_window,log_window,ep,data,threshold,models,usercv):
+    if smote:
+        results='/results_smote/'
+    else:
+        results='/results/'
+    if len(ep)==1:
+        type='/single'
+        eps=ep[0]
+        classes = ['None',ep[0]]
+    else:
+        if usercv:
+            type='/cooccur-usercv'
+        else:
+            type='/cooccur'
+        eps=ep[0]+'_'+ep[1]
+        classes = ['None',ep[0],ep[1],ep[0]+' and '+ ep[1]]
+    folder='/'+eye_window+'_'+log_window
+    result_suffix='_'+eye_window+'_'+log_window+'_'+threshold
+    cf=pd.DataFrame()
+    for model in models:
+        with open(dir_path+type+results+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'_'+data+'.pickle', 'rb') as handle:
+            res=pickle.load(handle)
+        # print(len(res['confusion_matrices']))
+        cf[model]=res['confusion_matrices']
+
+    anova_results=[]
+    class_accs=[]
+    for i in range(4):
+        class_accs.append([])
+        for model in models:
+            accs=[]
+            for matrix in cf[model]:
+                accs.append(matrix[i][i]/matrix[i].sum()*100)
+            class_accs[i].append(accs)
+        print("Class - ", classes[i])
+        print(f_oneway(class_accs[i][0],class_accs[i][1],class_accs[i][2],class_accs[i][3],class_accs[i][4],class_accs[i][5]))
+    total_accs=[]
+    for model in models:
+        accs = []
+        for matrix in cf[model]:
+            accs.append((np.trace(matrix))/matrix.sum()*100)
+        total_accs.append(accs)
+    print("Total Accuracy")
+    print(f_oneway(total_accs[0],total_accs[1],total_accs[2],total_accs[3],total_accs[4],total_accs[5]))
+
+    print("Multiple T Test Analysis")
+    for i in range(5):
+        for j in range(i+1,6):
+            print(models[i], 'vs',models[j])
+            for c in range(4):
+                print("Class - ", classes[c],"t tests")
+                print(multipletests(ttest_ind(class_accs[c][i],class_accs[c][j])[1]))
+            print("Total Accuracy t tests")
+            print(multipletests(ttest_ind(total_accs[i],total_accs[j])[1]))
 
 # ep=["Frustration","Boredom"]
 # ep=["Curiosity"]
 ep=["Curiosity","Anxiety"]
 # ep=["Boredom"]
 
-# smote = True
-smote = False
+smote = True
+# smote = False
 
-models=['RF','SVM','LR','NN']
+models=['Major','Strat','RF','SVM','LR','NN']
 # models=['RF']
 
 # usercv=False
 usercv=True
 
-print(class_accuracy(smote,'full','full',ep,'both','3',models,usercv).to_latex())
+print(class_accuracy(smote,'full','full',ep,'log','3',models,usercv).to_latex())
 print('\n')
 # print(accuracy(smote,'full','full',ep,'log','3',models))
 # print('\n')
-plot_accuracy(smote,'full','full',ep,'both','3',models,usercv)
+plot_accuracy(smote,'full','full',ep,'log','3',models,usercv)
+anova_class(smote,'full','full',ep,'log','3',models,usercv)
