@@ -280,9 +280,9 @@ def manova(smote,eye_window,log_window,ep,threshold,models,usercv):
     f.close()
 
 
-ep=["Frustration","Boredom"]
+# ep=["Frustration","Boredom"]
 # ep=["Curiosity"]
-# ep=["Curiosity","Anxiety"]
+ep=["Curiosity","Anxiety"]
 # ep=["Boredom"]
 
 smote = True

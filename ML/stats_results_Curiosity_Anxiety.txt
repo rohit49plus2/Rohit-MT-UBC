@@ -59,3 +59,126 @@ C(Model)                 113692.772752    3.0  206.107693  6.651923e-103
 C(Feature_Set)             3696.949129    2.0   10.053009   4.782862e-05
 C(Model):C(Feature_Set)    8046.876027    6.0    7.293881   1.235885e-07
 Residual                 174311.378963  948.0         NaN            NaN
+
+
+Multiple T Test Analysis across Models
+
+ Strat vs RF 
+
+Total Accuracy t test
+(array([ True]), array([0.01231885]), 0.050000000000000044, 0.05)
+Class -  No_emotion t test
+(array([False]), array([0.66795418]), 0.050000000000000044, 0.05)
+Class -  Curiosity t test
+(array([ True]), array([1.82107218e-10]), 0.050000000000000044, 0.05)
+Class -  Anxiety t test
+(array([ True]), array([9.77367641e-05]), 0.050000000000000044, 0.05)
+Class -  Curiosity-x-Anxiety t test
+(array([False]), array([0.64122672]), 0.050000000000000044, 0.05)
+
+ Strat vs SVM 
+
+Total Accuracy t test
+(array([ True]), array([3.07444718e-07]), 0.050000000000000044, 0.05)
+Class -  No_emotion t test
+(array([False]), array([0.14713941]), 0.050000000000000044, 0.05)
+Class -  Curiosity t test
+(array([ True]), array([8.63265015e-12]), 0.050000000000000044, 0.05)
+Class -  Anxiety t test
+(array([False]), array([0.66004804]), 0.050000000000000044, 0.05)
+Class -  Curiosity-x-Anxiety t test
+(array([False]), array([0.78239529]), 0.050000000000000044, 0.05)
+
+ Strat vs LR 
+
+Total Accuracy t test
+(array([ True]), array([0.00501463]), 0.050000000000000044, 0.05)
+Class -  No_emotion t test
+(array([ True]), array([5.43021628e-10]), 0.050000000000000044, 0.05)
+Class -  Curiosity t test
+(array([ True]), array([0.]), 0.050000000000000044, 0.05)
+Class -  Anxiety t test
+(array([ True]), array([0.00128393]), 0.050000000000000044, 0.05)
+Class -  Curiosity-x-Anxiety t test
+(array([ True]), array([0.00323952]), 0.050000000000000044, 0.05)
+
+ RF vs SVM 
+
+Total Accuracy t test
+(array([ True]), array([5.34117195e-12]), 0.050000000000000044, 0.05)
+Class -  No_emotion t test
+(array([False]), array([0.09365655]), 0.050000000000000044, 0.05)
+Class -  Curiosity t test
+(array([ True]), array([0.]), 0.050000000000000044, 0.05)
+Class -  Anxiety t test
+(array([ True]), array([0.00669909]), 0.050000000000000044, 0.05)
+Class -  Curiosity-x-Anxiety t test
+(array([False]), array([0.50013702]), 0.050000000000000044, 0.05)
+
+ RF vs LR 
+
+Total Accuracy t test
+(array([ True]), array([9.90386516e-07]), 0.050000000000000044, 0.05)
+Class -  No_emotion t test
+(array([ True]), array([5.42429253e-08]), 0.050000000000000044, 0.05)
+Class -  Curiosity t test
+(array([ True]), array([0.]), 0.050000000000000044, 0.05)
+Class -  Anxiety t test
+(array([ True]), array([4.8698745e-10]), 0.050000000000000044, 0.05)
+Class -  Curiosity-x-Anxiety t test
+(array([ True]), array([0.00226246]), 0.050000000000000044, 0.05)
+
+ SVM vs LR 
+
+Total Accuracy t test
+(array([ True]), array([0.02121365]), 0.050000000000000044, 0.05)
+Class -  No_emotion t test
+(array([ True]), array([2.16403562e-11]), 0.050000000000000044, 0.05)
+Class -  Curiosity t test
+(array([ True]), array([0.]), 0.050000000000000044, 0.05)
+Class -  Anxiety t test
+(array([ True]), array([0.00252015]), 0.050000000000000044, 0.05)
+Class -  Curiosity-x-Anxiety t test
+(array([ True]), array([0.01235412]), 0.050000000000000044, 0.05)
+
+
+Multiple T Test Analysis across Feature Sets
+
+ log vs eye 
+
+Total Accuracy t test
+(array([ True]), array([5.96678262e-12]), 0.050000000000000044, 0.05)
+Class -  No_emotion t test
+(array([ True]), array([0.]), 0.050000000000000044, 0.05)
+Class -  Curiosity t test
+(array([ True]), array([0.01088287]), 0.050000000000000044, 0.05)
+Class -  Anxiety t test
+(array([ True]), array([0.]), 0.050000000000000044, 0.05)
+Class -  Curiosity-x-Anxiety t test
+(array([ True]), array([2.22044605e-16]), 0.050000000000000044, 0.05)
+
+ log vs both 
+
+Total Accuracy t test
+(array([ True]), array([3.20929727e-10]), 0.050000000000000044, 0.05)
+Class -  No_emotion t test
+(array([ True]), array([2.10942375e-15]), 0.050000000000000044, 0.05)
+Class -  Curiosity t test
+(array([ True]), array([0.00170482]), 0.050000000000000044, 0.05)
+Class -  Anxiety t test
+(array([ True]), array([0.]), 0.050000000000000044, 0.05)
+Class -  Curiosity-x-Anxiety t test
+(array([ True]), array([2.22044605e-16]), 0.050000000000000044, 0.05)
+
+ eye vs both 
+
+Total Accuracy t test
+(array([False]), array([0.51266046]), 0.050000000000000044, 0.05)
+Class -  No_emotion t test
+(array([False]), array([0.23310288]), 0.050000000000000044, 0.05)
+Class -  Curiosity t test
+(array([False]), array([0.46813792]), 0.050000000000000044, 0.05)
+Class -  Anxiety t test
+(array([False]), array([0.07790201]), 0.050000000000000044, 0.05)
+Class -  Curiosity-x-Anxiety t test
+(array([False]), array([0.84766958]), 0.050000000000000044, 0.05)
