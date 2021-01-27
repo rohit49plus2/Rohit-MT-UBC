@@ -6,6 +6,10 @@ import matplotlib.pyplot as plt
 from scipy.stats import f_oneway
 from scipy.stats import ttest_ind
 from statsmodels.stats.multitest import multipletests
+from statsmodels.multivariate.manova import MANOVA
+import statsmodels.api as sm
+from statsmodels.formula.api import ols
+
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
 pd.set_option('display.max_columns', None)  # or 1000
@@ -174,7 +178,7 @@ def anova_class(smote,eye_window,log_window,ep,data,threshold,models,usercv):
                 accs.append(matrix[i][i]/matrix[i].sum()*100)
             class_accs[i].append(accs)
         print("Class - ", classes[i])
-        print(f_oneway(class_accs[i][0],class_accs[i][1],class_accs[i][2],class_accs[i][3],class_accs[i][4],class_accs[i][5]))
+        print(f_oneway(*class_accs[i]))
     total_accs=[]
     for model in models:
         accs = []
@@ -182,17 +186,75 @@ def anova_class(smote,eye_window,log_window,ep,data,threshold,models,usercv):
             accs.append((np.trace(matrix))/matrix.sum()*100)
         total_accs.append(accs)
     print("Total Accuracy")
-    print(f_oneway(total_accs[0],total_accs[1],total_accs[2],total_accs[3],total_accs[4],total_accs[5]))
+    print(f_oneway(*total_accs))
 
     print("Multiple T Test Analysis")
-    for i in range(5):
-        for j in range(i+1,6):
+    for i in range(len(models)):
+        for j in range(i+1,len(models)):
             print(models[i], 'vs',models[j])
             for c in range(4):
                 print("Class - ", classes[c],"t tests")
                 print(multipletests(ttest_ind(class_accs[c][i],class_accs[c][j])[1]))
             print("Total Accuracy t tests")
             print(multipletests(ttest_ind(total_accs[i],total_accs[j])[1]))
+
+
+def manova(smote,eye_window,log_window,ep,threshold,models,usercv):
+    data_types=['log','eye','both']
+    if smote:
+        results='/results_smote/'
+    else:
+        results='/results/'
+    if len(ep)==1:
+        type='/single'
+        eps=ep[0]
+        classes = ['None',ep[0]]
+    else:
+        if usercv:
+            type='/cooccur-usercv'
+        else:
+            type='/cooccur'
+        eps=ep[0]+'_'+ep[1]
+        classes = ['No_emotion',ep[0],ep[1],ep[0]+'-x-'+ ep[1]]
+    folder='/'+eye_window+'_'+log_window
+    result_suffix='_'+eye_window+'_'+log_window+'_'+threshold
+    column_names=['Feature_Set','Model','Total']+classes
+    df=pd.DataFrame(columns=column_names)
+    print(df)
+    for data in data_types:
+        for model in models:
+            with open(dir_path+type+results+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'_'+data+'.pickle', 'rb') as handle:
+                res=pickle.load(handle)
+            # print(len(res['confusion_matrices']))
+            matrices=res['confusion_matrices']
+            for matrix in matrices:
+                row=[data,model]
+                row.append((np.trace(matrix))/matrix.sum()*100)
+                for i in range(4):
+                    row.append(matrix[i][i]/matrix[i].sum()*100)
+                df.loc[len(df)] =row
+    argument='Total'
+    print(df)
+    f=open(dir_path+'/stats_results_' +eps+'.txt','w')
+    for i in range(len(classes)):
+        argument+=' + '+classes[i]
+    argument+=' ~ Model + Feature_Set'
+    print("MANOVA",argument,file=f)
+    maov = MANOVA.from_formula(argument, data=df)
+    print(maov.mv_test(),file=f)
+    argument='Total'
+    argument+=' ~ C(Model) + C(Feature_Set) + C(Model):C(Feature_Set)'
+    print("2-way ANOVA", argument,file=f)
+    model = ols(argument, data=df).fit()
+    print(sm.stats.anova_lm(model, typ=2),file=f)
+    for i in range(len(classes)):
+        argument=classes[i]
+        argument+=' ~ C(Model) + C(Feature_Set) + C(Model):C(Feature_Set)'
+        print("2-way ANOVA", argument,file=f)
+        model = ols(argument, data=df).fit()
+        print(sm.stats.anova_lm(model, typ=2),file=f)
+    f.close()
+
 
 # ep=["Frustration","Boredom"]
 # ep=["Curiosity"]
@@ -202,15 +264,16 @@ ep=["Curiosity","Anxiety"]
 smote = True
 # smote = False
 
-models=['Major','Strat','RF','SVM','LR','NN']
+models=['Strat','RF','SVM','LR']
 # models=['RF']
 
 # usercv=False
 usercv=True
 
-print(class_accuracy(smote,'full','full',ep,'log','3',models,usercv).to_latex())
+print(class_accuracy(smote,'full','full',ep,'both','3',models,usercv).to_latex())
 print('\n')
-# print(accuracy(smote,'full','full',ep,'log','3',models))
+# print(accuracy(smote,'full','full',ep,'eye','3',models))
 # print('\n')
-plot_accuracy(smote,'full','full',ep,'log','3',models,usercv)
-anova_class(smote,'full','full',ep,'log','3',models,usercv)
+plot_accuracy(smote,'full','full',ep,'both','3',models,usercv)
+# anova_class(smote,'full','full',ep,'both','3',models,usercv)
+manova(smote,'full','full',ep,'3',models,usercv)
