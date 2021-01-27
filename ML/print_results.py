@@ -220,7 +220,6 @@ def manova(smote,eye_window,log_window,ep,threshold,models,usercv):
     result_suffix='_'+eye_window+'_'+log_window+'_'+threshold
     column_names=['Feature_Set','Model','Total']+classes
     df=pd.DataFrame(columns=column_names)
-    print(df)
     for data in data_types:
         for model in models:
             with open(dir_path+type+results+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'_'+data+'.pickle', 'rb') as handle:
@@ -234,7 +233,6 @@ def manova(smote,eye_window,log_window,ep,threshold,models,usercv):
                     row.append(matrix[i][i]/matrix[i].sum()*100)
                 df.loc[len(df)] =row
     argument='Total'
-    print(df)
     f=open(dir_path+'/stats_results_' +eps+'.txt','w')
     for i in range(len(classes)):
         argument+=' + '+classes[i]
@@ -253,12 +251,38 @@ def manova(smote,eye_window,log_window,ep,threshold,models,usercv):
         print("2-way ANOVA", argument,file=f)
         model = ols(argument, data=df).fit()
         print(sm.stats.anova_lm(model, typ=2),file=f)
+    print("\n\nMultiple T Test Analysis across Models",file=f)
+    for i in range(len(models)):
+        for j in range(i+1,len(models)):
+            print('\n',models[i], 'vs',models[j],'\n',file=f)
+            t1=df[df['Model']==models[i]]['Total'].values.tolist()
+            t2=df[df['Model']==models[j]]['Total'].values.tolist()
+            print("Total Accuracy t test",file=f)
+            print(multipletests(ttest_ind(t1,t2)[1]),file=f)
+            for c in range(4):
+                print("Class - ", classes[c],"t test",file=f)
+                t1=df[df['Model']==models[i]][classes[c]].values.tolist()
+                t2=df[df['Model']==models[j]][classes[c]].values.tolist()
+                print(multipletests(ttest_ind(t1,t2)[1]),file=f)
+    print("\n\nMultiple T Test Analysis across Feature Sets",file=f)
+    for i in range(len(data_types)):
+        for j in range(i+1,len(data_types)):
+            print('\n',data_types[i], 'vs',data_types[j],'\n',file=f)
+            t1=df[df['Feature_Set']==data_types[i]]['Total'].values.tolist()
+            t2=df[df['Feature_Set']==data_types[j]]['Total'].values.tolist()
+            print("Total Accuracy t test",file=f)
+            print(multipletests(ttest_ind(t1,t2)[1]),file=f)
+            for c in range(4):
+                print("Class - ", classes[c],"t test",file=f)
+                t1=df[df['Feature_Set']==data_types[i]][classes[c]].values.tolist()
+                t2=df[df['Feature_Set']==data_types[j]][classes[c]].values.tolist()
+                print(multipletests(ttest_ind(t1,t2)[1]),file=f)
     f.close()
 
 
-# ep=["Frustration","Boredom"]
+ep=["Frustration","Boredom"]
 # ep=["Curiosity"]
-ep=["Curiosity","Anxiety"]
+# ep=["Curiosity","Anxiety"]
 # ep=["Boredom"]
 
 smote = True
@@ -274,6 +298,6 @@ print(class_accuracy(smote,'full','full',ep,'both','3',models,usercv).to_latex()
 print('\n')
 # print(accuracy(smote,'full','full',ep,'eye','3',models))
 # print('\n')
-plot_accuracy(smote,'full','full',ep,'both','3',models,usercv)
+# plot_accuracy(smote,'full','full',ep,'both','3',models,usercv)
 # anova_class(smote,'full','full',ep,'both','3',models,usercv)
 manova(smote,'full','full',ep,'3',models,usercv)
