@@ -15,8 +15,8 @@ data=pd.read_pickle(dir_path+datafiles_thres[num])
 result_suffix=result_suffixes[num]
 folder=folders[num]
 
-# ep=["Frustration","Boredom"]
-ep=["Curiosity","Anxiety"]
+ep=["Frustration","Boredom"]
+# ep=["Curiosity","Anxiety"]
 
 data=data.sort_values(by=['key'])
 np.set_printoptions(threshold=sys.maxsize)

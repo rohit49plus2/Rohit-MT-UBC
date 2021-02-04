@@ -201,7 +201,7 @@ def anova_class(smote,eye_window,log_window,ep,data,threshold,models,usercv):
 
 
 def manova(smote,eye_window,log_window,ep,threshold,models,usercv):
-    data_types=['log','eye','both']
+    data_types=['log','eye']
     if smote:
         results='/results_smote/'
     else:
@@ -281,8 +281,8 @@ def manova(smote,eye_window,log_window,ep,threshold,models,usercv):
     f.close()
 
 def plots(smote,eye_window,log_window,ep,threshold,models,usercv):
-    data_types=['log','eye','both']
-    data_types_titles=['Interaction','Gaze','Combined']
+    data_types=['log','eye']
+    data_types_titles=['Interaction','Gaze']
     if smote:
         results='/results_smote/'
     else:
@@ -423,15 +423,15 @@ def plots(smote,eye_window,log_window,ep,threshold,models,usercv):
 
 
 
-# ep=["Frustration","Boredom"]
+ep=["Frustration","Boredom"]
 # ep=["Curiosity"]
-ep=["Curiosity","Anxiety"]
+# ep=["Curiosity","Anxiety"]
 # ep=["Boredom"]
 
 smote = True
 # smote = False
 
-models=['Strat','RF','SVM','LR']
+models=['Strat','RF','LR','Ensemble']
 # models=['RF']
 
 # usercv=False
@@ -443,5 +443,5 @@ usercv=True
 # print('\n')
 # plot_accuracy(smote,'full','full',ep,'both','3',models,usercv)
 # anova_class(smote,'full','full',ep,'both','3',models,usercv)
-# manova(smote,'full','full',ep,'3',models,usercv)
+manova(smote,'full','full',ep,'3',models,usercv)
 plots(smote,'full','full',ep,'3',models,usercv)
