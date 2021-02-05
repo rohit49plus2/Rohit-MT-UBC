@@ -437,11 +437,11 @@ models=['Strat','RF','LR','Ensemble']
 # usercv=False
 usercv=True
 
-# print(class_accuracy(smote,'full','full',ep,'both','3',models,usercv).to_latex())
+print(class_accuracy(smote,'full','full',ep,'eye','3',models,usercv).to_latex())
 # print('\n')
 # print(accuracy(smote,'full','full',ep,'eye','3',models))
 # print('\n')
-# plot_accuracy(smote,'full','full',ep,'both','3',models,usercv)
+# plot_accuracy(smote,'full','full',ep,'eye','3',models,usercv)
 # anova_class(smote,'full','full',ep,'both','3',models,usercv)
 manova(smote,'full','full',ep,'3',models,usercv)
 plots(smote,'full','full',ep,'3',models,usercv)

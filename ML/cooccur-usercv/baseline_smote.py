@@ -97,7 +97,6 @@ for data in datasets:
             X=X[X.columns[:-57]]
         y_temp=eye_and_log[ep]
     X = X.select_dtypes(include=numerics)
-    X=correlation(X,0.9)
     X=X.to_numpy()
     X=normalize(X)
     from sklearn.decomposition import IncrementalPCA
