@@ -144,7 +144,7 @@ for data in datasets:
             y_train, y_test = y[train_index], y[test_index]
             train_groups, test_groups = ids[train_index], ids[test_index]
 
-            print(data,X_train.shape)
+            # print(data,X_train.shape)
             ipca = IncrementalPCA(n_components=X_train.shape[1]//5, batch_size=120)
             ipca.fit(X_train)
             X_train=ipca.transform(X_train)

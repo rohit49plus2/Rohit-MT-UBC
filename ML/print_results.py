@@ -201,7 +201,7 @@ def anova_class(smote,eye_window,log_window,ep,data,threshold,models,usercv):
 
 
 def manova(smote,eye_window,log_window,ep,threshold,models,usercv):
-    data_types=['log','eye']
+    data_types=['log','eye','both']
     if smote:
         results='/results_smote/'
     else:
@@ -281,8 +281,8 @@ def manova(smote,eye_window,log_window,ep,threshold,models,usercv):
     f.close()
 
 def plots(smote,eye_window,log_window,ep,threshold,models,usercv):
-    data_types=['log','eye']
-    data_types_titles=['Interaction','Gaze']
+    data_types=['log','eye','both']
+    data_types_titles=['Interaction','Gaze','Combined']
     if smote:
         results='/results_smote/'
     else:
@@ -423,15 +423,15 @@ def plots(smote,eye_window,log_window,ep,threshold,models,usercv):
 
 
 
-ep=["Frustration","Boredom"]
+# ep=["Frustration","Boredom"]
 # ep=["Curiosity"]
-# ep=["Curiosity","Anxiety"]
+ep=["Curiosity","Anxiety"]
 # ep=["Boredom"]
 
 smote = True
 # smote = False
 
-models=['Strat','RF','LR','Ensemble']
+models=['Strat','RF','LR']
 # models=['RF']
 
 # usercv=False
