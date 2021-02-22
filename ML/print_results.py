@@ -72,8 +72,12 @@ def class_accuracy(smote,eye_window,log_window,ep,data,threshold,models,usercv):
     class_acc=pd.DataFrame()
     class_acc['Class']=classes
     for model in models:
-        with open(dir_path+type+results+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'_'+data+'.pickle', 'rb') as handle:
-            res=pickle.load(handle)
+        if model == 'ENSEMBLE2':
+            with open(dir_path+type+results+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'.pickle', 'rb') as handle:
+                res=pickle.load(handle)
+        else:
+            with open(dir_path+type+results+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'_'+data+'.pickle', 'rb') as handle:
+                res=pickle.load(handle)
         conf=res['mean_confusion_matrix']
         accs=[]
         base=[]
@@ -105,8 +109,12 @@ def accuracy(smote,eye_window,log_window,ep,data,threshold,models,usercv):
     acc['Model']=models
     accs=[]
     for model in models:
-        with open(dir_path+type+results+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'_'+data+'.pickle', 'rb') as handle:
-            res=pickle.load(handle)
+        if model == 'ENSEMBLE2':
+            with open(dir_path+type+results+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'.pickle', 'rb') as handle:
+                res=pickle.load(handle)
+        else:
+            with open(dir_path+type+results+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'_'+data+'.pickle', 'rb') as handle:
+                res=pickle.load(handle)
         accs.append(res['mean_accuracy']*100)
     acc['Accuracy']=accs
     acc=acc.set_index(['Model'])
@@ -164,8 +172,12 @@ def anova_class(smote,eye_window,log_window,ep,data,threshold,models,usercv):
     result_suffix='_'+eye_window+'_'+log_window+'_'+threshold
     cf=pd.DataFrame()
     for model in models:
-        with open(dir_path+type+results+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'_'+data+'.pickle', 'rb') as handle:
-            res=pickle.load(handle)
+        if model == 'ENSEMBLE2':
+            with open(dir_path+type+results+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'.pickle', 'rb') as handle:
+                res=pickle.load(handle)
+        else:
+            with open(dir_path+type+results+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'_'+data+'.pickle', 'rb') as handle:
+                res=pickle.load(handle)
         # print(len(res['confusion_matrices']))
         cf[model]=res['confusion_matrices']
 
@@ -221,18 +233,31 @@ def manova(smote,eye_window,log_window,ep,threshold,models,usercv):
     result_suffix='_'+eye_window+'_'+log_window+'_'+threshold
     column_names=['Feature_Set','Model','Total']+classes
     df=pd.DataFrame(columns=column_names)
-    for data in data_types:
-        for model in models:
-            with open(dir_path+type+results+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'_'+data+'.pickle', 'rb') as handle:
-                res=pickle.load(handle)
-            # print(len(res['confusion_matrices']))
-            matrices=res['confusion_matrices']
-            for matrix in matrices:
-                row=[data,model]
-                row.append((np.trace(matrix))/matrix.sum()*100)
-                for i in range(4):
-                    row.append(matrix[i][i]/matrix[i].sum()*100)
-                df.loc[len(df)] =row
+    for model in models:
+        if model == 'ENSEMBLE2':
+            for data in data_types:
+                    with open(dir_path+type+results+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'.pickle', 'rb') as handle:
+                        res=pickle.load(handle)
+                    # print(len(res['confusion_matrices']))
+                    matrices=res['confusion_matrices']
+                    for matrix in matrices:
+                        row=[data,model]
+                        row.append((np.trace(matrix))/matrix.sum()*100)
+                        for i in range(4):
+                            row.append(matrix[i][i]/matrix[i].sum()*100)
+                        df.loc[len(df)] =row
+        else:
+            for data in data_types:
+                    with open(dir_path+type+results+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'_'+data+'.pickle', 'rb') as handle:
+                        res=pickle.load(handle)
+                    # print(len(res['confusion_matrices']))
+                    matrices=res['confusion_matrices']
+                    for matrix in matrices:
+                        row=[data,model]
+                        row.append((np.trace(matrix))/matrix.sum()*100)
+                        for i in range(4):
+                            row.append(matrix[i][i]/matrix[i].sum()*100)
+                        df.loc[len(df)] =row
     argument='Total'
     f=open(dir_path+'/stats_results_' +eps+'.txt','w')
     for i in range(len(classes)):
@@ -281,7 +306,7 @@ def manova(smote,eye_window,log_window,ep,threshold,models,usercv):
     f.close()
 
 def plots(smote,eye_window,log_window,ep,threshold,models,usercv):
-    data_types=['log','eye','both']
+    data_types=['log','eye']
     data_types_titles=['Interaction','Gaze','Combined']
     if smote:
         results='/results_smote/'
@@ -306,8 +331,12 @@ def plots(smote,eye_window,log_window,ep,threshold,models,usercv):
     df=pd.DataFrame(columns=column_names)
     for data in data_types:
         for model in models:
-            with open(dir_path+type+results+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'_'+data+'.pickle', 'rb') as handle:
-                res=pickle.load(handle)
+            if model == 'ENSEMBLE2':
+                with open(dir_path+type+results+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'.pickle', 'rb') as handle:
+                    res=pickle.load(handle)
+            else:
+                with open(dir_path+type+results+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'_'+data+'.pickle', 'rb') as handle:
+                    res=pickle.load(handle)
             # print(len(res['confusion_matrices']))
             matrices=res['confusion_matrices']
             for matrix in matrices:
@@ -368,78 +397,79 @@ def plots(smote,eye_window,log_window,ep,threshold,models,usercv):
     print(class_table.to_latex())
 
 
-    #accuracies across classifiers
-    y=[]
-    for i in range(len(data_types)):
-        t=df[df['Feature_Set']==data_types[i]]['Total'].values.tolist()
-        y.append(np.mean(t).round(2))
-    x=data_types_titles
-    y_pos = np.arange(len(x))
-    fig=plt.bar(y_pos,y,align='center',color='gray')
-    plt.xticks(y_pos, x,fontsize=15)
-    plt.yticks(fontsize=15)
-    plt.ylabel('Accuracy',fontsize=15)
-    axes = plt.gca()
-    axes.set_ylim([0,100])
-    plt.setp(axes.get_xticklabels(), rotation=30, horizontalalignment='center')
-    title="Mean Overall Accuracy Across Classifiers For Emotion Pair " + eps_title
-    plt.title(title,fontsize=18)
-    # plt.axhline(y = y[0], color = 'black', linestyle = '--')
-    for i in range(len(x)):
-        plt.annotate(y[i], (-0.1 + i, y[i] +1),fontsize=15)
-    plt.show()
-    table=pd.DataFrame(list(zip(x,y)),columns=['Feature Set','Accuracy'])
-    table=table.set_index('Feature Set')
-    print(table.to_latex())
-    class_tables=[]
-    for j in range(len(classes)):
-        y=[]
-        for i in range(len(data_types)):
-            t=df[df['Feature_Set']==data_types[i]][classes[j]].values.tolist()
-            y.append(np.mean(t).round(2))
-        x=data_types_titles
-        y_pos = np.arange(len(x))
-        fig=plt.bar(y_pos,y,align='center',color='gray')
-        plt.xticks(y_pos, x,fontsize=15)
-        plt.yticks(fontsize=15)
-        plt.ylabel('Accuracy',fontsize=15)
-        axes = plt.gca()
-        axes.set_ylim([0,100])
-        plt.setp(axes.get_xticklabels(), rotation=30, horizontalalignment='center')
-        title="Mean Class Accuracy For " + classes_title[j]+ " Across Classifiers For Emotion Pair " + eps_title
-        plt.title(title,fontsize=18)
-        # plt.axhline(y = y[0], color = 'black', linestyle = '--')
-        for i in range(len(x)):
-            plt.annotate(y[i], (-0.1 + i, y[i] +1),fontsize=15)
-        plt.show()
-        table=pd.DataFrame(list(zip(x,y)),columns=['Feature Set',classes_title[j]])
-        table=table.set_index('Feature Set')
-        # print(table)
-        class_tables.append(table)
-    class_table=reduce(lambda x, y: pd.merge(x, y, on = 'Feature Set'), class_tables)
-    print(class_table.to_latex())
+    # #accuracies across classifiers
+    # y=[]
+    # for i in range(len(data_types)):
+    #     t=df[df['Feature_Set']==data_types[i]]['Total'].values.tolist()
+    #     y.append(np.mean(t).round(2))
+    # x=data_types_titles
+    # y_pos = np.arange(len(x))
+    # fig=plt.bar(y_pos,y,align='center',color='gray')
+    # plt.xticks(y_pos, x,fontsize=15)
+    # plt.yticks(fontsize=15)
+    # plt.ylabel('Accuracy',fontsize=15)
+    # axes = plt.gca()
+    # axes.set_ylim([0,100])
+    # plt.setp(axes.get_xticklabels(), rotation=30, horizontalalignment='center')
+    # title="Mean Overall Accuracy Across Classifiers For Emotion Pair " + eps_title
+    # plt.title(title,fontsize=18)
+    # # plt.axhline(y = y[0], color = 'black', linestyle = '--')
+    # for i in range(len(x)):
+    #     plt.annotate(y[i], (-0.1 + i, y[i] +1),fontsize=15)
+    # plt.show()
+    # table=pd.DataFrame(list(zip(x,y)),columns=['Feature Set','Accuracy'])
+    # table=table.set_index('Feature Set')
+    # print(table.to_latex())
+    # class_tables=[]
+    # for j in range(len(classes)):
+    #     y=[]
+    #     for i in range(len(data_types)):
+    #         t=df[df['Feature_Set']==data_types[i]][classes[j]].values.tolist()
+    #         y.append(np.mean(t).round(2))
+    #     x=data_types_titles
+    #     y_pos = np.arange(len(x))
+    #     fig=plt.bar(y_pos,y,align='center',color='gray')
+    #     plt.xticks(y_pos, x,fontsize=15)
+    #     plt.yticks(fontsize=15)
+    #     plt.ylabel('Accuracy',fontsize=15)
+    #     axes = plt.gca()
+    #     axes.set_ylim([0,100])
+    #     plt.setp(axes.get_xticklabels(), rotation=30, horizontalalignment='center')
+    #     title="Mean Class Accuracy For " + classes_title[j]+ " Across Classifiers For Emotion Pair " + eps_title
+    #     plt.title(title,fontsize=18)
+    #     # plt.axhline(y = y[0], color = 'black', linestyle = '--')
+    #     for i in range(len(x)):
+    #         plt.annotate(y[i], (-0.1 + i, y[i] +1),fontsize=15)
+    #     plt.show()
+    #     table=pd.DataFrame(list(zip(x,y)),columns=['Feature Set',classes_title[j]])
+    #     table=table.set_index('Feature Set')
+    #     # print(table)
+    #     class_tables.append(table)
+    # class_table=reduce(lambda x, y: pd.merge(x, y, on = 'Feature Set'), class_tables)
+    # print(class_table.to_latex())
 
 
 
 
 
-# ep=["Frustration","Boredom"]
+
+ep=["Frustration","Boredom"]
 # ep=["Curiosity"]
-ep=["Curiosity","Anxiety"]
+# ep=["Curiosity","Anxiety"]
 # ep=["Boredom"]
 
 smote = True
 # smote = False
 
-models=['Strat','RF','LR']
-# models=['RF']
+models=['Strat','RF','LR','ENSEMBLE2']
+# models=['ENSEMBLE2']
 
 # usercv=False
 usercv=True
 
-print(class_accuracy(smote,'full','full',ep,'eye','3',models,usercv).to_latex())
+# print(class_accuracy(smote,'full','full',ep,'eye','3',models,usercv).to_latex())
 # print('\n')
-# print(accuracy(smote,'full','full',ep,'eye','3',models))
+# print(accuracy(smote,'full','full',ep,'eye','3',models,usercv))
 # print('\n')
 # plot_accuracy(smote,'full','full',ep,'eye','3',models,usercv)
 # anova_class(smote,'full','full',ep,'both','3',models,usercv)
