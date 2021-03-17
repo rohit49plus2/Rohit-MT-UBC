@@ -213,7 +213,7 @@ def anova_class(smote,eye_window,log_window,ep,data,threshold,models,usercv):
 
 
 def manova(smote,eye_window,log_window,ep,threshold,models,usercv):
-    data_types=['log','eye','both']
+    data_types=['log','eye']
     if smote:
         results='/results_smote/'
     else:

@@ -18,17 +18,19 @@ pd.set_option('display.max_rows', None)  # or 1000
 pd.set_option('display.max_colwidth', None)  # or 199
 
 labels=['Acc_Overall','Acc_None','Acc_Frus','Acc_Bore','Acc_Both']
-base=[25.63,25.31,25.14,26.05,26.01]
-rf=[31.59,39.76,11.79,29.09,32.73]
-lr=[24.99,10.98,14.88,32.94,47.94]
+base=[25.48,24.73,24.24,27.39,25.46]
+rf=[31.52,36.71,13.56,30.28,35.32]
+lr=[25.71,9.58,11.47,40.06,48.53]
+en =[35.28,40.83,11.86,28.30,47.55]
 
 x = np.arange(len(labels))  # the label locations
-width = 0.3  # the width of the bars
+width = 0.2  # the width of the bars
 
 fig, ax = plt.subplots()
 rects1 = ax.bar(x - width, base, width, label='Baseline',color='#F4D4D4',hatch='/')
 rects2 = ax.bar(x , rf, width, label='RF',color='#342A1F',hatch='.')
 rects3 = ax.bar(x + width, lr, width, label='LR',color='#CAB8C8',hatch='*')
+rects4 = ax.bar(x + 2*width, en, width, label='ENSEMBLE',color='grey',hatch='-')
 
 
 # Add some text for labels, title and custom x-axis tick labels, etc.
@@ -36,7 +38,7 @@ ax.set_ylabel('Percentage Accuracies',fontsize=24)
 ax.set_title('Frustration x Boredom',fontsize=24)
 ax.set_xticks(x)
 ax.set_xticklabels(labels)
-ax.legend(fontsize=22,loc='upper left')
+ax.legend(fontsize=20,loc='upper left')
 plt.yticks(fontsize=19)
 plt.xticks(fontsize=19)
 ax.set_ylim([0,55])
@@ -57,38 +59,44 @@ def autolabel(rects):
 # autolabel(rects1)
 # autolabel(rects2)
 # autolabel(rects3)
+# autolabel(rects4)
 
 ax.annotate('*',
-            xy=(0.0, 31.59),color='black',
+            xy=(0.4, 35.28),color='black',
             xytext=(0, 1),  # 3 points vertical offset
             textcoords="offset points",
             ha='center', va='bottom',fontsize=20)
 
 ax.annotate('*',
-            xy=(1.0, 39.76),color='black',
+            xy=(1.0, 36.71),color='black',
+            xytext=(0, 1),  # 3 points vertical offset
+            textcoords="offset points",
+            ha='center', va='bottom',fontsize=20)
+ax.annotate('*',
+            xy=(1.4, 40.83),color='black',
             xytext=(0, 1),  # 3 points vertical offset
             textcoords="offset points",
             ha='center', va='bottom',fontsize=20)
 
 ax.annotate('*',
-            xy=(1.7, 25.14),color='black',
+            xy=(1.8, 24.24),color='black',
             xytext=(0, 1),  # 3 points vertical offset
             textcoords="offset points",
             ha='center', va='bottom',fontsize=20)
 
 ax.annotate('*',
-            xy=(3.3, 32.94),color='black',
-            xytext=(0, 1),  # 3 points vertical offset
-            textcoords="offset points",
-            ha='center', va='bottom',fontsize=20)
-ax.annotate('*',
-            xy=(3.0, 29.09),color='black',
+            xy=(3.2,40.06),color='black',
             xytext=(0, 1),  # 3 points vertical offset
             textcoords="offset points",
             ha='center', va='bottom',fontsize=20)
 
 ax.annotate('*',
-            xy=(4.3, 47.94),color='black',
+            xy=(4.2, 48.53),color='black',
+            xytext=(0, 1),  # 3 points vertical offset
+            textcoords="offset points",
+            ha='center', va='bottom',fontsize=20)
+ax.annotate('*',
+            xy=(4.4, 47.55),color='black',
             xytext=(0, 1),  # 3 points vertical offset
             textcoords="offset points",
             ha='center', va='bottom',fontsize=20)
@@ -103,17 +111,19 @@ plt.show()
 print('\n\n\n')
 
 labels=['Acc_Overall','Acc_None','Acc_Curi','Acc_Anxi','Acc_Both']
-base=[25.56,25.11,25.58,25.59,26.01]
-rf=[26.46,24.13,33.00,12.77,27.62]
-lr=[22.23,37.12,5.26,25.81,28.99]
+base=[25.59,25.61,25.81,25.68,25.49]
+rf=[25.92,26.19,30.93,15.36,25.10]
+lr=[20.36,30.01,5.82,28.09,26.24]
+en=[28.04,28.2,34.51,12.15,28.89]
 
 x = np.arange(len(labels))  # the label locations
-width = 0.3  # the width of the bars
 
 fig, ax = plt.subplots()
 rects1 = ax.bar(x - width, base, width, label='Baseline',color='#F4D4D4',hatch='/')
 rects2 = ax.bar(x , rf, width, label='RF',color='#342A1F',hatch='.')
 rects3 = ax.bar(x + width, lr, width, label='LR',color='#CAB8C8',hatch='*')
+rects4 = ax.bar(x + 2*width, en, width, label='ENSEMBLE',color='grey',hatch='-')
+
 
 
 # Add some text for labels, title and custom x-axis tick labels, etc.
@@ -121,7 +131,7 @@ ax.set_ylabel('Percentage Accuracies',fontsize=24)
 ax.set_title('Curiosity x Anxiety',fontsize=24)
 ax.set_xticks(x)
 ax.set_xticklabels(labels)
-ax.legend(fontsize=22,loc='upper left')
+ax.legend(fontsize=20,loc='upper left')
 ax.set_ylim([0,45])
 plt.yticks(fontsize=19)
 plt.xticks(fontsize=19)
@@ -130,37 +140,39 @@ plt.xticks(fontsize=19)
 # autolabel(rects1)
 # autolabel(rects2)
 # autolabel(rects3)
+# autolabel(rects4)
+
 ax.annotate('*',
-            xy=(-0.3,25.56),color='black',
-            xytext=(0, 1),  # 3 points vertical offset
-            textcoords="offset points",
-            ha='center', va='bottom',fontsize=20)
-ax.annotate('*',color='black',
-            xy=(0.0, 26.46),
+            xy=(0.4, 28.04),color='black',
             xytext=(0, 1),  # 3 points vertical offset
             textcoords="offset points",
             ha='center', va='bottom',fontsize=20)
 
 
 ax.annotate('*',
-            xy=(1.3, 37.12),color='black',
+            xy=(1.2, 30.01),color='black',
+            xytext=(0, 1),  # 3 points vertical offset
+            textcoords="offset points",
+            ha='center', va='bottom',fontsize=20)
+ax.annotate('*',
+            xy=(1.4, 28.2),color='black',
             xytext=(0, 1),  # 3 points vertical offset
             textcoords="offset points",
             ha='center', va='bottom',fontsize=20)
 
 ax.annotate('*',
-            xy=(2.0, 33.0),color='black',
+            xy=(2.0, 30.93),color='black',
+            xytext=(0, 1),  # 3 points vertical offset
+            textcoords="offset points",
+            ha='center', va='bottom',fontsize=20)
+ax.annotate('*',
+            xy=(2.4, 34.51),color='black',
             xytext=(0, 1),  # 3 points vertical offset
             textcoords="offset points",
             ha='center', va='bottom',fontsize=20)
 
 ax.annotate('*',
-            xy=(2.7, 25.59),color='black',
-            xytext=(0, 1),  # 3 points vertical offset
-            textcoords="offset points",
-            ha='center', va='bottom',fontsize=20)
-ax.annotate('*',
-            xy=(3.3, 25.81),color='black',
+            xy=(3.2, 28.09),color='black',
             xytext=(0, 1),  # 3 points vertical offset
             textcoords="offset points",
             ha='center', va='bottom',fontsize=20)
