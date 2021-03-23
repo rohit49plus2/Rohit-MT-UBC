@@ -19,9 +19,9 @@ from recordtype import  *  # for recordtype elements, which are mutable version 
 
 class MTLogAnalyzer(object):
     """Analyzer of logs information"""
-    versionsSupported = ["1.1.16", "1.1.17", "1.1.18", "1.1.20", "1.1.21", "1.2.8", "1.3.2.2", "1.3.3.1" ,"1.3.4.0"]
+    versionsSupported = ["1.1.16", "1.1.17", "1.1.18", "1.1.20", "1.1.21", "1.2.8", "1.3.2.2", "1.3.3.1" ,"1.3.4.0","1.4.9.8"]
     """versions of MetaTutor logs supported by the analyzer"""
-    summaryLogLevelOfDetails = [0, 0, 0, 0, 1, 2, 2, 2, 2]
+    summaryLogLevelOfDetails = [0, 0, 0, 0, 1, 2, 2, 2, 2, 3]
     """amount of information kept in the log, one number per version in versionsSupported.
     Before 1.1.21, the day 1 didn't have a questionnaire about the subject."""
     tabSubjectsInfo = map(lambda x:[x], ["SubjectID", "SubjectName", "Gender", "Age", "Ethnicity", "Education", "GPA", "Major", "School", "# Courses", "Experimenter1", "Experimenter2"])
@@ -70,7 +70,7 @@ class MTLogAnalyzer(object):
                                         [12, 1, 0, 5, 15, 16, 3, 17, 15, 21, 13, 12, 14, 13, 27, 30, 33, 2, 2, 27, 29, 10, 22, 37, 2]]  # version B
     """2x25 matrix of page IDs associated to each question of tests A and B for study 4"""
     matTestPageDict = {"MT2":matTestPageStudy23, "MT3":matTestPageStudy23, "MT4":matTestPageStudy4, "MT4.5":matTestPageStudy4}
-    """dictionary linking the value of subject.study with the correct test/page matrix for that study"""
+    """dictionary linking the vaself.subjectslue of subject.study with the correct test/page matrix for that study"""
     matTestCorrectAnswers = [["C", "C", "B", "B", "C", "C", "D", "D", "A", "C", "B", "D", "A", "A", "C", "D", "B", "A", "A", "D", "A", "B", "B", "D", "C"],    # version A
                                           ["A", "A", "C", "A", "C", "A", "B", "C", "D", "B", "B", "A", "D", "D", "B", "D", "D", "D", "A", "D", "C", "A", "D", "B", "A"]]   # version B
     """2x25 matrix of correct answer ID for the two tests on the circulatory system - should ideally be read from the XML file instead"""
@@ -206,14 +206,14 @@ class MTLogAnalyzer(object):
                         else:               # depending on the version, we get the current value for the log level of the summary
                             curSumLogLOD = self.summaryLogLevelOfDetails[self.versionsSupported.index(line[1])] # if before 1.1.21, most info is missing in day 1
                     # Temporarily store the subjectID, subjectName and experimenter
-                    elif ((i == 1 and curSumLogLOD<2) or (i == 2 and curSumLogLOD==2)):     # from 1.2.x, an additional line for the screen resolution shifts the line numbers
+                    elif ((i == 1 and curSumLogLOD<2) or (i == 2 and (curSumLogLOD==2 or curSumLogLOD==3))):     # from 1.2.x, an additional line for the screen resolution shifts the line numbers
                         curSubjectID = line[1]
-                    elif ((i == 2 and curSumLogLOD<2) or (i == 3 and curSumLogLOD==2)):
+                    elif ((i == 2 and curSumLogLOD<2) or (i == 3 and (curSumLogLOD==2 or curSumLogLOD==3))):
                         curSubjectName = line[1]
-                    elif ((i == 3 and curSumLogLOD<2) or (i == 4 and curSumLogLOD==2)):
+                    elif ((i == 3 and curSumLogLOD<2) or (i == 4 and (curSumLogLOD==2 or curSumLogLOD==3))):
                         curExperimenter = line[1]
                     # Then depending on if it's a Day 1 or Day 2 file
-                    elif ((i == 4 and curSumLogLOD<2) or (i == 5 and curSumLogLOD==2)):
+                    elif ((i == 4 and curSumLogLOD<2) or (i == 5 and (curSumLogLOD==2 or curSumLogLOD==3))):
                         subjectIdx = self.findSubject(curSubjectID)
                         if len(curSubjectID) < 5:   # don't accept names of less than 5 characters (the regular ID format), while more is generally ok
                             raise Exception("Problem while reading " + filename + ": Subject " + curSubjectID + " has a too short ID number (5 characters normally)")
@@ -225,10 +225,12 @@ class MTLogAnalyzer(object):
                             firstSession = True
                         else:                       # i.e. Day 2: find the right row number for the subject
                             if (subjectIdx == -1):
-                                raise Exception("Problem while reading " + filename + ": No Day 1 found for the subject " + curSubjectID)
+                                # raise Exception("Problem while reading " + filename + ": No Day 1 found for the subject " + curSubjectID)
+                                pass
                             curSubjectData.append(line[1])
                             firstSession = False
                     else:
+                        firstSession=False#for 2016 only
                         if (not inSessionPart):     # other lines from the summary session
                             if (line[0] == "Day"):  # double-check the day number
                                 if (firstSession and line[1] != "1") or (not firstSession and line[1] != "2"):
@@ -250,6 +252,7 @@ class MTLogAnalyzer(object):
                 if (firstSession):
                     self.subjects.append(MTSubject(self.logger, curSubjectID, curSubjectName, curExperimenter, curSubjectData, curSumLogLOD, curSubjectEvents, self.nbMaxSubgoalsInStudy, self.nbSubgoalsSetInitially))    # add a new subject to the list
                 else:
+                    self.subjects.append(MTSubject(self.logger, curSubjectID, curSubjectName, curExperimenter, curSubjectData, curSumLogLOD, curSubjectEvents, self.nbMaxSubgoalsInStudy, self.nbSubgoalsSetInitially))    # add a new subject to the list for 2016 since there is no day 1
                     offset = 0 if curSumLogLOD<2 else 1
                     self.subjects[subjectIdx].appendDay2Data(self.logger,curSubjectID, curSubjectName, curExperimenter, curSubjectData, curSubjectEvents, offset)   # add information about the day 2 of an existing subject of the list
                     self.subjects[subjectIdx].appendPageData(self.logger,curSubjectPage)                                                                    # add information about the pages visited by a subject

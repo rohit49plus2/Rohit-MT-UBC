@@ -301,6 +301,7 @@ class MTRuleCEEvent(MTRuleSRLEvent):   #  Content Evaluation
             #logger.warning("CE without rule, flow and startingAction information")
             [self.rule, self.flow, self.startingAction] = ["","",""]
 
+        print("\nself.starting action is :",self.startingAction,'\n')
         if self.startingAction in self.CEstartingActions.keys():
             self.initiative = self.CEstartingActions[self.startingAction][0]
             self.realRelevancy = self.CEstartingActions[self.startingAction][1]

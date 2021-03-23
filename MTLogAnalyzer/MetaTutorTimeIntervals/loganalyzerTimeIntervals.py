@@ -347,7 +347,7 @@ if __name__ == "__main__":
                                 f.write(el +"\n")
 
                     rows.append(subj.getSummaryRowList(logger,["ID", "subject", "times", "subgoals", "notes", "SRLEvents", "NatashaDariaFeatures"], [], False))
-                    Utils.exportList2Excel(rows, main_path+"/Action Features Rohit/test_file_rohit " + args.times[0]+ str(eiv_counter)+ ".csv")
+                    Utils.exportList2Excel(rows, main_path+"/Action Features Rohit 2016/test_file_rohit " + args.times[0]+ str(eiv_counter)+ ".csv")
                 else:
                     print ("No predefined format. Processing as usual.")
                     data += subj.getEventListAsString(dictDataToAnalyze[dataToAnalyze][2], dictDataToAnalyze[dataToAnalyze][1])

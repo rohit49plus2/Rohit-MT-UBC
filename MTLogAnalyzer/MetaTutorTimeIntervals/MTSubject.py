@@ -33,12 +33,13 @@ class MTSubject(object):
     def __init__(self, logger, ID, name, experimenter, otherdata, logLOD, logEvents, nbMaxSubgoalsInStudy, nbSubgoalsSetInitially):
         #self.logger = logger
         self.ID = ID
+        print("\n\n\n self.ID = ",ID, "\n\n\n")
         # Retrieve the study from the participant ID
         if "23" in ID[:-2]:
             self.study = "MT2"
         elif ("33" in ID[:-2] or "34" in ID[:-2]):  # 33 for McGill, 34 for Memphis
             self.study = "MT3"
-        elif ("41" in ID[:-2] or "42" in ID[:-2] or "44" in ID[:-2]):  # 41 for McGill, 42 for IIT, 44 for McGill medicine students
+        elif ("41" in ID[:-2] or "42" in ID[:-2] or "44" in ID[:-2] or "56" in ID[:-2]):  # 41 for McGill, 42 for IIT, 44 for McGill medicine students
             self.study = "MT4"
         elif ("45" in ID[:-2] or "46" in ID[:-2]): # 45 for McGill, 46 for IIT
             self.study = "MT4.5"
@@ -60,7 +61,19 @@ class MTSubject(object):
         offset = 0
         if (logLOD >= 2):   # to take into account the extra line with the screen resolution
             offset += 1
-        if (logLOD > 0):        # in cases where the summary log is detailed enough to have those info
+        if logLOD == 3:
+            self.gender = "N/A"
+            self.age = "N/A"
+            self.ethnicity = "N/A"
+            self.education = "N/A"
+            self.GPA = "N/A"
+            self.major = "N/A"
+            self.school = "N/A"
+            self.courses = "N/A"
+            self.nbCourses = -1
+            nextdataID = 1
+        elif (logLOD > 0):        # in cases where the summary log is detailed enough to have those info
+            # print("\n\n\n",otherdata,offset,"\n\n\n")
             self.gender = otherdata[1+offset]
             self.age = otherdata[3+offset]
             self.ethnicity = otherdata[2+offset]
