@@ -75,7 +75,7 @@ def stratified_group_k_fold(X, y, groups, k, seed=None):
 # for data in datasets:
 if not os.path.exists(dir_path+'/results_smote/'+ep[0]+'_'+ep[1]+'/'+folder):
     os.makedirs(dir_path+'/results_smote/'+ep[0]+'_'+ep[1]+'/'+folder)
-f = open(dir_path+'/results_smote/'+ep[0]+'_'+ep[1]+'/'+folder+'/ENSEMBLE2'+result_suffix+'_'+ep[0]+'_'+ep[1]+'.txt', 'w')
+f = open(dir_path+'/results_smote/'+ep[0]+'_'+ep[1]+'/'+folder+'/ENSEMBLE3'+result_suffix+'_'+ep[0]+'_'+ep[1]+'.txt', 'w')
 
 X=eye_and_log.drop(emotions,axis=1)
 ids=list(X['key'])
@@ -203,25 +203,25 @@ for i in range(10):
         c43=m4[2][2]/m4[2].sum()
         c44=m4[3][3]/m4[3].sum()
 
-        c11 = c11/(c11 + c21 + c31 + c41)
-        c21 = c21/(c11 + c21 + c31 + c41)
-        c31 = c31/(c11 + c21 + c31 + c41)
-        c41 = c41/(c11 + c21 + c31 + c41)
-
-        c12 = c12/(c12 + c22 + c32 + c42)
-        c22 = c22/(c12 + c22 + c32 + c42)
-        c32 = c32/(c12 + c22 + c32 + c42)
-        c42 = c42/(c12 + c22 + c32 + c42)
-
-        c13 = c13/(c13 + c23 + c33 + c43)
-        c23 = c23/(c13 + c23 + c33 + c43)
-        c33 = c33/(c13 + c23 + c33 + c43)
-        c43 = c43/(c13 + c23 + c33 + c43)
-
-        c14 = c14/(c14 + c24 + c34 + c44)
-        c24 = c24/(c14 + c24 + c34 + c44)
-        c34 = c34/(c14 + c24 + c34 + c44)
-        c44 = c44/(c14 + c24 + c34 + c44)
+        # c11 = c11/(c11 + c21 + c31 + c41)
+        # c21 = c21/(c11 + c21 + c31 + c41)
+        # c31 = c31/(c11 + c21 + c31 + c41)
+        # c41 = c41/(c11 + c21 + c31 + c41)
+        #
+        # c12 = c12/(c12 + c22 + c32 + c42)
+        # c22 = c22/(c12 + c22 + c32 + c42)
+        # c32 = c32/(c12 + c22 + c32 + c42)
+        # c42 = c42/(c12 + c22 + c32 + c42)
+        #
+        # c13 = c13/(c13 + c23 + c33 + c43)
+        # c23 = c23/(c13 + c23 + c33 + c43)
+        # c33 = c33/(c13 + c23 + c33 + c43)
+        # c43 = c43/(c13 + c23 + c33 + c43)
+        #
+        # c14 = c14/(c14 + c24 + c34 + c44)
+        # c24 = c24/(c14 + c24 + c34 + c44)
+        # c34 = c34/(c14 + c24 + c34 + c44)
+        # c44 = c44/(c14 + c24 + c34 + c44)
 
         pred_prob = pred1*(c11,c12,c13,c14) + pred2*(c21,c22,c23,c24) + pred3*(c31,c32,c33,c34) + pred4*(c41,c42,c43,c44)
 
@@ -256,7 +256,7 @@ print('Accuracy: %.7f (%.7f)' % (np.mean(scores), np.std(scores)),file=f)
 
 f.close()
 
-dict_results={'Model':'ENSEMBLE2_SMOTE','majority_baseline_accuracy':accuracy1,'stratified_baseline_accuracy':accuracy2 ,'mean_accuracy':np.mean(scores), 'std_dev_accuracy':np.std(scores), 'mean_confusion_matrix':mean_of_conf_matrix_arrays,'confusion_matrices':conf_matrix_list_of_arrays}
+dict_results={'Model':'ENSEMBLE3_SMOTE','majority_baseline_accuracy':accuracy1,'stratified_baseline_accuracy':accuracy2 ,'mean_accuracy':np.mean(scores), 'std_dev_accuracy':np.std(scores), 'mean_confusion_matrix':mean_of_conf_matrix_arrays,'confusion_matrices':conf_matrix_list_of_arrays}
 
-with open(dir_path+'/results_smote/'+ep[0]+'_'+ep[1]+'/'+folder+'/ENSEMBLE2'+result_suffix+'_'+ep[0]+'_'+ep[1]+'.pickle', 'wb') as handle:
+with open(dir_path+'/results_smote/'+ep[0]+'_'+ep[1]+'/'+folder+'/ENSEMBLE3'+result_suffix+'_'+ep[0]+'_'+ep[1]+'.pickle', 'wb') as handle:
     pickle.dump(dict_results, handle, protocol=pickle.HIGHEST_PROTOCOL)

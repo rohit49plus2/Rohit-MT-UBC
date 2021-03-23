@@ -31,7 +31,7 @@ pd.set_option('display.max_colwidth', None)  # or 199
 #     type='/single'
 #     eps=ep[0]
 # else:
-#     type='/cooccur'
+#     type='/cooccur'u
 #     eps=ep[0]+'_'+ep[1]
 #
 # accuracies=pd.DataFrame()
@@ -234,7 +234,7 @@ def manova(smote,eye_window,log_window,ep,threshold,models,usercv):
     column_names=['Feature_Set','Model','Total']+classes
     df=pd.DataFrame(columns=column_names)
     for model in models:
-        if model == 'ENSEMBLE2':
+        if 'ENSEMBLE' in model:
             for data in data_types:
                     with open(dir_path+type+results+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'.pickle', 'rb') as handle:
                         res=pickle.load(handle)
@@ -331,12 +331,14 @@ def plots(smote,eye_window,log_window,ep,threshold,models,usercv):
     df=pd.DataFrame(columns=column_names)
     for data in data_types:
         for model in models:
-            if model == 'ENSEMBLE2':
+            if 'ENSEMBLE' in model :
                 with open(dir_path+type+results+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'.pickle', 'rb') as handle:
                     res=pickle.load(handle)
             else:
                 with open(dir_path+type+results+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'_'+data+'.pickle', 'rb') as handle:
                     res=pickle.load(handle)
+                if model != 'Strat':
+                    model = model + '_' + str(data)
             # print(len(res['confusion_matrices']))
             matrices=res['confusion_matrices']
             for matrix in matrices:
@@ -345,6 +347,16 @@ def plots(smote,eye_window,log_window,ep,threshold,models,usercv):
                 for i in range(4):
                     row.append(matrix[i][i]/matrix[i].sum()*100)
                 df.loc[len(df)] =row
+    new_models=[]
+    for model in models:
+        if 'ENSEMBLE' not in model and model != 'Strat':
+            for data in data_types:
+                m = model + '_' + str(data)
+                new_models.append(m)
+        else:
+            m = model
+            new_models.append(m)
+    models = new_models
     #accuracies across feature Sets
     y=[]
     for i in range(len(models)):
@@ -461,7 +473,7 @@ ep=["Frustration","Boredom"]
 smote = True
 # smote = False
 
-models=['Strat','RF','LR','ENSEMBLE2']
+models=['Strat','RF','LR','ENSEMBLE3']
 # models=['ENSEMBLE2']
 
 # usercv=False
