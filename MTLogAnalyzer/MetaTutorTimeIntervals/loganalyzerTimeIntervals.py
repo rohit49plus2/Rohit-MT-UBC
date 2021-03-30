@@ -13,7 +13,7 @@ from Events import *
 from Utils import *
 #from MetaTutor import Utils
 from recordtype import  *  # for recordtype elements, which are mutable version of namedtuples
-from timestamps import * #Rohit: for time intervals
+from timestamps2016 import * #Rohit: for time intervals
 # launch using the following syntax:
 # python loganalyzer.py ./[directory_of_day1&2logs_with_uniform_timestamps]/*.log
 AgTalk = []

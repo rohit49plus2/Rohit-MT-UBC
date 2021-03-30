@@ -1,15 +1,6 @@
 33 - /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/Logs/raw logs compiled
 !!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/Logs/raw logs compiled/109.log
 
-self.starting action is : CEPageRelevantImgRelevantOpened 
-
-
-self.starting action is : CEPageIrrelevantImgIrrelevantNotOpened 
-
-
-self.starting action is : CEPageRelevantImgRelevantOpened 
-
-
 
 
  self.ID =  MT430PN56009 
@@ -17,24 +8,6 @@ self.starting action is : CEPageRelevantImgRelevantOpened
 
 
 !!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/Logs/raw logs compiled/111.log
-
-self.starting action is : CEPageRelevantImgRelevantNotOpened 
-
-
-self.starting action is : CEPageRelevantImgIrrelevantNotOpened 
-
-
-self.starting action is : CERelevantPrompt 
-
-
-self.starting action is : CEPageIrrelevantImgRelevantOpened 
-
-
-self.starting action is : CEPageIrrelevantImgRelevantOpened 
-
-
-self.starting action is :  
-
 
 
 
@@ -44,48 +17,6 @@ self.starting action is :
 
 !!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/Logs/raw logs compiled/113.log
 
-self.starting action is : CEPageIrrelevantImgRelevantOpened 
-
-
-self.starting action is : CEPageIrrelevantImgIrrelevantNotOpened 
-
-
-self.starting action is : CEPageRelevantImgRelevantOpened 
-
-
-self.starting action is : CEPageRelevantImgRelevantOpened 
-
-
-self.starting action is : CERelevantPrompt 
-
-
-self.starting action is : CEPageRelevantImgRelevantOpened 
-
-
-self.starting action is : CEPageRelevantImgRelevantOpened 
-
-
-self.starting action is : CEPageRelevantImgRelevantOpened 
-
-
-self.starting action is : CEPageIrrelevantImgRelevantOpened 
-
-
-self.starting action is : CEPageIrrelevantImgIrrelevantNotOpened 
-
-
-self.starting action is : CEPageIrrelevantImgRelevantOpened 
-
-
-self.starting action is : CEPageIrrelevantImgRelevantOpened 
-
-
-self.starting action is : CEPageIrrelevantImgIrrelevantOpened 
-
-
-self.starting action is : CEPageRelevantImgRelevantOpened 
-
-
 
 
  self.ID =  MT430PN56113 
@@ -93,12 +24,6 @@ self.starting action is : CEPageRelevantImgRelevantOpened
 
 
 !!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/Logs/raw logs compiled/116.log
-
-self.starting action is : CEPageRelevantImgRelevantNotOpened 
-
-
-self.starting action is : CEPageRelevantImgIrrelevantNotOpened 
-
 
 
 
@@ -116,12 +41,6 @@ self.starting action is : CEPageRelevantImgIrrelevantNotOpened
 
 !!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/Logs/raw logs compiled/122.log
 
-self.starting action is : CEPageIrrelevantImgIrrelevantNotOpened 
-
-
-self.starting action is : CEPageIrrelevantImgIrrelevantOpened 
-
-
 
 
  self.ID =  MT430PN56122 
@@ -138,18 +57,6 @@ self.starting action is : CEPageIrrelevantImgIrrelevantOpened
 
 !!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/Logs/raw logs compiled/125.log
 
-self.starting action is : CEPageRelevantImgRelevantOpened 
-
-
-self.starting action is : CEPageRelevantImgRelevantOpened 
-
-
-self.starting action is : CEPageRelevantImgRelevantOpened 
-
-
-self.starting action is : CEPageRelevantImgIrrelevantOpened 
-
-
 
 
  self.ID =  MT430PN56125 
@@ -158,21 +65,6 @@ self.starting action is : CEPageRelevantImgIrrelevantOpened
 
 !!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/Logs/raw logs compiled/145.log
 
-self.starting action is : CEPageIrrelevantImgIrrelevantNotOpened 
-
-
-self.starting action is : CEPageRelevantImgIrrelevantNotOpened 
-
-
-self.starting action is : CEPageRelevantImgRelevantNotOpened 
-
-
-self.starting action is : CEPageIrrelevantImgIrrelevantOpened 
-
-
-self.starting action is : CEPageRelevantImgRelevantNotOpened 
-
-
 
 
  self.ID =  MT430PN56145 
@@ -180,21 +72,6 @@ self.starting action is : CEPageRelevantImgRelevantNotOpened
 
 
 !!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/Logs/raw logs compiled/147.log
-
-self.starting action is : CEPageRelevantImgRelevantOpened 
-
-
-self.starting action is : CEPageIrrelevantImgIrrelevantOpened 
-
-
-self.starting action is : CEPageIrrelevantImgRelevantOpened 
-
-
-self.starting action is : CEPageIrrelevantImgIrrelevantOpened 
-
-
-self.starting action is : CEPageRelevantImgIrrelevantOpened 
-
 
 
 
@@ -212,24 +89,6 @@ self.starting action is : CEPageRelevantImgIrrelevantOpened
 
 !!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/Logs/raw logs compiled/150.log
 
-self.starting action is : CEPageRelevantImgRelevantOpened 
-
-
-self.starting action is : CEPageIrrelevantImgIrrelevantNotOpened 
-
-
-self.starting action is : CEPageIrrelevantImgIrrelevantOpened 
-
-
-self.starting action is : CEPageRelevantImgRelevantOpened 
-
-
-self.starting action is : CEPageIrrelevantImgIrrelevantNotOpened 
-
-
-self.starting action is :  
-
-
 
 
  self.ID =  MT430PN56150 
@@ -237,27 +96,6 @@ self.starting action is :
 
 
 !!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/Logs/raw logs compiled/151.log
-
-self.starting action is : CEPageRelevantImgRelevantNotOpened 
-
-
-self.starting action is : CEPageRelevantImgRelevantOpened 
-
-
-self.starting action is : CEPageRelevantImgRelevantOpened 
-
-
-self.starting action is : CEPageRelevantImgRelevantNotOpened 
-
-
-self.starting action is : CEPageIrrelevantImgIrrelevantOpened 
-
-
-self.starting action is : CEPageIrrelevantImgIrrelevantNotOpened 
-
-
-self.starting action is : CEPageRelevantImgRelevantOpened 
-
 
 
 
@@ -283,27 +121,6 @@ self.starting action is : CEPageRelevantImgRelevantOpened
 
 !!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/Logs/raw logs compiled/154.log
 
-self.starting action is : CEPageRelevantImgRelevantNotOpened 
-
-
-self.starting action is : CEPageIrrelevantImgIrrelevantNotOpened 
-
-
-self.starting action is : CEPageRelevantImgRelevantNotOpened 
-
-
-self.starting action is : CEPageRelevantImgRelevantNotOpened 
-
-
-self.starting action is : CEPageRelevantImgRelevantNotOpened 
-
-
-self.starting action is : CERelevantPrompt 
-
-
-self.starting action is : CEPageIrrelevantImgIrrelevantOpened 
-
-
 
 
  self.ID =  MT430PN56154 
@@ -312,21 +129,6 @@ self.starting action is : CEPageIrrelevantImgIrrelevantOpened
 
 !!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/Logs/raw logs compiled/155.log
 
-self.starting action is : CEPageIrrelevantImgIrrelevantNotOpened 
-
-
-self.starting action is : CEPageIrrelevantImgIrrelevantNotOpened 
-
-
-self.starting action is : CERelevantPrompt 
-
-
-self.starting action is : CEPageIrrelevantImgIrrelevantNotOpened 
-
-
-self.starting action is : CEPageIrrelevantImgIrrelevantNotOpened 
-
-
 
 
  self.ID =  MT430PN56155 
@@ -334,21 +136,6 @@ self.starting action is : CEPageIrrelevantImgIrrelevantNotOpened
 
 
 !!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/Logs/raw logs compiled/156.log
-
-self.starting action is : CEPageIrrelevantImgIrrelevantNotOpened 
-
-
-self.starting action is : CEPageRelevantImgRelevantOpened 
-
-
-self.starting action is : CEPageRelevantImgIrrelevantNotOpened 
-
-
-self.starting action is : CEPageIrrelevantImgIrrelevantNotOpened 
-
-
-self.starting action is : CEPageIrrelevantImgIrrelevantNotOpened 
-
 
 
 
@@ -366,9 +153,6 @@ self.starting action is : CEPageIrrelevantImgIrrelevantNotOpened
 
 !!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/Logs/raw logs compiled/161.log
 
-self.starting action is : CEPageRelevantImgRelevantOpened 
-
-
 
 
  self.ID =  MT430PN56161 
@@ -376,18 +160,6 @@ self.starting action is : CEPageRelevantImgRelevantOpened
 
 
 !!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/Logs/raw logs compiled/162.log
-
-self.starting action is : CEPageIrrelevantImgIrrelevantNotOpened 
-
-
-self.starting action is : CEPageIrrelevantImgIrrelevantNotOpened 
-
-
-self.starting action is : CERelevantPrompt 
-
-
-self.starting action is : CEPageRelevantImgIrrelevantOpened 
-
 
 
 
@@ -397,9 +169,6 @@ self.starting action is : CEPageRelevantImgIrrelevantOpened
 
 !!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/Logs/raw logs compiled/163.log
 
-self.starting action is : CEPageIrrelevantImgIrrelevantNotOpened 
-
-
 
 
  self.ID =  MT430PN56163 
@@ -407,27 +176,6 @@ self.starting action is : CEPageIrrelevantImgIrrelevantNotOpened
 
 
 !!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/Logs/raw logs compiled/164.log
-
-self.starting action is : CEPageRelevantImgRelevantOpened 
-
-
-self.starting action is : CEPageRelevantImgRelevantOpened 
-
-
-self.starting action is : CEPageIrrelevantImgRelevantOpened 
-
-
-self.starting action is : CEPageRelevantImgIrrelevantOpened 
-
-
-self.starting action is : CEPageIrrelevantImgRelevantNotOpened 
-
-
-self.starting action is : CEPageIrrelevantImgIrrelevantOpened 
-
-
-self.starting action is : CEPageIrrelevantImgRelevantOpened 
-
 
 
 
@@ -437,9 +185,6 @@ self.starting action is : CEPageIrrelevantImgRelevantOpened
 
 !!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/Logs/raw logs compiled/165.log
 
-self.starting action is : CEPageIrrelevantImgIrrelevantNotOpened 
-
-
 
 
  self.ID =  MT430PN56165 
@@ -447,36 +192,6 @@ self.starting action is : CEPageIrrelevantImgIrrelevantNotOpened
 
 
 !!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/Logs/raw logs compiled/166.log
-
-self.starting action is : CEPageIrrelevantImgIrrelevantNotOpened 
-
-
-self.starting action is :  
-
-
-self.starting action is : CEPageIrrelevantImgIrrelevantNotOpened 
-
-
-self.starting action is :  
-
-
-self.starting action is : CEPageRelevantImgRelevantNotOpened 
-
-
-self.starting action is : CEPageRelevantImgRelevantOpened 
-
-
-self.starting action is : CEPageIrrelevantImgIrrelevantNotOpened 
-
-
-self.starting action is : CEPageIrrelevantImgIrrelevantNotOpened 
-
-
-self.starting action is : CEPageIrrelevantImgIrrelevantNotOpened 
-
-
-self.starting action is :  
-
 
 
 
@@ -494,9 +209,6 @@ self.starting action is :
 
 !!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/Logs/raw logs compiled/168.log
 
-self.starting action is : CEPageRelevantImgRelevantOpened 
-
-
 
 
  self.ID =  MT430PN56168 
@@ -504,24 +216,6 @@ self.starting action is : CEPageRelevantImgRelevantOpened
 
 
 !!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/Logs/raw logs compiled/169.log
-
-self.starting action is : CEPageIrrelevantImgIrrelevantNotOpened 
-
-
-self.starting action is : CEPageRelevantImgRelevantOpened 
-
-
-self.starting action is : CEPageIrrelevantImgIrrelevantOpened 
-
-
-self.starting action is : CEPageIrrelevantImgRelevantOpened 
-
-
-self.starting action is : CEPageRelevantImgRelevantNotOpened 
-
-
-self.starting action is : CEPageRelevantImgRelevantOpened 
-
 
 
 
@@ -539,24 +233,6 @@ self.starting action is : CEPageRelevantImgRelevantOpened
 
 !!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/Logs/raw logs compiled/172.log
 
-self.starting action is : CEPageIrrelevantImgIrrelevantNotOpened 
-
-
-self.starting action is : CEPageIrrelevantImgIrrelevantOpened 
-
-
-self.starting action is : CEPageIrrelevantImgIrrelevantOpened 
-
-
-self.starting action is : CEPageIrrelevantImgRelevantOpened 
-
-
-self.starting action is : CEPageIrrelevantImgRelevantOpened 
-
-
-self.starting action is : CEPageIrrelevantImgRelevantOpened 
-
-
 
 
  self.ID =  MT430PN56172 
@@ -564,18 +240,6 @@ self.starting action is : CEPageIrrelevantImgRelevantOpened
 
 
 !!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/Logs/raw logs compiled/173.log
-
-self.starting action is : CEPageIrrelevantImgIrrelevantOpened 
-
-
-self.starting action is : CEPageRelevantImgRelevantOpened 
-
-
-self.starting action is : CEPageRelevantImgRelevantOpened 
-
-
-self.starting action is :  
-
 
 
 
