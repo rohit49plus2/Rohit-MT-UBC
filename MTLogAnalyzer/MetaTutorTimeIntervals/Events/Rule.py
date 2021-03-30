@@ -289,7 +289,17 @@ class MTRuleCEEvent(MTRuleSRLEvent):   #  Content Evaluation
                          "CEIrrelevant":["user", False, " - user initiative (irrelevant page)"],
                          "CERelevantPrompt":["agent", True, " - agent prompt (relevant page)"],
                          "CEIrrelevantPrompt":["agent", False, " - agent prompt (irrelevant page)"],
+                         "CEPageIrrelevantImgIrrelevantNotOpened":["agent", False, " - agent prompt (irrelevant page)"],
+                         "CEPageIrrelevantImgIrrelevantOpened":["agent", False, " - agent prompt (irrelevant page)"],
+                         "CEPageRelevantImgRelevantOpened":["agent", True, " - agent prompt (relevant page)"],
+                         "CEPageRelevantImgRelevantNotOpened":["agent", True, " - agent prompt (relevant page)"],
+                         "CERelevantPrompt":["agent", True, " - agent prompt (relevant page)"],
+                         "CEPageIrrelevantImgRelevantOpened":["agent", False, " - agent prompt (irrelevant page)"],
+                         "CEPageIrrelevantImgRelevantNotOpened":["agent", False, " - agent prompt (irrelevant page)"],
+                         "CEPageRelevantImgIrrelevantOpened":["agent", False, " - agent prompt (irrelevant page)"],
+                         "CEPageRelevantImgIrrelevantNotOpened":["agent", False, " - agent prompt (irrelevant page)"],
                          "":["agent", None, " - agent prompt for a page left too quickly"]}
+
 
     def __init__(self, logger, eventID, absolutetime, timestamp, eventInfo):
         MTRuleSRLEvent.__init__(self, logger, eventID, absolutetime, timestamp, eventInfo[0])
@@ -301,7 +311,6 @@ class MTRuleCEEvent(MTRuleSRLEvent):   #  Content Evaluation
             #logger.warning("CE without rule, flow and startingAction information")
             [self.rule, self.flow, self.startingAction] = ["","",""]
 
-        print("\nself.starting action is :",self.startingAction,'\n')
         if self.startingAction in self.CEstartingActions.keys():
             self.initiative = self.CEstartingActions[self.startingAction][0]
             self.realRelevancy = self.CEstartingActions[self.startingAction][1]
@@ -371,6 +380,8 @@ class MTRuleSRLUnknownEvent(MTRuleSRLEvent):    # for all the other events from 
         # not to mix them with real unknown events
         if eventInfo[2] == " No appropiate user rule found for user action CE":     # typo needed: it's like that in the log
             logger.warning("Problematic event with known origin: User doing a CE while no SG is set")
+        elif eventInfo[2] == "(rule:PKA Prompt) value 65 for parameter PreTestPerformanceOnCurrentSubgoal is not an integer value.":     
+            logger.warning("Problematic event with known origin: Buggued PKA value")
         else:
             logger.warning("UNKNOWN event: " + str(eventInfo))
         [self.rule, self.flow, self.startingAction] = ["","",""]
@@ -421,7 +432,7 @@ class MTRuleFlowCantStart(MTRuleEvent):
         MTRuleEvent.__init__(self, logger, eventID, absolutetime, timestamp)
         tmptxt = eventInfo[2].split("because")[0]
         self.eventToCancel = ""
-        for srl in ["PLAN", "SUMM", "TN", "MPTG", "RR", "COIS", "PKA", "JOL", "FOK", "CE", "INF"]:
+        for srl in ["PLAN", "SUMM", "TN", "MPTG", "RR", "COIS", "PKA", "JOL", "FOK", "CE", "INF", "MeasureFlow"]:
             if srl in tmptxt:
                 self.eventToCancel = srl
                 break
