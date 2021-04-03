@@ -357,9 +357,9 @@ class MTLogAnalyzer(object):
 
         elif logline[3] == "9":
             return MetaRule.MTMetaRuleEvent(self.logger, logline[0], logline[1], logline[2], logline[4:])
-			
+
         elif logline[3] == "10":
-			return Custom.CEvtChangeSubgoalType10(self.logger, logline[1], logline[2], logline[4])
+            return Custom.CEvtChangeSubgoalType10(self.logger, logline[1], logline[2], logline[4])
 
         return None
 

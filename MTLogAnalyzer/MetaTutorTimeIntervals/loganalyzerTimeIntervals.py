@@ -1,4 +1,4 @@
-# Script to analyze MT logs and extract basic info from them
+# Script to analyze MT  logs and extract basic info from them
 # Version: 0.5.2
 # Author: F. Bouchet (francois.bouchet@mcgill.ca)
 # Date: 2011/10/21
@@ -20,7 +20,7 @@ AgTalk = []
 JSON_MASTER_FILE = "C:/Users/Francois/Documents/Work/McGill/LOGS/MetaTutorSubjectsInfo.json"
 
 main_path = os.path.dirname(os.path.dirname(dir_path))
-main_path = "."
+# main_path = "."
 if __name__ == "__main__":
 #    tmpIgnoreThis = False        # temporary variable to ignore the part of goal setting that fails for now
 
