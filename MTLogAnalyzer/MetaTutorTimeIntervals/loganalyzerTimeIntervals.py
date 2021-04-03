@@ -20,7 +20,7 @@ AgTalk = []
 JSON_MASTER_FILE = "C:/Users/Francois/Documents/Work/McGill/LOGS/MetaTutorSubjectsInfo.json"
 
 main_path = os.path.dirname(os.path.dirname(dir_path))
-
+main_path = "."
 if __name__ == "__main__":
 #    tmpIgnoreThis = False        # temporary variable to ignore the part of goal setting that fails for now
 
