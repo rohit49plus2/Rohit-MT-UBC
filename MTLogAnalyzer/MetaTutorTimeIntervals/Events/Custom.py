@@ -677,3 +677,18 @@ class CEvtUserTakingQuiz(CEvent):
         if showScoreMax or showAll:
             l.append(self.scoreMax)
         return l
+
+class CEvtChangeSubgoalType10(CEvent):
+    """Event starting when a subgoal is modified by PamFirstSelectSubgoalFromList"""
+    def __init__(self, logger, timeStart, timestamp, subgoalEvent):
+        if isinstance(timeStart, datetime.datetime):
+            self.absoluteTime = timeStart
+        else:
+            self.absoluteTime = Event.convertAbsTimeMT2Standard(timeStart)
+        self.timestamp = self.absoluteTime
+        CEvent.__init__(self, logger, self.absoluteTime, self.absoluteTime)
+        self.subgoalEvent = subgoalEvent
+
+    def getInfo(self, showAll=False, showScore=False, showScoreMax=False):
+        return CEvent.getInfo(self, showAll)
+
