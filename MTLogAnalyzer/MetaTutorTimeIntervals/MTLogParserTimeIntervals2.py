@@ -240,8 +240,7 @@ class MTLogParser(object):
                 print "INITIAL SUBGOALS SET"
             if firstCEvtPursuingNewSubgoalAppended:
                 print "FIRST SUBGOAL APPENDED"""
-
-            if stopTimeStamp != None and event.timestamp >= stopTimeStamp and initialSubgoalsSet: # firstCEvtPursuingNewSubgoalAppended: doesn't always happen
+            if stopTimeStamp != None and event.timestamp >= stopTimeStamp and initialSubgoalsSet and not isinstance(event, Custom.CEvtChangeSubgoalType10): # firstCEvtPursuingNewSubgoalAppended: doesn't always happen
                 print( "Stopping parseDay2Loop at", event.timestamp)
                 time.sleep(0.1)
                 break
@@ -464,7 +463,8 @@ class MTLogParser(object):
                                         cursgid = possibleSubgoalsNamesID[sg]
                                         break
                                 if cursgid not in goalQueue:
-                                    logger.error("User is now working on a subgoal that isn't part of the subgoals queue")
+                                    print(event)
+                                    logger.error("User is now working on a subgoal ["+str(cursgid)+"] that isn't part of the subgoals queue: "+str(goalQueue))
                                 else:
                                     # move the current subgoal from wherever it is to the head of the queue
                                     #if not tmpIgnoreThis:
@@ -511,6 +511,7 @@ class MTLogParser(object):
                                     # in order to have the elements in the right order, they need to splitted and compared one by one to the keys
                                     # as just checking if each key is there wouldn't be enough
                                     splittext = event.text.split("'")
+                                    #print "ZZZZZZZZZZZZZZZZZZZZZZZ goal settings !!!! " + str(event.text)
                                     for st in splittext:
                                         for sg in possibleSubgoalsNamesID.keys():
                                             if sg == st:
@@ -544,6 +545,11 @@ class MTLogParser(object):
                             agentRemindingTimeLeft = False
 
                         else:
+                            try:
+                                self.getIdxOfLastListEltWithPattInPos(logger, queuedEvts, "CEvtAgentSpeaking") #discard possible bugs with stop event loggued twice
+                            except:
+                                print(event.getInfo())
+                                continue
                             evtInfos = queuedEvts.pop(self.getIdxOfLastListEltWithPattInPos(logger, queuedEvts, "CEvtAgentSpeaking"))
                             mtsubject.day2ExtEvents.append(Custom.CEvtAgentSpeaking(logger, evtInfos[1], event.timestamp, evtInfos[2], event.absoluteTime, evtInfos[3]))
                             agentSpeaking = False
@@ -602,6 +608,20 @@ class MTLogParser(object):
                                     logger.warning("A queued CEvtUserTakingPostTest event doesn't have any quiz element associated to it")
                                 mtsubject.day2ExtEvents.append(Custom.CEvtUserTakingPostTest(logger, evtInfos[1], event.timestamp, evtInfos[2], eventQuizElements))
                                 waitingForPostTestEnd = False
+
+
+            elif isinstance(event, Custom.CEvtChangeSubgoalType10):                         ### TYPE 10
+                subgoalLabel = event.subgoalEvent.split(":")[1][:-4].strip()
+                #print(event.subgoalEvent)
+                if subgoalLabel in possibleSubgoalsNamesID:
+                    if event.subgoalEvent.startswith("Original subgoal"):
+                        goalQueue.pop(goalQueue.index( possibleSubgoalsNamesID[subgoalLabel] ))
+                    elif event.subgoalEvent.startswith("New subgoal"):
+                        if "subgoal 1" in event.subgoalEvent:
+                            goalQueue.insert(0, possibleSubgoalsNamesID[subgoalLabel])
+                        else:
+                            goalQueue.append(possibleSubgoalsNamesID[subgoalLabel])
+
 
             elif isinstance(event, Dialog.MTDialogUserEvent):                         ### TYPE 3
                 if waitingForStudentInput:  # Current duration event ended by the user input being submitted
@@ -797,7 +817,11 @@ class MTLogParser(object):
                     logger.warning("A quiz question is happening out of the context of any quiz: " + str(event.getInfo(showAll=True)))       # it shouldn't happen
                 elif waitingForEndQuiz:
                     # add the quiz event to the CEvtUserTakingQuiz event under construction
-                    idxQuiz = self.getIdxOfLastListEltWithPattInPos(logger, queuedEvts, "CEvtUserTakingQuiz")
+                    try:
+                        idxQuiz = self.getIdxOfLastListEltWithPattInPos(logger, queuedEvts, "CEvtUserTakingQuiz")
+                    except:
+                        print(event.getInfo())
+                        continue
                     if len(queuedEvts[idxQuiz]) == 4:        # if it's the first one
                         queuedEvts[idxQuiz].append([event])
                     elif len(queuedEvts[idxQuiz]) == 5:     # if some have already been added
@@ -830,13 +854,14 @@ class MTLogParser(object):
 
                     #---
                 if waitingForEndQuiz and (event.layout == "InputWithContent" or event.layout == "Normal" or event.layout == "InputNoContent"):    # Page Quiz ends
-                    evtInfos = queuedEvts.pop(self.getIdxOfLastListEltWithPattInPos(logger, queuedEvts, "CEvtUserTakingQuiz"))
                     try:
+                        evtInfos = queuedEvts.pop(self.getIdxOfLastListEltWithPattInPos(logger, queuedEvts, "CEvtUserTakingQuiz"))
                         eventQuizElements = evtInfos[4]
-                    except IndexError:
+                        mtsubject.day2ExtEvents.append(Custom.CEvtUserTakingQuiz(logger, evtInfos[1], event.timestamp, evtInfos[2], evtInfos[3], eventQuizElements))
+                    except:
                         eventQuizElements = []
                         logger.warning("A queued CEvtUserTakingQuiz event doesn't have any quiz element associated to it (" + str(evtInfos[1]) + str(evtInfos[2]) + ")")
-                    mtsubject.day2ExtEvents.append(Custom.CEvtUserTakingQuiz(logger, evtInfos[1], event.timestamp, evtInfos[2], evtInfos[3], eventQuizElements))
+                    
                     #bondaria
                     #calculate duration of Quiz
 #                    if startedBrowsing:

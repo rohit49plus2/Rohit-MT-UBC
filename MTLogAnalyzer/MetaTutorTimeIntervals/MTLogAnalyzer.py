@@ -51,7 +51,16 @@ class MTLogAnalyzer(object):
                                 [1,1,1,0,0.5,0.5,1,0,0,0,0.5,0.5,0,0.5,0.5,0.5,0.5,0.5,0,0,0,0,0.5,0.5,0.5,1,0.5,1,0.5,0,0,0,0,0,0,0,0,0],
                                 [0,0,0,0,0,0,0,0,0.5,0,0,0,0,0,0,0,0,0,0,0,0,0.5,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0],
                                 ]
-    """7x38 matrix of relevant pages per subgoals (pages from 0 to 37) for study 4"""
+    """7x38 matrix of relevant pages per subgoals (pages from 0 to 37) for new study 4 from 2016"""
+    matPageSubgoalStudy4 = [[0,0,0,0,1,0,0,0,0,0,0,0,0,1,1,1,1,0,1,0,0,0.5,0,0,0,0,1,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0.5,0,0,0,0,0],
+                                [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.5,0,0,0,0,0],
+                                [0.5,0.5,0,1,0.5,0,0,0,0,0,0,0,0,0.5,0.5,0.5,0,0,1,1,1,1,1,1,1,0.5,0,1,0,0.5,0.5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                                [0.5,0.5,0.5,0.5,0,0,0.5,0,0,0,0.5,0,0.5,1,1,1,1,1,1,0,0,1,0,0,0,0,0.5,0,0.5,0.5,0.5,0,0,0,0,0,0.5,0,0,0,0,0,1,1,0,0,0,0],
+                                [0,0,0.5,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0.5,0.5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.5,1,0,1,1,1,1,1,0,0,0,0,0,0],
+                                [1,1,1,0,0.5,0.5,1,0,0,0,0.5,0.5,0,0.5,0.5,0.5,0.5,1,0.5,0,0,0,0,0,0,0,0.5,0,0.5,0.5,0.5,1,0.5,0.5,1,1,0.5,0,0,0,0,0,0,0,0,0,0,0],
+                                [0,0,0,0,0,0,0,0,0.5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.5,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0],
+                                ]
+    """7x47 matrix of relevant pages per subgoals (pages from 0 to 47) for study 4"""
     matPageSubgoalDict = {"MT2":matPageSubgoalStudy23, "MT3":matPageSubgoalStudy23, "MT4":matPageSubgoalStudy4, "MT4.5":matPageSubgoalStudy4}
     """dictionary linking the value of subject.study with the correct relevance matrix for that study"""
     maxNbRelevantPagesPerSubgoalStudy23 = map(lambda x:sum(x), [[1 if y>0 else 0 for y in row] for row in matPageSubgoalStudy23])
@@ -60,7 +69,7 @@ class MTLogAnalyzer(object):
     """list of 7 values corresponding to the number of pages relevant to each of the subgoals in study 4"""
     maxNbRelevantPagesPerSubgoal = {"MT2":matPageSubgoalStudy23, "MT3":matPageSubgoalStudy23, "MT4":matPageSubgoalStudy4, "MT4.5":matPageSubgoalStudy4}
     """dictionary linking the value of subject.study with the correct number of pages relevant to each subgoal for that study"""
-    nbPagesInSystem = {"MT2":41, "MT3":41, "MT4":38, "MT4.5":38,"MT5":38}#added MT5 to 38
+    nbPagesInSystem = {"MT2":41, "MT3":41, "MT4":48, "MT4.5":38,"MT5":38}#added MT5 to 38, changed MT4 to 48
     """dictionary linking the value of subject.study with the total number of pages in the system for that study"""
 
     matTestPageStudy23 = [[38, 2, 37, 4, 4, 4, 21, 6, 7, 20, 35, 6, 11, 33, 2, 34, 7, 0, 22, 7, 16, 5, 3, 15, 9],              # version A
@@ -348,6 +357,9 @@ class MTLogAnalyzer(object):
 
         elif logline[3] == "9":
             return MetaRule.MTMetaRuleEvent(self.logger, logline[0], logline[1], logline[2], logline[4:])
+			
+        elif logline[3] == "10":
+			return Custom.CEvtChangeSubgoalType10(self.logger, logline[1], logline[2], logline[4])
 
         return None
 
