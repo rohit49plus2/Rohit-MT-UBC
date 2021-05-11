@@ -26,8 +26,8 @@ x = np.arange(len(labels))  # the label locations
 width = 0.3  # the width of the bars
 
 fig, ax = plt.subplots()
-rects1 = ax.bar(x - width, interaction, width, label='Gaze',color='#F4D4D4',hatch='/')
-rects2 = ax.bar(x , gaze, width, label='Interaction',color='#342A1F',hatch='.')
+rects1 = ax.bar(x - width, interaction, width, label='Interaction',color='#F4D4D4',hatch='/')
+rects2 = ax.bar(x , gaze, width, label='Gaze',color='#342A1F',hatch='.')
 rects3 = ax.bar(x + width, combined, width, label='Both',color='#CAB8C8',hatch='*')
 
 
@@ -118,8 +118,8 @@ x = np.arange(len(labels))  # the label locations
 width = 0.3  # the width of the bars
 
 fig, ax = plt.subplots()
-rects1 = ax.bar(x - width, interaction, width, label='Gaze',color='#F4D4D4',hatch='/')
-rects2 = ax.bar(x , gaze, width, label='Interaction',color='#342A1F',hatch='.')
+rects1 = ax.bar(x - width, interaction, width, label='Interaction',color='#F4D4D4',hatch='/')
+rects2 = ax.bar(x , gaze, width, label='Gaze',color='#342A1F',hatch='.')
 rects3 = ax.bar(x + width, combined, width, label='Both',color='#CAB8C8',hatch='*')
 
 

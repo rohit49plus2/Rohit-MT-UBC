@@ -60,3 +60,5 @@ for index in range(data.shape[0]):
         time_half=half_time(time_zero,time_curr_eiv)
         times_interval[data['eiv_count'][index]][data['RawPID'][index]]=(time_zero,time_curr_eiv)
         times_half_interval[data['eiv_count'][index]][data['RawPID'][index]]=(time_half,time_curr_eiv)
+
+print(times_interval)
