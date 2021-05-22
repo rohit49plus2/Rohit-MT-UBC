@@ -1,0 +1,17 @@
+[0] Config.pm:311> INFO - This is Biber 2.16
+[0] Config.pm:314> INFO - Logfile is 'main.blg'
+[58] biber:340> INFO - === Wed May 19, 2021, 16:55:45
+[71] Biber.pm:415> INFO - Reading 'main.bcf'
+[131] Biber.pm:952> INFO - Found 10 citekeys in bib section 0
+[143] Biber.pm:4340> INFO - Processing section 0
+[151] Biber.pm:4531> INFO - Looking for bibtex format file 'references.bib' for section 0
+[153] bibtex.pm:1689> INFO - LaTeX decoding ...
+[163] bibtex.pm:1494> INFO - Found BibTeX data source 'references.bib'
+[246] Utils.pm:395> WARN - BibTeX subsystem: /tmp/biber_tmp_yg0p/33e59b5ca9ec342068223d604c3f8d55_8989.utf8, line 79, warning: 1 characters of junk seen at toplevel
+[266] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[266] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[266] Biber.pm:4168> INFO - Sorting list 'nyt/global//global/global' of type 'entry' with template 'nyt' and locale 'en-US'
+[266] Biber.pm:4174> INFO - No sort tailoring available for locale 'en-US'
+[279] bbl.pm:654> INFO - Writing 'main.bbl' with encoding 'UTF-8'
+[288] bbl.pm:757> INFO - Output to main.bbl
+[288] Biber.pm:128> INFO - WARNINGS: 1

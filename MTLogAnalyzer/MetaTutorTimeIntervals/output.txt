@@ -1,0 +1,553 @@
+{1: {'MT430PN56102': ('10:23:18', '10:25:43'), 'MT430PN56104': ('13:30:10', '13:31:33'), 'MT430PN56106': ('13:44:38', '13:45:36'), 'MT430PN56109': ('10:11:29', '10:13:01'), 'MT430PN56111': ('13:09:53', '13:11:21'), 'MT430PN56113': ('14:09:46', '14:12:51'), 'MT430PN56116': ('14:39:48', '14:42:04'), 'MT430PN56121': ('12:03:24', '12:04:29'), 'MT430PN56122': ('12:01:09', '12:02:45'), 'MT430PN56123': ('10:12:06', '10:13:46'), 'MT430PN56125': ('14:25:38', '14:27:36'), 'MT430PN56129': ('13:07:25', '13:08:44'), 'MT430PN56133': ('14:09:16', '14:11:21'), 'MT430PN56134': ('10:10:59', '10:13:36'), 'MT430PN56135': ('14:50:06', '14:51:35'), 'MT430PN56145': ('11:57:32', '11:59:16'), 'MT430PN56146': ('10:44:06', '10:47:00'), 'MT430PN56147': ('09:13:04', '09:15:03'), 'MT430PN56148': ('14:54:20', '14:55:39'), 'MT430PN56150': ('13:41:11', '13:42:31'), 'MT430PN56151': ('13:49:48', '13:51:42'), 'MT430PN56152': ('15:51:03', '15:52:27'), 'MT430PN56153': ('10:35:04', '10:36:12'), 'MT430PN56154': ('12:24:35', '12:26:14'), 'MT430PN56155': ('13:50:59', '13:52:28'), 'MT430PN56156': ('10:35:33', '10:37:54'), 'MT430PN56160': ('12:45:31', '12:47:30'), 'MT430PN56161': ('14:31:31', '14:33:45'), 'MT430PN56162': ('10:18:47', '10:20:47'), 'MT430PN56163': ('12:24:17', '12:25:10'), 'MT430PN56164': ('11:51:10', '11:53:30'), 'MT430PN56165': ('14:31:22', '14:33:03'), 'MT430PN56166': ('10:29:25', '10:30:30'), 'MT430PN56167': ('08:18:44', '08:20:08'), 'MT430PN56168': ('14:54:24', '14:56:09'), 'MT430PN56169': ('08:33:23', '08:34:49'), 'MT430PN56170': ('11:56:18', '11:57:37'), 'MT430PN56172': ('10:31:23', '10:32:39'), 'MT430PN56173': ('10:13:28', '10:14:33'), 'MT430PN56174': ('10:35:59', '10:37:06'), 'MT430PN56177': ('10:25:09', '10:27:11')}, 2: {'MT430PN56102': ('10:25:43', '10:33:33'), 'MT430PN56104': ('13:31:33', '13:37:54'), 'MT430PN56106': ('13:45:36', '13:53:25'), 'MT430PN56109': ('10:13:01', '10:19:57'), 'MT430PN56111': ('13:11:21', '13:19:53'), 'MT430PN56113': ('14:12:51', '14:21:59'), 'MT430PN56116': ('14:42:04', '14:49:46'), 'MT430PN56121': ('12:04:29', '12:10:10'), 'MT430PN56122': ('12:02:45', '12:10:52'), 'MT430PN56123': ('10:13:46', '10:22:00'), 'MT430PN56125': ('14:27:36', '14:34:42'), 'MT430PN56129': ('13:08:44', '13:15:40'), 'MT430PN56133': ('14:11:21', '14:19:27'), 'MT430PN56134': ('10:13:36', '10:20:52'), 'MT430PN56135': ('14:51:35', '14:58:12'), 'MT430PN56145': ('11:59:16', '12:06:56'), 'MT430PN56146': ('10:47:00', '10:54:06'), 'MT430PN56147': ('09:15:03', '09:24:57'), 'MT430PN56148': ('14:55:39', '15:03:17'), 'MT430PN56150': ('13:42:31', '13:50:47'), 'MT430PN56151': ('13:51:42', '14:00:12'), 'MT430PN56152': ('15:52:27', '15:59:56'), 'MT430PN56153': ('10:36:12', '10:42:33'), 'MT430PN56154': ('12:26:14', '12:34:54'), 'MT430PN56155': ('13:52:28', '14:02:03'), 'MT430PN56156': ('10:37:54', '10:46:08'), 'MT430PN56160': ('12:47:30', '12:54:29'), 'MT430PN56161': ('14:33:45', '14:41:02'), 'MT430PN56162': ('10:20:47', '10:28:01'), 'MT430PN56163': ('12:25:10', '12:31:31'), 'MT430PN56164': ('11:53:30', '12:04:48'), 'MT430PN56165': ('14:33:03', '14:40:01'), 'MT430PN56166': ('10:30:30', '10:37:07'), 'MT430PN56167': ('08:20:08', '08:26:51'), 'MT430PN56168': ('14:56:09', '15:03:42'), 'MT430PN56169': ('08:34:49', '08:43:33'), 'MT430PN56170': ('11:57:37', '12:05:09'), 'MT430PN56172': ('10:32:39', '10:42:24'), 'MT430PN56173': ('10:14:33', '10:23:38'), 'MT430PN56174': ('10:37:06', '10:43:34'), 'MT430PN56177': ('10:27:11', '10:34:47')}, 3: {'MT430PN56102': ('10:33:33', '11:32:14'), 'MT430PN56104': ('13:37:54', '14:01:06'), 'MT430PN56106': ('13:53:25', '14:14:25'), 'MT430PN56109': ('10:19:57', '10:44:41'), 'MT430PN56111': ('13:19:53', '13:42:30'), 'MT430PN56113': ('14:21:59', '14:46:06'), 'MT430PN56116': ('14:49:46', '15:11:04'), 'MT430PN56121': ('12:10:10', '12:30:38'), 'MT430PN56122': ('12:10:52', '12:34:05'), 'MT430PN56123': ('10:22:00', '10:43:26'), 'MT430PN56125': ('14:34:42', '15:17:12'), 'MT430PN56129': ('13:15:40', '13:38:18'), 'MT430PN56133': ('14:19:27', '14:40:56'), 'MT430PN56134': ('10:20:52', '11:31:33'), 'MT430PN56135': ('14:58:12', '15:21:53'), 'MT430PN56145': ('12:06:56', '12:32:35'), 'MT430PN56146': ('10:54:06', '11:18:26'), 'MT430PN56147': ('09:24:57', '10:22:44'), 'MT430PN56148': ('15:03:17', '15:26:09'), 'MT430PN56150': ('13:50:47', '14:14:00'), 'MT430PN56151': ('14:00:12', '14:23:45'), 'MT430PN56152': ('15:59:56', '16:20:58'), 'MT430PN56153': ('10:42:33', '11:03:50'), 'MT430PN56154': ('12:34:54', '13:28:50'), 'MT430PN56155': ('14:02:03', '14:24:43'), 'MT430PN56156': ('10:46:08', '11:08:04'), 'MT430PN56160': ('12:54:29', '13:16:01'), 'MT430PN56161': ('14:41:02', '15:04:06'), 'MT430PN56162': ('10:28:01', '10:53:29'), 'MT430PN56163': ('12:31:31', '12:52:43'), 'MT430PN56164': ('12:04:48', '12:29:51'), 'MT430PN56165': ('14:40:01', '15:02:51'), 'MT430PN56166': ('10:37:07', '11:01:16'), 'MT430PN56167': ('08:26:51', '08:47:44'), 'MT430PN56168': ('15:03:42', '15:25:33'), 'MT430PN56169': ('08:43:33', '09:23:16'), 'MT430PN56170': ('12:05:09', '12:26:13'), 'MT430PN56172': ('10:42:24', '12:53:43'), 'MT430PN56173': ('10:23:38', '10:49:43'), 'MT430PN56174': ('10:43:34', '11:04:42'), 'MT430PN56177': ('10:34:47', '10:56:11')}, 4: {'MT430PN56102': ('11:32:14', '11:50:07'), 'MT430PN56104': ('14:01:06', '14:16:22'), 'MT430PN56106': ('14:14:25', '14:29:59'), 'MT430PN56109': ('10:44:41', '11:00:59'), 'MT430PN56111': ('13:42:30', '13:58:12'), 'MT430PN56113': ('14:46:06', '15:17:18'), 'MT430PN56116': ('15:11:04', '15:26:59'), 'MT430PN56121': ('12:30:38', '12:46:05'), 'MT430PN56122': ('12:34:05', '12:50:10'), 'MT430PN56123': ('10:43:26', '11:01:25'), 'MT430PN56125': ('15:17:12', '15:35:31'), 'MT430PN56129': ('13:38:18', '14:13:05'), 'MT430PN56133': ('14:40:56', '15:06:02'), 'MT430PN56134': ('11:31:33', '12:26:35'), 'MT430PN56135': ('15:21:53', '15:38:55'), 'MT430PN56145': ('12:32:35', '13:04:01'), 'MT430PN56146': ('11:18:26', '11:38:02'), 'MT430PN56147': ('10:22:44', '10:40:57'), 'MT430PN56148': ('15:26:09', '15:41:52'), 'MT430PN56150': ('14:14:00', '14:29:38'), 'MT430PN56151': ('14:23:45', '14:59:06'), 'MT430PN56152': ('16:20:58', '16:37:04'), 'MT430PN56153': ('11:03:50', '11:19:45'), 'MT430PN56154': ('13:28:50', '14:40:53'), 'MT430PN56155': ('14:24:43', '14:44:11'), 'MT430PN56156': ('11:08:04', '11:26:56'), 'MT430PN56160': ('13:16:01', '13:31:48'), 'MT430PN56161': ('15:04:06', '15:19:52'), 'MT430PN56162': ('10:53:29', '11:08:29'), 'MT430PN56163': ('12:52:43', '13:08:23'), 'MT430PN56164': ('12:29:51', '12:46:03'), 'MT430PN56165': ('15:02:51', '15:21:11'), 'MT430PN56166': ('11:01:16', '11:32:43'), 'MT430PN56167': ('08:47:44', '09:03:25'), 'MT430PN56168': ('15:25:33', '15:56:47'), 'MT430PN56169': ('09:23:16', '09:54:03'), 'MT430PN56170': ('12:26:13', '12:41:54'), 'MT430PN56173': ('10:49:43', '11:20:33'), 'MT430PN56174': ('11:04:42', '11:20:22'), 'MT430PN56177': ('10:56:11', '11:12:01')}, 5: {'MT430PN56102': ('11:50:07', '12:06:50'), 'MT430PN56104': ('14:16:22', '14:32:26'), 'MT430PN56106': ('14:29:59', '14:46:12'), 'MT430PN56109': ('11:00:59', '11:16:56'), 'MT430PN56111': ('13:58:12', '14:29:15'), 'MT430PN56113': ('15:17:18', '15:35:02'), 'MT430PN56116': ('15:26:59', '15:42:35'), 'MT430PN56121': ('12:46:05', '13:17:25'), 'MT430PN56122': ('12:50:10', '13:06:20'), 'MT430PN56123': ('11:01:25', '11:17:27'), 'MT430PN56125': ('15:35:31', '16:07:04'), 'MT430PN56129': ('14:13:05', '14:28:58'), 'MT430PN56133': ('15:06:02', '15:22:08'), 'MT430PN56135': ('15:38:55', '15:54:54'), 'MT430PN56145': ('13:04:01', '13:20:16'), 'MT430PN56146': ('11:38:02', '11:54:23'), 'MT430PN56147': ('10:40:57', '11:43:36'), 'MT430PN56148': ('15:41:52', '15:57:33'), 'MT430PN56150': ('14:29:38', '14:46:25'), 'MT430PN56151': ('14:59:06', '15:32:45'), 'MT430PN56152': ('16:37:04', '16:53:23'), 'MT430PN56153': ('11:19:45', '11:35:29'), 'MT430PN56155': ('14:44:11', '14:56:39'), 'MT430PN56156': ('11:26:56', '11:42:32'), 'MT430PN56160': ('13:31:48', '13:47:51'), 'MT430PN56161': ('15:19:52', '15:38:03'), 'MT430PN56162': ('11:08:29', '11:23:44'), 'MT430PN56164': ('12:46:03', '13:03:05'), 'MT430PN56165': ('15:21:11', '15:34:44'), 'MT430PN56166': ('11:32:43', '11:47:38'), 'MT430PN56167': ('09:03:25', '09:18:55'), 'MT430PN56168': ('15:56:47', '16:27:39'), 'MT430PN56170': ('12:41:54', '12:58:31'), 'MT430PN56173': ('11:20:33', '11:37:37'), 'MT430PN56174': ('11:20:22', '11:36:05'), 'MT430PN56177': ('11:12:01', '11:43:29')}, 6: {'MT430PN56102': ('12:06:50', '12:39:07'), 'MT430PN56104': ('14:32:26', '14:48:09'), 'MT430PN56106': ('14:46:12', '15:17:20'), 'MT430PN56109': ('11:16:56', '11:32:48'), 'MT430PN56111': ('14:29:15', '15:11:10'), 'MT430PN56113': ('15:35:02', '15:51:58'), 'MT430PN56116': ('15:42:35', '16:14:35'), 'MT430PN56121': ('13:17:25', '13:49:22'), 'MT430PN56122': ('13:06:20', '13:38:56'), 'MT430PN56123': ('11:17:27', '11:33:18'), 'MT430PN56125': ('16:07:04', '16:36:07'), 'MT430PN56129': ('14:28:58', '14:45:05'), 'MT430PN56133': ('15:22:08', '15:37:59'), 'MT430PN56135': ('15:54:54', '16:12:31'), 'MT430PN56145': ('13:20:16', '13:35:38'), 'MT430PN56146': ('11:54:23', '12:10:34'), 'MT430PN56148': ('15:57:33', '16:13:29'), 'MT430PN56150': ('14:46:25', '15:02:11'), 'MT430PN56151': ('15:32:45', '16:08:11'), 'MT430PN56152': ('16:53:23', '17:08:46'), 'MT430PN56153': ('11:35:29', '11:51:03'), 'MT430PN56155': ('14:56:39', '15:12:31'), 'MT430PN56156': ('11:42:32', '12:00:10'), 'MT430PN56160': ('13:47:51', '14:20:02'), 'MT430PN56161': ('15:38:03', '15:54:00'), 'MT430PN56162': ('11:23:44', '11:39:41'), 'MT430PN56164': ('13:03:05', '13:21:33'), 'MT430PN56165': ('15:34:44', '15:50:35'), 'MT430PN56166': ('11:47:38', '12:03:12'), 'MT430PN56167': ('09:18:55', '09:34:27'), 'MT430PN56168': ('16:27:39', '16:44:22'), 'MT430PN56170': ('12:58:31', '13:14:17'), 'MT430PN56173': ('11:37:37', '12:31:17'), 'MT430PN56174': ('11:36:05', '12:06:38'), 'MT430PN56177': ('11:43:29', '12:15:41')}, 7: {'MT430PN56104': ('14:48:09', '15:03:38'), 'MT430PN56106': ('15:17:20', '15:35:49'), 'MT430PN56109': ('11:32:48', '11:48:24'), 'MT430PN56113': ('15:51:58', '16:36:36'), 'MT430PN56116': ('16:14:35', '16:33:30'), 'MT430PN56122': ('13:38:56', '14:15:52'), 'MT430PN56123': ('11:33:18', '11:54:10'), 'MT430PN56129': ('14:45:05', '15:03:40'), 'MT430PN56133': ('15:37:59', '15:55:03'), 'MT430PN56135': ('16:12:31', '16:28:28'), 'MT430PN56145': ('13:35:38', '14:09:33'), 'MT430PN56146': ('12:10:34', '12:26:23'), 'MT430PN56148': ('16:13:29', '16:29:18'), 'MT430PN56150': ('15:02:11', '15:21:36'), 'MT430PN56152': ('17:08:46', '17:24:34'), 'MT430PN56153': ('11:51:03', '12:06:43'), 'MT430PN56155': ('15:12:31', '15:30:24'), 'MT430PN56156': ('12:00:10', '12:16:09'), 'MT430PN56160': ('14:20:02', '14:43:27'), 'MT430PN56161': ('15:54:00', '16:10:43'), 'MT430PN56162': ('11:39:41', '12:21:06'), 'MT430PN56164': ('13:21:33', '13:38:12'), 'MT430PN56165': ('15:50:35', '16:06:06'), 'MT430PN56166': ('12:03:12', '12:29:07'), 'MT430PN56167': ('09:34:27', '09:50:02'), 'MT430PN56170': ('13:14:17', '13:30:06'), 'MT430PN56174': ('12:06:38', '12:23:47')}, 8: {'MT430PN56104': ('15:03:38', '15:22:30'), 'MT430PN56109': ('11:48:24', '12:25:23'), 'MT430PN56123': ('11:54:10', '12:11:47'), 'MT430PN56133': ('15:55:03', '16:12:05'), 'MT430PN56135': ('16:28:28', '16:53:45'), 'MT430PN56146': ('12:26:23', '12:44:11'), 'MT430PN56148': ('16:29:18', '16:46:20'), 'MT430PN56150': ('15:21:36', '15:48:23'), 'MT430PN56152': ('17:24:34', '17:41:55'), 'MT430PN56153': ('12:06:43', '12:24:02'), 'MT430PN56155': ('15:30:24', '15:52:51'), 'MT430PN56156': ('12:16:09', '12:36:37'), 'MT430PN56161': ('16:10:43', '16:29:16'), 'MT430PN56164': ('13:38:12', '14:23:28'), 'MT430PN56165': ('16:06:06', '16:25:22'), 'MT430PN56167': ('09:50:02', '10:07:09'), 'MT430PN56170': ('13:30:06', '13:47:08')}}
+33 - /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/cleaned logs compiled
+!!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/cleaned logs compiled/109.log
+
+
+
+ self.ID =  MT430PN56009 
+
+
+
+!!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/cleaned logs compiled/111.log
+
+
+
+ self.ID =  MT430PN56111 
+
+
+
+!!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/cleaned logs compiled/113.log
+
+
+
+ self.ID =  MT430PN56113 
+
+
+
+!!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/cleaned logs compiled/116.log
+
+
+
+ self.ID =  MT430PN56016 
+
+
+
+!!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/cleaned logs compiled/121.log
+
+
+
+ self.ID =  MT430PN56121 
+
+
+
+!!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/cleaned logs compiled/122.log
+
+
+
+ self.ID =  MT430PN56122 
+
+
+
+!!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/cleaned logs compiled/123.log
+
+
+
+ self.ID =  MT430PN56123 
+
+
+
+!!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/cleaned logs compiled/125.log
+
+
+
+ self.ID =  MT430PN56125 
+
+
+
+!!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/cleaned logs compiled/145.log
+
+
+
+ self.ID =  MT430PN56145 
+
+
+
+!!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/cleaned logs compiled/147.log
+
+
+
+ self.ID =  MT430PN56147 
+
+
+
+!!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/cleaned logs compiled/148.log
+
+
+
+ self.ID =  MT430PN56148 
+
+
+
+!!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/cleaned logs compiled/150.log
+
+
+
+ self.ID =  MT430PN56150 
+
+
+
+!!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/cleaned logs compiled/151.log
+
+
+
+ self.ID =  MT430PN56151 
+
+
+
+!!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/cleaned logs compiled/152.log
+
+
+
+ self.ID =  MT430PN56152 
+
+
+
+!!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/cleaned logs compiled/153.log
+
+
+
+ self.ID =  MT430PN56153 
+
+
+
+!!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/cleaned logs compiled/154.log
+
+
+
+ self.ID =  MT430PN56154 
+
+
+
+!!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/cleaned logs compiled/155.log
+
+
+
+ self.ID =  MT430PN56155 
+
+
+
+!!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/cleaned logs compiled/156.log
+
+
+
+ self.ID =  MT430PN56156 
+
+
+
+!!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/cleaned logs compiled/160.log
+
+
+
+ self.ID =  MT430PN56160 
+
+
+
+!!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/cleaned logs compiled/161.log
+
+
+
+ self.ID =  MT430PN56161 
+
+
+
+!!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/cleaned logs compiled/162.log
+
+
+
+ self.ID =  MT430PN56162 
+
+
+
+!!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/cleaned logs compiled/163.log
+
+
+
+ self.ID =  MT430PN56163 
+
+
+
+!!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/cleaned logs compiled/164.log
+
+
+
+ self.ID =  MT430PN56164 
+
+
+
+!!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/cleaned logs compiled/165.log
+
+
+
+ self.ID =  MT430PN56165 
+
+
+
+!!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/cleaned logs compiled/166.log
+
+
+
+ self.ID =  MT430PN56166 
+
+
+
+!!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/cleaned logs compiled/167.log
+
+
+
+ self.ID =  MT430PN56167 
+
+
+
+!!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/cleaned logs compiled/168.log
+
+
+
+ self.ID =  MT430PN56168 
+
+
+
+!!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/cleaned logs compiled/169.log
+
+
+
+ self.ID =  MT430PN56169 
+
+
+
+!!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/cleaned logs compiled/170.log
+
+
+
+ self.ID =  MT430PN56170 
+
+
+
+!!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/cleaned logs compiled/172.log
+
+
+
+ self.ID =  MT430PN56172 
+
+
+
+!!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/cleaned logs compiled/173.log
+
+
+
+ self.ID =  MT430PN56173 
+
+
+
+!!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/cleaned logs compiled/174.log
+
+
+
+ self.ID =  MT430PN56174 
+
+
+
+!!!!!!!!! /home/rohit/Documents/Academics/UBC/RA-Project/Data/Data-2016/cleaned logs compiled/177.log
+
+
+
+ self.ID =  MT430PN56177 
+
+
+
+1st SG:	
+Initial Subgoal setting detected ... Processing
+Full View
+FullView end
+testing condition
+1st SG:	
+Initial Subgoal setting detected ... Processing
+Optional Subgoal setting detected ... Processing
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+testing condition
+1st SG:	
+Initial Subgoal setting detected ... Processing
+Optional Subgoal setting detected ... Processing
+Optional Subgoal setting detected ... Processing
+Optional Subgoal setting detected ... Processing
+Optional Subgoal setting detected ... Processing
+testing condition
+1st SG:	
+Initial Subgoal setting detected ... Processing
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+testing condition
+1st SG:	
+Initial Subgoal setting detected ... Processing
+Optional Subgoal setting detected ... Processing
+Full View
+FullView end
+testing condition
+1st SG:	
+Initial Subgoal setting detected ... Processing
+Optional Subgoal setting detected ... Processing
+testing condition
+1st SG:	
+Initial Subgoal setting detected ... Processing
+Optional Subgoal setting detected ... Processing
+Full View
+FullView end
+testing condition
+1st SG:	
+Initial Subgoal setting detected ... Processing
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+testing condition
+1st SG:	
+Initial Subgoal setting detected ... Processing
+testing condition
+1st SG:	
+Initial Subgoal setting detected ... Processing
+Optional Subgoal setting detected ... Processing
+Optional Subgoal setting detected ... Processing
+testing condition
+1st SG:	
+Initial Subgoal setting detected ... Processing
+Optional Subgoal setting detected ... Processing
+testing condition
+1st SG:	
+Initial Subgoal setting detected ... Processing
+Optional Subgoal setting detected ... Processing
+Optional Subgoal setting detected ... Processing
+Optional Subgoal setting detected ... Processing
+testing condition
+1st SG:	
+Initial Subgoal setting detected ... Processing
+Full View
+FullView end
+testing condition
+1st SG:	
+Initial Subgoal setting detected ... Processing
+Optional Subgoal setting detected ... Processing
+Optional Subgoal setting detected ... Processing
+Full View
+FullView end
+testing condition
+1st SG:	
+Initial Subgoal setting detected ... Processing
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+testing condition
+1st SG:	
+Initial Subgoal setting detected ... Processing
+Full View
+FullView end
+Full View
+FullView end
+testing condition
+1st SG:	
+Initial Subgoal setting detected ... Processing
+Optional Subgoal setting detected ... Processing
+Optional Subgoal setting detected ... Processing
+Optional Subgoal setting detected ... Processing
+Full View
+FullView end
+testing condition
+1st SG:	
+Initial Subgoal setting detected ... Processing
+Optional Subgoal setting detected ... Processing
+Full View
+FullView end
+testing condition
+1st SG:	
+Initial Subgoal setting detected ... Processing
+Optional Subgoal setting detected ... Processing
+Optional Subgoal setting detected ... Processing
+testing condition
+1st SG:	
+Initial Subgoal setting detected ... Processing
+Optional Subgoal setting detected ... Processing
+Optional Subgoal setting detected ... Processing
+Optional Subgoal setting detected ... Processing
+testing condition
+1st SG:	
+Initial Subgoal setting detected ... Processing
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+testing condition
+1st SG:	
+Initial Subgoal setting detected ... Processing
+testing condition
+1st SG:	
+Initial Subgoal setting detected ... Processing
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+testing condition
+1st SG:	
+Initial Subgoal setting detected ... Processing
+testing condition
+1st SG:	
+Initial Subgoal setting detected ... Processing
+Optional Subgoal setting detected ... Processing
+Full View
+FullView end
+testing condition
+1st SG:	
+Initial Subgoal setting detected ... Processing
+Optional Subgoal setting detected ... Processing
+Optional Subgoal setting detected ... Processing
+Optional Subgoal setting detected ... Processing
+Optional Subgoal setting detected ... Processing
+Optional Subgoal setting detected ... Processing
+testing condition
+1st SG:	
+Initial Subgoal setting detected ... Processing
+Optional Subgoal setting detected ... Processing
+Optional Subgoal setting detected ... Processing
+Optional Subgoal setting detected ... Processing
+testing condition
+1st SG:	
+Initial Subgoal setting detected ... Processing
+testing condition
+1st SG:	
+Initial Subgoal setting detected ... Processing
+testing condition
+1st SG:	
+Initial Subgoal setting detected ... Processing
+Optional Subgoal setting detected ... Processing
+Optional Subgoal setting detected ... Processing
+Optional Subgoal setting detected ... Processing
+Full View
+FullView end
+Full View
+FullView end
+testing condition
+1st SG:	
+Initial Subgoal setting detected ... Processing
+Optional Subgoal setting detected ... Processing
+Optional Subgoal setting detected ... Processing
+Optional Subgoal setting detected ... Processing
+Optional Subgoal setting detected ... Processing
+Optional Subgoal setting detected ... Processing
+Full View
+FullView end
+Full View
+FullView end
+Full View
+FullView end
+testing condition

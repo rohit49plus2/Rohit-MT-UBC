@@ -1,0 +1,507 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.1 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nyt/global//global/global}
+    \entry{azevedo2013using}{incollection}{}
+      \name{author}{7}{}{%
+        {{un=0,uniquepart=base,hash=34834e6fb79ca3b2e2eea3658b7e33de}{%
+           family={Azevedo},
+           familyi={A\bibinitperiod},
+           given={Roger},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=6ecfc3c2725557dc05eff0fd99432636}{%
+           family={Harley},
+           familyi={H\bibinitperiod},
+           given={Jason},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=ed82f1cea4686be9cf68fdd5c0c31338}{%
+           family={Trevors},
+           familyi={T\bibinitperiod},
+           given={Gregory},
+           giveni={G\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=72bd0935cc8734addc8700b72909032a}{%
+           family={Duffy},
+           familyi={D\bibinitperiod},
+           given={Melissa},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=83879a941feb38f9bc6fc30ba7d16e2d}{%
+           family={Feyzi-Behnagh},
+           familyi={F\bibinithyphendelim B\bibinitperiod},
+           given={Reza},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=55450cc2e503cf25b153673dc308f078}{%
+           family={Bouchet},
+           familyi={B\bibinitperiod},
+           given={François},
+           giveni={F\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=272e76b0babe503c86dfeb4e00101209}{%
+           family={Landis},
+           familyi={L\bibinitperiod},
+           given={Ronald},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{90eed476f6f4abaf79286118313ea5eb}
+      \strng{fullhash}{30e369209c05ab8d99b01448d7e78e37}
+      \strng{bibnamehash}{30e369209c05ab8d99b01448d7e78e37}
+      \strng{authorbibnamehash}{30e369209c05ab8d99b01448d7e78e37}
+      \strng{authornamehash}{90eed476f6f4abaf79286118313ea5eb}
+      \strng{authorfullhash}{30e369209c05ab8d99b01448d7e78e37}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{International handbook of metacognition and learning technologies}
+      \field{title}{Using trace data to examine the complex roles of cognitive, metacognitive, and emotional self-regulatory processes during learning with multi-agent systems}
+      \field{year}{2013}
+      \field{pages}{427\bibrangedash 449}
+      \range{pages}{23}
+    \endentry
+    \entry{baker2010better}{article}{}
+      \name{author}{4}{}{%
+        {{un=0,uniquepart=base,hash=62ead1a7c201d3b4bd5e04a83534ec2b}{%
+           family={Baker},
+           familyi={B\bibinitperiod},
+           given={Ryan\bibnamedelima SJd},
+           giveni={R\bibinitperiod\bibinitdelim S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=32d6285e726a28477d6765d58749dbad}{%
+           family={D'Mello},
+           familyi={D\bibinitperiod},
+           given={Sidney\bibnamedelima K},
+           giveni={S\bibinitperiod\bibinitdelim K\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=b063b7f27bc1c24eb8bd591fa6dc1147}{%
+           family={Rodrigo},
+           familyi={R\bibinitperiod},
+           given={Ma\bibnamedelima Mercedes\bibnamedelima T},
+           giveni={M\bibinitperiod\bibinitdelim M\bibinitperiod\bibinitdelim T\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=ac038e46a5c6248344db8f6ea61189d1}{%
+           family={Graesser},
+           familyi={G\bibinitperiod},
+           given={Arthur\bibnamedelima C},
+           giveni={A\bibinitperiod\bibinitdelim C\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Elsevier}%
+      }
+      \strng{namehash}{f45bf36989fa5409f0a437dbf58d44b6}
+      \strng{fullhash}{9917fb7ec7c57abfa1949430622728dd}
+      \strng{bibnamehash}{9917fb7ec7c57abfa1949430622728dd}
+      \strng{authorbibnamehash}{9917fb7ec7c57abfa1949430622728dd}
+      \strng{authornamehash}{f45bf36989fa5409f0a437dbf58d44b6}
+      \strng{authorfullhash}{9917fb7ec7c57abfa1949430622728dd}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{International Journal of Human-Computer Studies}
+      \field{number}{4}
+      \field{title}{Better to be frustrated than bored: The incidence, persistence, and impact of learners’ cognitive--affective states during interactions with three different computer-based learning environments}
+      \field{volume}{68}
+      \field{year}{2010}
+      \field{pages}{223\bibrangedash 241}
+      \range{pages}{19}
+    \endentry
+    \entry{carenini2004valuecharts}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=5d3c2a6a43c619967069a9836e461892}{%
+           family={Carenini},
+           familyi={C\bibinitperiod},
+           given={Giuseppe},
+           giveni={G\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=397bcfbe894116f5909e62f642692c5b}{%
+           family={Loyd},
+           familyi={L\bibinitperiod},
+           given={John},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{40a1c2ab68bbbe0f91b9465bac09c748}
+      \strng{fullhash}{79dc61c5ff9be1378585bc1c9cddb468}
+      \strng{bibnamehash}{79dc61c5ff9be1378585bc1c9cddb468}
+      \strng{authorbibnamehash}{79dc61c5ff9be1378585bc1c9cddb468}
+      \strng{authornamehash}{40a1c2ab68bbbe0f91b9465bac09c748}
+      \strng{authorfullhash}{79dc61c5ff9be1378585bc1c9cddb468}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the working conference on Advanced visual interfaces}
+      \field{title}{Valuecharts: analyzing linear models expressing preferences and evaluations}
+      \field{year}{2004}
+      \field{pages}{150\bibrangedash 157}
+      \range{pages}{8}
+    \endentry
+    \entry{grawemeyer2016affecting}{inproceedings}{}
+      \name{author}{6}{}{%
+        {{un=0,uniquepart=base,hash=0ec1baaa80e0a641156177774916663f}{%
+           family={Grawemeyer},
+           familyi={G\bibinitperiod},
+           given={Beate},
+           giveni={B\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=e14d3914d2e067554fedd7aac833f26a}{%
+           family={Mavrikis},
+           familyi={M\bibinitperiod},
+           given={Manolis},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=a90574ed2f941eaeae5fc37ec8e0f323}{%
+           family={Holmes},
+           familyi={H\bibinitperiod},
+           given={Wayne},
+           giveni={W\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=ad2e2ca74e431d80a3735618ef9a2a97}{%
+           family={Gutierrez-Santos},
+           familyi={G\bibinithyphendelim S\bibinitperiod},
+           given={Sergio},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=e5bd65c236c14ef5da1ae5df5dbfe009}{%
+           family={Wiedmann},
+           familyi={W\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=dcd16bd09f5a72ad96d43ca7d776b2ab}{%
+           family={Rummel},
+           familyi={R\bibinitperiod},
+           given={Nikol},
+           giveni={N\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{5636a3441ebf2f1bf500dd6313aeb00b}
+      \strng{fullhash}{177379b86c9b856247a81a282c0a9d99}
+      \strng{bibnamehash}{177379b86c9b856247a81a282c0a9d99}
+      \strng{authorbibnamehash}{177379b86c9b856247a81a282c0a9d99}
+      \strng{authornamehash}{5636a3441ebf2f1bf500dd6313aeb00b}
+      \strng{authorfullhash}{177379b86c9b856247a81a282c0a9d99}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the sixth international conference on learning analytics \& knowledge}
+      \field{title}{Affecting off-task behaviour: how affect-aware feedback can improve student learning}
+      \field{year}{2016}
+      \field{pages}{104\bibrangedash 113}
+      \range{pages}{10}
+    \endentry
+    \entry{jaques2014predicting}{inproceedings}{}
+      \name{author}{4}{}{%
+        {{un=0,uniquepart=base,hash=6c6ce620bdaa0c5ba7d696ca961868e5}{%
+           family={Jaques},
+           familyi={J\bibinitperiod},
+           given={Natasha},
+           giveni={N\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=ff6b7e814d34eadeb04aa7069d74fbee}{%
+           family={Conati},
+           familyi={C\bibinitperiod},
+           given={Cristina},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=47d03b8b4aa0f310a705d36bbac901da}{%
+           family={Harley},
+           familyi={H\bibinitperiod},
+           given={Jason\bibnamedelima M},
+           giveni={J\bibinitperiod\bibinitdelim M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=34834e6fb79ca3b2e2eea3658b7e33de}{%
+           family={Azevedo},
+           familyi={A\bibinitperiod},
+           given={Roger},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{organization}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{074721048c759cb5b749e81050136b49}
+      \strng{fullhash}{6d982927d34b6433f8fc2f669a25a371}
+      \strng{bibnamehash}{6d982927d34b6433f8fc2f669a25a371}
+      \strng{authorbibnamehash}{6d982927d34b6433f8fc2f669a25a371}
+      \strng{authornamehash}{074721048c759cb5b749e81050136b49}
+      \strng{authorfullhash}{6d982927d34b6433f8fc2f669a25a371}
+      \field{sortinit}{J}
+      \field{sortinithash}{b2f54a9081ace9966a7cb9413811edb4}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{International conference on intelligent tutoring systems}
+      \field{title}{Predicting affect from gaze data during interaction with an intelligent tutoring system}
+      \field{year}{2014}
+      \field{pages}{29\bibrangedash 38}
+      \range{pages}{10}
+    \endentry
+    \entry{lalle2018prediction}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=fe69bb7e582f2b31be8f948d1f44770b}{%
+           family={Lallé},
+           familyi={L\bibinitperiod},
+           given={Sébastien},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=ff6b7e814d34eadeb04aa7069d74fbee}{%
+           family={Conati},
+           familyi={C\bibinitperiod},
+           given={Cristina},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=34834e6fb79ca3b2e2eea3658b7e33de}{%
+           family={Azevedo},
+           familyi={A\bibinitperiod},
+           given={Roger},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{a842c8cac7e33de220a4acf081c2bd9c}
+      \strng{fullhash}{abb29d13e37a408331fd81bdddf33bd8}
+      \strng{bibnamehash}{abb29d13e37a408331fd81bdddf33bd8}
+      \strng{authorbibnamehash}{abb29d13e37a408331fd81bdddf33bd8}
+      \strng{authornamehash}{a842c8cac7e33de220a4acf081c2bd9c}
+      \strng{authorfullhash}{abb29d13e37a408331fd81bdddf33bd8}
+      \field{extraname}{1}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the 17th International Conference on Autonomous Agents and MultiAgent Systems}
+      \field{title}{Prediction of student achievement goals and emotion valence during interaction with pedagogical agents}
+      \field{year}{2018}
+      \field{pages}{1222\bibrangedash 1231}
+      \range{pages}{10}
+    \endentry
+    \entry{lalle2021predict}{inproceedings}{}
+      \name{author}{4}{}{%
+        {{un=0,uniquepart=base,hash=fe69bb7e582f2b31be8f948d1f44770b}{%
+           family={Lallé},
+           familyi={L\bibinitperiod},
+           given={Sébastien},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=3f7f9f77029f63f084058f9294ab5ba0}{%
+           family={Murali},
+           familyi={M\bibinitperiod},
+           given={Rohit},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=ff6b7e814d34eadeb04aa7069d74fbee}{%
+           family={Conati},
+           familyi={C\bibinitperiod},
+           given={Cristina},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=34834e6fb79ca3b2e2eea3658b7e33de}{%
+           family={Azevedo},
+           familyi={A\bibinitperiod},
+           given={Roger},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{a842c8cac7e33de220a4acf081c2bd9c}
+      \strng{fullhash}{ed088a56b674bd7701ab8915952cbbab}
+      \strng{bibnamehash}{ed088a56b674bd7701ab8915952cbbab}
+      \strng{authorbibnamehash}{ed088a56b674bd7701ab8915952cbbab}
+      \strng{authornamehash}{a842c8cac7e33de220a4acf081c2bd9c}
+      \strng{authorfullhash}{ed088a56b674bd7701ab8915952cbbab}
+      \field{extraname}{2}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the 22nd Conference on Artificial Intelligence in Education}
+      \field{title}{Predicting Co-Occurring Emotions from Eye-Tracking and Interaction Data in MetaTutor}
+      \field{year}{2021}
+    \endentry
+    \entry{sims2020neural}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=891cef212729eb9a48bf3b2ff0843d30}{%
+           family={Sims},
+           familyi={S\bibinitperiod},
+           given={Shane\bibnamedelima D},
+           giveni={S\bibinitperiod\bibinitdelim D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=ff6b7e814d34eadeb04aa7069d74fbee}{%
+           family={Conati},
+           familyi={C\bibinitperiod},
+           given={Cristina},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{589a380dc8e26e4c8c2c48d8bebe68e4}
+      \strng{fullhash}{0810ca143f1c79fd3069ff742fd657f3}
+      \strng{bibnamehash}{0810ca143f1c79fd3069ff742fd657f3}
+      \strng{authorbibnamehash}{0810ca143f1c79fd3069ff742fd657f3}
+      \strng{authornamehash}{589a380dc8e26e4c8c2c48d8bebe68e4}
+      \strng{authorfullhash}{0810ca143f1c79fd3069ff742fd657f3}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the 2020 International Conference on Multimodal Interaction}
+      \field{title}{A neural architecture for detecting user confusion in eye-tracking data}
+      \field{year}{2020}
+      \field{pages}{15\bibrangedash 23}
+      \range{pages}{9}
+    \endentry
+    \entry{woolf2009affect}{article}{}
+      \name{author}{6}{}{%
+        {{un=0,uniquepart=base,hash=3124ec0786098a46b7c6b5964ae3c650}{%
+           family={Woolf},
+           familyi={W\bibinitperiod},
+           given={Beverly},
+           giveni={B\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=38009f5678c1d76d1cabecfe51874c30}{%
+           family={Burleson},
+           familyi={B\bibinitperiod},
+           given={Winslow},
+           giveni={W\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=979b0c7ad49822e0541710ce55cdb297}{%
+           family={Arroyo},
+           familyi={A\bibinitperiod},
+           given={Ivon},
+           giveni={I\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=653856ff0efd170d0170b86a70f1b329}{%
+           family={Dragon},
+           familyi={D\bibinitperiod},
+           given={Toby},
+           giveni={T\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=55ce8a11ba5c4de991df997ca57511ac}{%
+           family={Cooper},
+           familyi={C\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=ac0de5814edee5857c479694c93b6b1a}{%
+           family={Picard},
+           familyi={P\bibinitperiod},
+           given={Rosalind},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Inderscience Publishers}%
+      }
+      \strng{namehash}{ba7ec9a8eb265dae1fe97e1ecc111df1}
+      \strng{fullhash}{3ae7797c1f426dc4ea434ff9843ba106}
+      \strng{bibnamehash}{3ae7797c1f426dc4ea434ff9843ba106}
+      \strng{authorbibnamehash}{3ae7797c1f426dc4ea434ff9843ba106}
+      \strng{authornamehash}{ba7ec9a8eb265dae1fe97e1ecc111df1}
+      \strng{authorfullhash}{3ae7797c1f426dc4ea434ff9843ba106}
+      \field{sortinit}{W}
+      \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{International Journal of Learning Technology}
+      \field{number}{3-4}
+      \field{title}{Affect-aware tutors: recognising and responding to student affect}
+      \field{volume}{4}
+      \field{year}{2009}
+      \field{pages}{129\bibrangedash 164}
+      \range{pages}{36}
+    \endentry
+    \entry{wortha2019multiple}{article}{}
+      \name{author}{4}{}{%
+        {{un=0,uniquepart=base,hash=97436773d7ecd57576a78533a4dd6adb}{%
+           family={Wortha},
+           familyi={W\bibinitperiod},
+           given={Franz},
+           giveni={F\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=34834e6fb79ca3b2e2eea3658b7e33de}{%
+           family={Azevedo},
+           familyi={A\bibinitperiod},
+           given={Roger},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=d3a240efdbdb50ae268dd6507fc8c4a7}{%
+           family={Taub},
+           familyi={T\bibinitperiod},
+           given={Michelle},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=3760c5c9cd7a7e1e1f6baeca9e963678}{%
+           family={Narciss},
+           familyi={N\bibinitperiod},
+           given={Susanne},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Frontiers}%
+      }
+      \strng{namehash}{b2b9254f6b4fb9522bf1b275b5f80c63}
+      \strng{fullhash}{5d1c670a74c235c12f3649fbd75f6fd0}
+      \strng{bibnamehash}{5d1c670a74c235c12f3649fbd75f6fd0}
+      \strng{authorbibnamehash}{5d1c670a74c235c12f3649fbd75f6fd0}
+      \strng{authornamehash}{b2b9254f6b4fb9522bf1b275b5f80c63}
+      \strng{authorfullhash}{5d1c670a74c235c12f3649fbd75f6fd0}
+      \field{sortinit}{W}
+      \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Frontiers in psychology}
+      \field{title}{Multiple negative emotions during learning with digital learning environments--Evidence on their detrimental effect on learning from two methodological approaches}
+      \field{volume}{10}
+      \field{year}{2019}
+      \field{pages}{2678}
+      \range{pages}{1}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
