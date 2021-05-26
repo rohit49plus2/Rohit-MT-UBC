@@ -1,4 +1,4 @@
-\documentclass[11pt,letterpaper]{article}
+\documentclass[10pt,letterpaper]{article}
 \usepackage{fullpage}
 \usepackage[top=3cm, bottom=2cm, left=2.5cm, right=2.5cm]{geometry}
 \usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
@@ -9,7 +9,7 @@
 \usepackage{graphicx}
 \usepackage{hyperref,booktabs}
 \usepackage{float}
-\linespread{1.3}
+\linespread{1}
 \usepackage{caption,subcaption}
 \usepackage{minted}
 \usepackage[T1]{fontenc}
@@ -18,6 +18,7 @@
 \usepackage{cleveref}
 \usepackage{enumitem}
 \usepackage[utf8]{inputenc}
+\usepackage{titlesec}
 \emergencystretch=1em
 
 \usepackage[style=authoryear-comp,maxbibnames=9,maxcitenames=1,uniquelist=false,backend=biber]{biblatex}
@@ -27,9 +28,18 @@
 
 \hypersetup{%
   colorlinks=true,
+  citecolor=purple,
   linkcolor=blue,
   linkbordercolor={0 0 1}
 }
+
+\setlength{\parindent}{1em}
+\setlength{\parskip}{.2em}
+
+\titlespacing*{\section}{0pt}{3ex}{1ex}
+\titlespacing*{\subsection}
+{0pt}{3ex}{3ex}
+
 
 \title{\huge \textbf{RPE Proposal}}
 \date{}
@@ -40,14 +50,27 @@
 
 \section{Background and Motivation}
 
-Emotions play a large part in learning. Studies  \autocite{baker2010better, wortha2019multiple} show that emotions can affect learning in Intelligent Tutoring Systems (ITSs). This encourages educators to design ITSs which can adapt to a student's emotions during their interaction \autocite{woolf2009affect, grawemeyer2016affecting}. These systems require detecting the user's affective state to an extent during learning, and there is research in this area that tries to predict emotion valence through interaction data \autocite{lalle2018prediction}, single emotion using eye-tracking data \autocite{jaques2014predicting,sims2020neural} and co-occurring emotions \autocite{lalle2021predict}. This proposal outlines a research idea focused on predicting co-occurring emotions during learning with the ITS, MetaTutor \autocite{azevedo2013using}. Prediction tasks with MetaTutor are usually done by collecting students' eye-tracking and interaction data. \autocite{lalle2021predict} predicts pairs of co-occurring emotions (Boredom and Frustration; Curiosity and Anxiety) using eye-tracking and interaction data with MetaTutor. This paper shows that eye-tracking and interaction data used in isolation can predict the co-occurrence of the two emotion pairs significantly better than a baseline. This work was done as part of an RA project that started in Winter Term 1 2020.
+Emotions play a large part in learning. Studies  \autocite{baker2010better, wortha2019multiple} show that emotions can affect learning in Intelligent Tutoring Systems (ITSs). This encourages educators to design ITSs which can adapt to a student's emotions during their interaction \autocite{woolf2009affect, grawemeyer2016affecting}. These systems require detecting the user's affective state to an extent during learning, and there is research in this area that tries to predict emotion valence \autocite{lalle2018prediction, salmeron2014evaluation}, single emotion \autocite{jaques2014predicting, sims2020neural, woolf2009affect, paquette2014sensor, sabourin2011modeling, lalle2016predicting} and co-occurring emotions \autocite{lalle2021predict}.
+We look specifically at the ITS, MetaTutor \autocite{azevedo2013using}, that delivers content about the circulatory system via text and diagrams, and includes mechanisms to support Self-Regulated Learning (SRL). Prediction tasks with MetaTutor are done by collecting students' eye-tracking and interaction data. During the interaction with Metatutor, users' gaze data are tracked with an eye-tracker. Users are asked regularly to report if they felt any of the Pekrun’s emotions \autocite{pekrun2014self}, by completing an Emotions and Value (EV) Questionnaire \autocite{azevedo2013using}.
+
+\cite{jaques2014predicting} works on predicting boredom and curiosity in a MetaTutor study using eye-tracking data. The eye-tracker used is the Tobii T60. The dataset (dataset A onward) has valid eye-tracking data for 270 EV reports and valid interaction data for 325 EV reports.
+\cite{lalle2021predict} looks at predicting pairs of co-occurring emotions (boredom and frustration; curiosity and anxiety) using eye-tracking and interaction data with MetaTutor. This work was done as part of my RA project that started in Winter Term 1 2020. The dataset used (dataset A from now on) was the same as in \cite{jaques2014predicting}. Our results show that eye-tracking and interaction data used in isolation can predict the co-occurrence of the two emotion pairs significantly better than a baseline classifier that predicts based on the probability distribution it sees in the training set. Further, classifiers trained on eye-tracking and interaction data individually complemented each-other depending on the target class.
+We also found that simple feature fusion of the two types of data did not improve performance over models trained on individual data sources.
+
+\cite{lalle2018prediction} works on predicting emotion-valence using eye-tracking data on a different MetaTutor study. The eye-tracker used in this study is the SMI RED 250. This dataset (dataset B onward) has valid eye-tracking for 126 EV reports and valid interaction data for 176 EV reports.
+For this RPE project, we will first extend the task of predicting co-occurring emotions using eye-tracking and interaction data in \cite{lalle2021predict} by combining dataset A and dataset B. We will then evaluate the efficacy of deep-learning and ensemble models for the task of predicting co-occurring emotions.
 
 \section{Proposed Project}
-We will extend the task of predicting co-occuring emotions using eye-tracking and interaction data in \autocite{lalle2021predict} by combining two datasets of different user studies with MetaTutor; the study used in \autocite{lalle2018prediction}, and the study used in \autocite{lalle2021predict} and \autocite{jaques2014predicting} with . Both studies involve university students who learn about the circulatory system through MetaTutor. The students' gazes are tracked with eye-trackers and asked to self-report their emotions at different stages of the experiment in both studies. The dataset in \autocite{lalle2021predict} has valid eye-tracking data for 270 self-reports and valid interaction data for 325 self-reports. The dataset in \autocite{lalle2018prediction} has valid eye-tracking for 126 self-reports and valid interaction data for 176 self-reports. The two studies are structurally similar, so it makes sense to attempt to merge the two datasets, however, there are variations among the studies that makes this task non-trivial. These include structural differences, such as the time intervals between emotion reports and number of emotion reports asked per student, and measurement differences, such as the type of eye-tracker used. We restrict our prediction tasks to pairs of co-occurring emotions as higher-order classification tasks might be too hard considering the limited size of the dataset. The first part of this RPE project involves identifying these differences in detail, coming up with a way to combine the two datasets, and choosing the right pair(s) of co-occurring emotions for prediction tasks, which may be different from those in \autocite{lalle2021predict}.
 
-With the larger dataset (\textit{MetaTutor dataset} onward), the next step of the RPE project is to deploy machine-learning models for the 4-way classification task related to the emotion pairs we decide are suitable. We will use the random forest (RF) and logistic regression (LR) classifiers used in \autocite{lalle2021predict} on the MetaTutor dataset as a baseline since they are the current existing standard in literature for the task of predicting co-occurring emotions. In \autocite{lalle2021predict}, we found that simple feature fusion of the two types of data did not improve performance. So we plan on investigating an ensemble classifier involving the RF and LR models trained on the different data sources, eye-tracking and interaction data. Moreover, with a larger dataset, deep-learning models may work well and so we will evaluate the performance of a fully-connected neural network and later VTnet \autocite{sims2020neural} compared to the ensemble and baseline classifiers.
+The two user studies for dataset A and dataset B are structurally similar, so it makes sense to attempt to combine the two datasets, however, there are variations among the studies that make this task non-trivial. These include structural differences, such as the time intervals between EV reports and the total number of EVs asked per student, and measurement differences, such as the type of eye-tracker used. The first part of this RPE project involves identifying these differences in detail and coming up with a way to combine the two datasets. Combining the two datasets would give us valid eye-tracking data for 396 EV reports and valid interaction data for 501 EV reports.
 
-The last part of the project involves investigating the feasibility of the VTnet architecture \autocite{sims2020neural}, used in a different context of users interacting with ValueChart \autocite{carenini2004valuecharts}, on the MetaTutor dataset. The VTnet architecture used in \autocite{sims2020neural} uses raw eye-tracking data, including scan-paths, to classify user confusion by connecting the outputs of an Recurrent Neural Network (RNN) and a Convolutional Neural Network (CNN) and sending them to a fully-connected neural network. This part of the project will involve a novel upgrade to the VTnet architecture by including both eye-tracking and interaction data as inputs to the network, and assessing its performance against the other models.
+
+With the larger dataset (\textit{MetaTutor dataset} onward), the next step of the RPE project is to deploy machine-learning models to predict co-occurring emotions. Choosing the right pair(s) of co-occurring emotions for prediction tasks depends on the distribution of the emotions for the MetaTutor dataset, which may be different from dataset A. We restrict our prediction tasks to pairs of co-occurring emotions as higher-order classification tasks might still be difficult considering the limited size of the dataset. Thus, we will look at 4-way classifications of an emotion pair just as in \cite{lalle2021predict}. We will use standard machine learning models such as random forest (RF), support-vector machine (SVM) and logistic regression (LR) classifiers as a baseline since they have been extensively used for affect detection \autocite{zeng2008survey} and have been used for the task of predicting co-occurring emotions \autocite{lalle2021predict}. We will implement and evaluate the performance of a fully-connected neural network against these baseline classifiers. This would be a first look at  deep-learning models to target the prediction of co-occurring emotions in ITS.
+
+Using interaction data and eye-tracking data has shown promise in affect detection \autocite{lalle2016predicting, lalle2021predict}. A limitation of \autocite{lalle2021predict} was that even though classifiers trained on either eye-tracking and interaction data worked well individually and complemented each other depending on the target-class, combining the two datasets through feature-fusion did not improve performance. So we plan on investigating ensemble classifiers involving the standard machine-learning models trained on the different data sources, eye-tracking and interaction data. An ensemble model could leverage the fact that models trained on the two sources complement each other and have high class accuracies for different classes.
+
+In \cite{sims2020neural}, user confusion is predicted using deep-learning models trained on raw sequences of eye-tracking data. Predictions are done in a different context of users interacting with ValueChart \autocite{carenini2004valuecharts}. The work features a Recurrent Neural-Network (RNN) trained on raw eye-tracking sequences, a Convolutional Neural-Network (CNN) trained on scan-paths, and an ensemble model, VTNet, combining the CNN and the RNN. The VTnet architecture in \cite{sims2020neural} works by connecting the outputs of the RNN and the CNN and forwarding them to a fully-connected neural network. They found that VTNet combines the strength of CNNs in spatial reasoning with the strength of RNNs in temporal reasoning and outperformed an existing RF model in literature \autocite{lalle2016predicting} in terms of accuracy.
+The last part of the project involves investigating the feasibility of the VTnet architecture used in \cite{sims2020neural} on the MetaTutor dataset. This involves a novel upgrade to the VTnet architecture by including both eye-tracking and interaction data as inputs to the network, and assessing its performance against the other models. This would be the first work that combines eye-tracking and interaction data in a deep-learning model for affect prediction.
 
 \section{Timeline}
 
@@ -56,7 +79,7 @@ A proposed timeline of the project will be as follows.
 \begin{itemize}
     \item \textbf{May to Mid-June:} Identify differences between the two datasets and understand how to combine them.
 
-    \item \textbf{Mid-June to Mid-July:} Evaluate performance of the ensemble model and the fully-connected neural network to the current models in literature, namely the RF and LR models in \autocite{lalle2021predict}.
+    \item \textbf{Mid-June to Mid-July:} Evaluate performance of the fully-connected neural network and the ensemble models and to the baseline models.
 
     \item \textbf{Mid-July to End-August:} Upgrade VTnet architecture to include interaction data and assess its performance.
 
