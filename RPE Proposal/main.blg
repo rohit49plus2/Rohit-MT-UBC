@@ -1,22 +1,23 @@
 [0] Config.pm:311> INFO - This is Biber 2.16
 [0] Config.pm:314> INFO - Logfile is 'main.blg'
-[72] biber:340> INFO - === Tue May 25, 2021, 01:07:31
-[88] Biber.pm:415> INFO - Reading 'main.bcf'
-[159] Biber.pm:952> INFO - Found 16 citekeys in bib section 0
-[173] Biber.pm:4340> INFO - Processing section 0
-[182] Biber.pm:4531> INFO - Looking for bibtex format file 'references.bib' for section 0
-[183] bibtex.pm:1689> INFO - LaTeX decoding ...
-[201] bibtex.pm:1494> INFO - Found BibTeX data source 'references.bib'
-[202] Utils.pm:395> WARN - Duplicate entry key: 'woolf2009affect' in file 'references.bib', skipping ...
-[312] Utils.pm:395> WARN - BibTeX subsystem: /tmp/biber_tmp_E_DZ/33e59b5ca9ec342068223d604c3f8d55_33621.utf8, line 79, warning: 1 characters of junk seen at toplevel
-[313] Utils.pm:395> WARN - BibTeX subsystem: /tmp/biber_tmp_E_DZ/33e59b5ca9ec342068223d604c3f8d55_33621.utf8, line 135, warning: 15 characters of junk seen at toplevel
-[313] Utils.pm:395> WARN - BibTeX subsystem: /tmp/biber_tmp_E_DZ/33e59b5ca9ec342068223d604c3f8d55_33621.utf8, line 145, warning: 38 characters of junk seen at toplevel
-[313] Utils.pm:395> WARN - BibTeX subsystem: /tmp/biber_tmp_E_DZ/33e59b5ca9ec342068223d604c3f8d55_33621.utf8, line 157, warning: 16 characters of junk seen at toplevel
-[313] Utils.pm:395> WARN - BibTeX subsystem: /tmp/biber_tmp_E_DZ/33e59b5ca9ec342068223d604c3f8d55_33621.utf8, line 167, warning: 44 characters of junk seen at toplevel
-[339] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[339] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
-[339] Biber.pm:4168> INFO - Sorting list 'nyt/global//global/global' of type 'entry' with template 'nyt' and locale 'en-US'
-[339] Biber.pm:4174> INFO - No sort tailoring available for locale 'en-US'
-[358] bbl.pm:654> INFO - Writing 'main.bbl' with encoding 'UTF-8'
-[371] bbl.pm:757> INFO - Output to main.bbl
-[372] Biber.pm:128> INFO - WARNINGS: 6
+[181] biber-MSWIN32:340> INFO - === 
+[245] Biber.pm:415> INFO - Reading 'main.bcf'
+[420] Biber.pm:952> INFO - Found 21 citekeys in bib section 0
+[438] Biber.pm:4340> INFO - Processing section 0
+[460] Biber.pm:4531> INFO - Looking for bibtex format file 'references.bib' for section 0
+[562] bibtex.pm:1689> INFO - LaTeX decoding ...
+[610] bibtex.pm:1494> INFO - Found BibTeX data source 'references.bib'
+[612] Utils.pm:395> WARN - Duplicate entry key: 'woolf2009affect' in file 'references.bib', skipping ...
+[812] Utils.pm:395> WARN - BibTeX subsystem: C:\Users\rohit\AppData\Local\Temp\biber_tmp_mT8k\33e59b5ca9ec342068223d604c3f8d55_4736.utf8, line 79, warning: 1 characters of junk seen at toplevel
+[813] Utils.pm:395> WARN - BibTeX subsystem: C:\Users\rohit\AppData\Local\Temp\biber_tmp_mT8k\33e59b5ca9ec342068223d604c3f8d55_4736.utf8, line 135, warning: 15 characters of junk seen at toplevel
+[813] Utils.pm:395> WARN - BibTeX subsystem: C:\Users\rohit\AppData\Local\Temp\biber_tmp_mT8k\33e59b5ca9ec342068223d604c3f8d55_4736.utf8, line 145, warning: 38 characters of junk seen at toplevel
+[813] Utils.pm:395> WARN - BibTeX subsystem: C:\Users\rohit\AppData\Local\Temp\biber_tmp_mT8k\33e59b5ca9ec342068223d604c3f8d55_4736.utf8, line 157, warning: 16 characters of junk seen at toplevel
+[813] Utils.pm:395> WARN - BibTeX subsystem: C:\Users\rohit\AppData\Local\Temp\biber_tmp_mT8k\33e59b5ca9ec342068223d604c3f8d55_4736.utf8, line 167, warning: 44 characters of junk seen at toplevel
+[813] Utils.pm:395> WARN - BibTeX subsystem: C:\Users\rohit\AppData\Local\Temp\biber_tmp_mT8k\33e59b5ca9ec342068223d604c3f8d55_4736.utf8, line 176, warning: 30 characters of junk seen at toplevel
+[860] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[860] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[860] Biber.pm:4168> INFO - Sorting list 'nyt/global//global/global' of type 'entry' with template 'nyt' and locale 'en-US'
+[860] Biber.pm:4174> INFO - No sort tailoring available for locale 'en-US'
+[898] bbl.pm:654> INFO - Writing 'main.bbl' with encoding 'UTF-8'
+[929] bbl.pm:757> INFO - Output to main.bbl
+[929] Biber.pm:128> INFO - WARNINGS: 7

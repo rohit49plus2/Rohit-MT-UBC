@@ -135,6 +135,39 @@
       \field{pages}{223\bibrangedash 241}
       \range{pages}{19}
     \endentry
+    \entry{bosch2014co}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=a15993ec694ccd2f4879437509e73dfa}{%
+           family={Bosch},
+           familyi={B\bibinitperiod},
+           given={Nigel},
+           giveni={N\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=e731ec4aa63bf98b1853f4e31701d45e}{%
+           family={D’Mello},
+           familyi={D\bibinitperiod},
+           given={Sidney},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{754eaf6abf3b2f8d93d2f125cd5faeae}
+      \strng{fullhash}{3d28aae136a4ff27c3772bcba0142c54}
+      \strng{bibnamehash}{3d28aae136a4ff27c3772bcba0142c54}
+      \strng{authorbibnamehash}{3d28aae136a4ff27c3772bcba0142c54}
+      \strng{authornamehash}{754eaf6abf3b2f8d93d2f125cd5faeae}
+      \strng{authorfullhash}{3d28aae136a4ff27c3772bcba0142c54}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the Workshop on AI-supported Education for Computer Science (AIEDCS) at the 12th International Conference on Intelligent Tutoring Systems}
+      \field{title}{Co-occurring affective states in automated computer programming education}
+      \field{year}{2014}
+      \field{pages}{21\bibrangedash 30}
+      \range{pages}{10}
+    \endentry
     \entry{carenini2004valuecharts}{inproceedings}{}
       \name{author}{2}{}{%
         {{un=0,uniquepart=base,hash=5d3c2a6a43c619967069a9836e461892}{%
@@ -167,6 +200,70 @@
       \field{year}{2004}
       \field{pages}{150\bibrangedash 157}
       \range{pages}{8}
+    \endentry
+    \entry{dillon2016student}{article}{}
+      \name{author}{7}{}{%
+        {{un=0,uniquepart=base,hash=c8f83224912f5a284bbf1a7b0ee2c485}{%
+           family={Dillon},
+           familyi={D\bibinitperiod},
+           given={John},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=a15993ec694ccd2f4879437509e73dfa}{%
+           family={Bosch},
+           familyi={B\bibinitperiod},
+           given={Nigel},
+           giveni={N\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=6c1557b3fd1c0bfc0a6363238e99ee54}{%
+           family={Chetlur},
+           familyi={C\bibinitperiod},
+           given={Malolan},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=8caa0773b59fe37a70c0740b82c112bc}{%
+           family={Wanigasekara},
+           familyi={W\bibinitperiod},
+           given={Nirandika},
+           giveni={N\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=b42398275b4fbd9544ce50b07aba5a01}{%
+           family={Ambrose},
+           familyi={A\bibinitperiod},
+           given={G\bibnamedelima Alex},
+           giveni={G\bibinitperiod\bibinitdelim A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=eb26cc59c2ca5535f535d9dc1cf33047}{%
+           family={Sengupta},
+           familyi={S\bibinitperiod},
+           given={Bikram},
+           giveni={B\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=32d6285e726a28477d6765d58749dbad}{%
+           family={D'Mello},
+           familyi={D\bibinitperiod},
+           given={Sidney\bibnamedelima K},
+           giveni={S\bibinitperiod\bibinitdelim K\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {ERIC}%
+      }
+      \strng{namehash}{bd0f9ae98fd68240cf448eece86a8e8f}
+      \strng{fullhash}{bf3c9e2d87b6442cacba797f56f7bb88}
+      \strng{bibnamehash}{bf3c9e2d87b6442cacba797f56f7bb88}
+      \strng{authorbibnamehash}{bf3c9e2d87b6442cacba797f56f7bb88}
+      \strng{authornamehash}{bd0f9ae98fd68240cf448eece86a8e8f}
+      \strng{authorfullhash}{bf3c9e2d87b6442cacba797f56f7bb88}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{International Educational Data Mining Society}
+      \field{title}{Student Emotion, Co-Occurrence, and Dropout in a MOOC Context.}
+      \field{year}{2016}
     \endentry
     \entry{grawemeyer2016affecting}{inproceedings}{}
       \name{author}{6}{}{%
@@ -224,6 +321,84 @@
       \field{year}{2016}
       \field{pages}{104\bibrangedash 113}
       \range{pages}{10}
+    \endentry
+    \entry{gutica2013student}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=e39d80cbe8e286bab221ca0f480eb19f}{%
+           family={Gutica},
+           familyi={G\bibinitperiod},
+           given={Mirela},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=ff6b7e814d34eadeb04aa7069d74fbee}{%
+           family={Conati},
+           familyi={C\bibinitperiod},
+           given={Cristina},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{organization}{1}{%
+        {IEEE}%
+      }
+      \strng{namehash}{b0a377a80a25f607bd91249be676edbf}
+      \strng{fullhash}{40a9a270129b020fcfc76472342a355d}
+      \strng{bibnamehash}{40a9a270129b020fcfc76472342a355d}
+      \strng{authorbibnamehash}{40a9a270129b020fcfc76472342a355d}
+      \strng{authornamehash}{b0a377a80a25f607bd91249be676edbf}
+      \strng{authorfullhash}{40a9a270129b020fcfc76472342a355d}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{2013 Humaine Association Conference on Affective Computing and Intelligent Interaction}
+      \field{title}{Student emotions with an edu-game: a detailed analysis}
+      \field{year}{2013}
+      \field{pages}{534\bibrangedash 539}
+      \range{pages}{6}
+    \endentry
+    \entry{harley2012measuring}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=47d03b8b4aa0f310a705d36bbac901da}{%
+           family={Harley},
+           familyi={H\bibinitperiod},
+           given={Jason\bibnamedelima M},
+           giveni={J\bibinitperiod\bibinitdelim M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=55450cc2e503cf25b153673dc308f078}{%
+           family={Bouchet},
+           familyi={B\bibinitperiod},
+           given={François},
+           giveni={F\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=34834e6fb79ca3b2e2eea3658b7e33de}{%
+           family={Azevedo},
+           familyi={A\bibinitperiod},
+           given={Roger},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{organization}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{808fe61ccf407e51efa774f484e087dd}
+      \strng{fullhash}{af30ac7149d92284ace033f4b1355ae4}
+      \strng{bibnamehash}{af30ac7149d92284ace033f4b1355ae4}
+      \strng{authorbibnamehash}{af30ac7149d92284ace033f4b1355ae4}
+      \strng{authornamehash}{808fe61ccf407e51efa774f484e087dd}
+      \strng{authorfullhash}{af30ac7149d92284ace033f4b1355ae4}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{International Conference on Intelligent Tutoring Systems}
+      \field{title}{Measuring learners’ co-occurring emotional responses during their interaction with a pedagogical agent in MetaTutor}
+      \field{year}{2012}
+      \field{pages}{40\bibrangedash 45}
+      \range{pages}{6}
     \endentry
     \entry{jaques2014predicting}{inproceedings}{}
       \name{author}{4}{}{%
@@ -616,6 +791,66 @@
       \field{year}{2020}
       \field{pages}{15\bibrangedash 23}
       \range{pages}{9}
+    \endentry
+    \entry{sinclair2018changes}{inproceedings}{}
+      \name{author}{6}{}{%
+        {{un=0,uniquepart=base,hash=555d9128f60806c261e7b86ef54e2c09}{%
+           family={Sinclair},
+           familyi={S\bibinitperiod},
+           given={Jeanne},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=bb47de0698c1d67ada10097112867642}{%
+           family={Jang},
+           familyi={J\bibinitperiod},
+           given={Eunice\bibnamedelima Eunhee},
+           giveni={E\bibinitperiod\bibinitdelim E\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=34834e6fb79ca3b2e2eea3658b7e33de}{%
+           family={Azevedo},
+           familyi={A\bibinitperiod},
+           given={Roger},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=cd6a68595728617b0c8f4fd0bb4f73d4}{%
+           family={Lau},
+           familyi={L\bibinitperiod},
+           given={Clarissa},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=d3a240efdbdb50ae268dd6507fc8c4a7}{%
+           family={Taub},
+           familyi={T\bibinitperiod},
+           given={Michelle},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=80021181e3cf107a7b185cd2f5928e6d}{%
+           family={Mudrick},
+           familyi={M\bibinitperiod},
+           given={Nicholas\bibnamedelima V},
+           giveni={N\bibinitperiod\bibinitdelim V\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{organization}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{a9a5f541a3cd725114bd8ce706b9b467}
+      \strng{fullhash}{5ea29215f4af8f739300401d7f535227}
+      \strng{bibnamehash}{5ea29215f4af8f739300401d7f535227}
+      \strng{authorbibnamehash}{5ea29215f4af8f739300401d7f535227}
+      \strng{authornamehash}{a9a5f541a3cd725114bd8ce706b9b467}
+      \strng{authorfullhash}{5ea29215f4af8f739300401d7f535227}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{International conference on intelligent tutoring systems}
+      \field{title}{Changes in emotion and their relationship with learning gains in the context of metatutor}
+      \field{year}{2018}
+      \field{pages}{202\bibrangedash 211}
+      \range{pages}{10}
     \endentry
     \entry{woolf2009affect}{article}{}
       \name{author}{6}{}{%
