@@ -8,8 +8,8 @@ def make_id_tuple(part_id,sc_id):
     return segID
 
 if year==2016:
-    eye_15s_name='/Eye_Tracking_Classes_2016/data_2016_15s_threshold'
-    eye_full_name='/Eye_Tracking_Classes_2016/data_2016_full_threshold'
+    eye_15s_name='/Eye_Tracking_Classes/data_2016_15s_threshold'
+    eye_full_name='/Eye_Tracking_Classes/data_2016_full_threshold'
     log_half_name='/Action Features Rohit 2016/test_file_rohit half' #temporarily keeping full
     log_full_name='/Action Features Rohit 2016/test_file_rohit full'
 for threshold in {3,4}:

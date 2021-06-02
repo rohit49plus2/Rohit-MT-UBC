@@ -64,10 +64,10 @@ with open (emotion_file, 'rt') as f:
 		EIV_count += 1
 
 #================
-f_full_threshold3 = open(dir_path+"/Eye_Tracking_Classes_2016/data_2016_full_threshold3.csv", "wt")
-f_full_threshold4 = open(dir_path+"/Eye_Tracking_Classes_2016/data_2016_full_threshold4.csv", "wt")
-f_15_threshold3 = open(dir_path+"/Eye_Tracking_Classes_2016/data_2016_15s_threshold3.csv", "wt")
-f_15_threshold4 = open(dir_path+"/Eye_Tracking_Classes_2016/data_2016_15s_threshold4.csv", "wt")
+f_full_threshold3 = open(dir_path+"/Eye_Tracking_Classes/data_2016_full_threshold3.csv", "wt")
+f_full_threshold4 = open(dir_path+"/Eye_Tracking_Classes/data_2016_full_threshold4.csv", "wt")
+f_15_threshold3 = open(dir_path+"/Eye_Tracking_Classes/data_2016_15s_threshold3.csv", "wt")
+f_15_threshold4 = open(dir_path+"/Eye_Tracking_Classes/data_2016_15s_threshold4.csv", "wt")
 
 
 #Full windows
