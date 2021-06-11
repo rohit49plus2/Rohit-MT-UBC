@@ -2,6 +2,7 @@
 import os.path
 import sys, time, datetime, calendar, csv
 import pandas as pd
+import numpy as np
 # List of user ID with valid data
 # MODIFIE ICI
 # ul = ["109", "111", "113", "121", "122", "123", "125", "145", "147", "148", "150", "151", "152", "153", "154", "155", "160", "161", "162", "163", "164", "165", "166", "167", "168", "169", "170", "173", "174", "177"] # removed 116 and 172 because invalid date for aois
@@ -23,7 +24,7 @@ ul1=['MT430PN56'+str(x) for x in ul1]
 ul1=['MT430PN56'+str(x) for x in ul2]
 ul=[*ul1, *ul2]
 #FOR 2016 set
-emotion_qs=["Q1-enjoying myself","Q2-hopeful","Q3-proud","Q12-curious","Q14-eureka","Q4-frustrated","Q5-anxious","Q6-ashamed","Q7-hopeless","Q8-bored","Q10-contempt","Q11-confused","Q13-sad","Q9-surprised","Q15-neutral","Q16-task is valuable","Q17-can do well on this task"] #List of emotion headings, we will iterate over this list to generate classes
+emotion_qs=["Q1-enjoying myself","Q2-hopeful","Q3-proud","Q12-curious","Q14-eureka","Q4-frustrated","Q5-anxious","Q6-ashamed","Q7-hopeless","Q8-bored","Q10-contempt","Q11-confused","Q13-sad","Q9-surprised","Q15-neutral","Q16-task is valuable"] #List of emotion headings, we will iterate over this list to generate classes
 emotion_qs.sort()
 emotions=[q.split('-')[1] for q in emotion_qs] #the emotion names
 
@@ -32,8 +33,8 @@ emotions=[q.split('-')[1] for q in emotion_qs] #the emotion names
 #
 # emotions=["Happy","Enjoyment","Hope","Pride","Curiosity","Eureka","Anger","Fear","Disgust","Frustration","Anxiety","Shame","Hopelessness","Boredom","Contempt","Confusion","Sadness","Surprise","Neutral","Task Value"]
 
-def emotion(emotionq):#returns the emotion label
-	return emotions[emotion_qs.index(emotionq)]
+def emotion_of(eq):#returns the emotion label
+	return emotions[emotion_qs.index(eq)]
 
 with open (emotion_file, 'rt') as f:
 	currentid = -1
@@ -54,13 +55,13 @@ with open (emotion_file, 'rt') as f:
 		threshold4[sc_id]=dict()
 		for emotionq in emotion_qs:
 			if int(row[emotionq])>=3:
-				(threshold3[sc_id])[emotion(emotionq)]=1
+				(threshold3[sc_id])[emotion_of(emotionq)]=1
 			else:
-				(threshold3[sc_id])[emotion(emotionq)]=0
+				(threshold3[sc_id])[emotion_of(emotionq)]=0
 			if int(row[emotionq])>=4:
-				(threshold4[sc_id])[emotion(emotionq)]=1
+				(threshold4[sc_id])[emotion_of(emotionq)]=1
 			else:
-				(threshold4[sc_id])[emotion(emotionq)]=0
+				(threshold4[sc_id])[emotion_of(emotionq)]=0
 		EIV_count += 1
 
 #================

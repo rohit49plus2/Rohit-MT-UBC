@@ -1,4 +1,10 @@
-from gen_classes import *
+from gen_classes2016 import *
+
+np.set_printoptions(threshold=sys.maxsize)
+pd.set_option('display.max_rows', None)
+pd.set_option('display.max_columns', None)
+pd.set_option('display.width', None)
+pd.set_option('display.max_colwidth', None)
 year = 2016
 
 def make_id_tuple(part_id,sc_id):
@@ -37,7 +43,28 @@ for threshold in {3,4}:
     merged_15s_full=eye_15s.merge(log_full,how='outer',on='key')
     merged_full_half=eye_full.merge(log_half,how='outer',on='key')
     merged_full_full=eye_full.merge(log_full,how='outer',on='key')
-    # print(merged_full_full.shape)
+
+    # print(merged_full_full.head())
+    # print(merged_full_full.isna().sum())
+    keys = list(merged_full_full['key'])
+    evreports=pd.read_csv(dir_path+'/2016 emotions reports.csv',delimiter=';')
+    for key in keys:
+        id = key[0]
+        n=key[1]
+        for emotionq in emotion_qs:
+            e=list(evreports[evreports['RawPID']==id][emotionq])
+            val = e[n-1]
+            if val >= threshold:
+                merged_15s_half.loc[merged_full_full['key']==key,emotion_of(emotionq)] = 1
+                merged_15s_full.loc[merged_full_full['key']==key,emotion_of(emotionq)] = 1
+                merged_full_half.loc[merged_full_full['key']==key,emotion_of(emotionq)] = 1
+                merged_full_full.loc[merged_full_full['key']==key,emotion_of(emotionq)] = 1
+            else:
+                merged_15s_half.loc[merged_full_full['key']==key,emotion_of(emotionq)] = 0
+                merged_15s_full.loc[merged_full_full['key']==key,emotion_of(emotionq)] = 0
+                merged_full_half.loc[merged_full_full['key']==key,emotion_of(emotionq)] = 0
+                merged_full_full.loc[merged_full_full['key']==key,emotion_of(emotionq)] = 0
+    # print(merged_full_full.isna().sum())
     merged_15s_half.to_pickle(dir_path+'/Combined_Data_2016/data_15s_half_'+str(threshold)+'.pkl')
     merged_15s_full.to_pickle(dir_path+'/Combined_Data_2016/data_15s_full_'+str(threshold)+'.pkl')
     merged_full_half.to_pickle(dir_path+'/Combined_Data_2016/data_full_half_'+str(threshold)+'.pkl')

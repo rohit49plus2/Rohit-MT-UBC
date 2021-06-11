@@ -30,7 +30,7 @@ emotion_qs=["Happy","Enjoyment","Hope","Pride","Curiosity","Eureka","Anger","Fea
 
 emotions=["Happy","Enjoyment","Hope","Pride","Curiosity","Eureka","Anger","Fear","Disgust","Frustration","Anxiety","Shame","Hopelessness","Boredom","Contempt","Confusion","Sadness","Surprise","Neutral","Task Value"]
 
-def emotion(emotionq):#returns the emotion label
+def emotion_of(emotionq):#returns the emotion label
 	return emotions[emotion_qs.index(emotionq)]
 
 with open (emotion_file, 'rt') as f:
@@ -52,13 +52,13 @@ with open (emotion_file, 'rt') as f:
 		threshold4[sc_id]=dict()
 		for emotionq in emotion_qs:
 			if int(row[emotionq])>=3:
-				(threshold3[sc_id])[emotion(emotionq)]=1
+				(threshold3[sc_id])[emotion_of(emotionq)]=1
 			else:
-				(threshold3[sc_id])[emotion(emotionq)]=0
+				(threshold3[sc_id])[emotion_of(emotionq)]=0
 			if int(row[emotionq])>=4:
-				(threshold4[sc_id])[emotion(emotionq)]=1
+				(threshold4[sc_id])[emotion_of(emotionq)]=1
 			else:
-				(threshold4[sc_id])[emotion(emotionq)]=0
+				(threshold4[sc_id])[emotion_of(emotionq)]=0
 		EIV_count += 1
 
 #================
