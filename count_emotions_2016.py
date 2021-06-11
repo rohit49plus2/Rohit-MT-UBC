@@ -29,7 +29,7 @@ for y in ['2014','2016']:
     #Get classes
     class_file = dir_path+"/Combined_Data_"+y+"/data_full_full_"+t+".pkl"
     data[y]=pd.read_pickle(class_file)
-    data[y]=data[y].drop(['Part_id','Sc_id', 'ID','Group', 'Name','Gender','Age','Ethnicity','Education','GPA','Major','School','Courses'], axis=1)
+    data[y]=data[y].drop(['Part_id','Sc_id', 'ID','Group', 'Name','Gender','Age','Ethnicity','Education','GPA','Major','School','Courses','#Courses'], axis=1)
     data[y] = data[y].apply(pd.to_numeric, errors='ignore', downcast = 'float')
     if y=='2016':
         extras = ['endpupilsize', 'fixationsaccadetimeratio', 'longestsaccadedistance', 'longestsaccadeduration', 'maxpupilsize', 'maxpupilvelocity', 'maxsaccadespeed', 'meanpupilsize', 'meanpupilvelocity', 'meansaccadedistance', 'meansaccadeduration', 'meansaccadespeed', 'minpupilsize', 'minpupilvelocity', 'minsaccadespeed', 'numsaccades', 'startpupilsize', 'stddevpupilsize', 'stddevpupilvelocity', 'stddevsaccadedistance', 'stddevsaccadeduration', 'stddevsaccadespeed', 'sumsaccadedistance', 'sumsaccadeduration']
@@ -51,16 +51,25 @@ print(df.shape)
 # print(data['2014'].isnull().sum())
 # print(data['2016'].isnull().sum())
 
-log_14=data['2014'][data['2014'].columns[-47:]]
-eye_14=data['2014'][data['2014'].columns[:409]]
+log_14=data['2014'][data['2014'].columns[-46:]]
+eye_14=data['2014'][data['2014'].columns[1:409]]
 
-log_16=data['2016'][data['2016'].columns[-47:]]
-eye_16=data['2016'][data['2016'].columns[:409]]
+log_16=data['2016'][data['2016'].columns[-46:]]
+eye_16=data['2016'][data['2016'].columns[1:409]]
 
-print(eye_16.columns[-1])
+print("log features\n\n")
+for c in log_14.columns:
+    print(c)
+    print("2014:",log_14[c].mean(), "+- ", log_14[c].std())
+    print("2016:",log_16[c].mean(), "+- ", log_16[c].std())
+print("eye features\n\n")
+for c in eye_14.columns:
+    print(c)
+    print("2014:",eye_14[c].mean(), "+- ", eye_14[c].std())
+    print("2016:",eye_16[c].mean(), "+- ", eye_16[c].std())
 
-compare = datacompy.Compare(eye_14,eye_16,join_columns='key', abs_tol=0, df1_name='2014',df2_name='2016' )
-print(compare.report())
+compare = datacompy.Compare(eye_14,eye_16,join_columns='abspathanglesrate', df1_name='2014',df2_name='2016')
+# print(compare.report())
 
 
 emotion_percent=dict()
@@ -102,12 +111,14 @@ for pair in relative_co_occur_percent:
 	acop.append(absolute_co_occur_percent[pair])
 cop['Emotion 1']=fe
 cop['Emotion 2']=se
-cop['Relative Coocurring percent']=rcop
-cop['Absolute Coocurring percent']=acop
+cop['Relative Cooccurring percent']=rcop
+cop['Absolute Cooccurring percent']=acop
 # print(emotion_percent)
 ep=pd.DataFrame()
 ep['Emotion']=emotion_percent.keys()
 ep['Percentage']=list(emotion_percent.values())
 ep=ep.sort_values(['Percentage'],ascending=False)
-# print(cop.head(30))
-# print(ep)
+ep = ep.set_index('Emotion')
+cop = cop.set_index('Emotion 1')
+# print(ep.round(2).to_latex())
+# print(cop.sort_values(['Absolute Cooccurring percent'],ascending = False).head(20).round(2).to_latex())
