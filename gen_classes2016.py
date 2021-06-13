@@ -6,7 +6,6 @@ import numpy as np
 # List of user ID with valid data
 # MODIFIE ICI
 # ul = ["109", "111", "113", "121", "122", "123", "125", "145", "147", "148", "150", "151", "152", "153", "154", "155", "160", "161", "162", "163", "164", "165", "166", "167", "168", "169", "170", "173", "174", "177"] # removed 116 and 172 because invalid date for aois
-
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
 #Get classes
@@ -22,7 +21,7 @@ ul1=eye1['Part_id'].unique()
 ul2=eye2['Part_id'].unique()
 ul1=['MT430PN56'+str(x) for x in ul1]
 ul1=['MT430PN56'+str(x) for x in ul2]
-ul=[*ul1, *ul2]
+ul = [*ul1, *ul2]
 #FOR 2016 set
 emotion_qs=["Q1-enjoying myself","Q2-hopeful","Q3-proud","Q12-curious","Q14-eureka","Q4-frustrated","Q5-anxious","Q6-ashamed","Q7-hopeless","Q8-bored","Q10-contempt","Q11-confused","Q13-sad","Q9-surprised","Q15-neutral","Q16-task is valuable"] #List of emotion headings, we will iterate over this list to generate classes
 emotion_qs.sort()

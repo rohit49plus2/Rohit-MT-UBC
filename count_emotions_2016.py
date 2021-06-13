@@ -19,10 +19,10 @@ from gen_classes import emotions
 from gen_classes2016 import emotions as emotions2016
 
 d = {'enjoying myself':'Enjoyment', 'contempt': 'Contempt', 'confused':'Confusion', 'curious':'Curiosity', 'sad':'Sadness', 'eureka':'Eureka', 'neutral':'Neutral','task is valuable':'Task Value', 'hopeful':'Hope', 'proud':'Pride','frustrated': 'Frustration', 'anxious': 'Anxiety', 'ashamed': 'Shame', 'hopeless':'Hopelessness', 'bored': 'Boredom', 'surprised':'Surprise'}
-#no neutral,disgust, fear, anger
+#no happy,disgust, fear, anger
 
 
-t = 4 #threshold
+t = 3 #threshold
 t=str(t)
 data = {'2014':0,'2016':0}
 for y in ['2014','2016']:
@@ -120,5 +120,5 @@ ep['Percentage']=list(emotion_percent.values())
 ep=ep.sort_values(['Percentage'],ascending=False)
 ep = ep.set_index('Emotion')
 cop = cop.set_index('Emotion 1')
-# print(ep.round(2).to_latex())
-# print(cop.sort_values(['Absolute Cooccurring percent'],ascending = False).head(20).round(2).to_latex())
+print(ep.round(2).to_latex())
+print(cop.sort_values(['Absolute Cooccurring percent'],ascending = False).head(20).round(2).to_latex())
