@@ -22,14 +22,14 @@ d = {'enjoying myself':'Enjoyment', 'contempt': 'Contempt', 'confused':'Confusio
 #no happy,disgust, fear, anger
 
 
-t = 3 #threshold
+t = 4 #threshold
 t=str(t)
 data = {'2014':0,'2016':0}
 for y in ['2014','2016']:
     #Get classes
     class_file = dir_path+"/Combined_Data_"+y+"/data_full_full_"+t+".pkl"
     data[y]=pd.read_pickle(class_file)
-    data[y]=data[y].drop(['Part_id','Sc_id', 'ID','Group', 'Name','Gender','Age','Ethnicity','Education','GPA','Major','School','Courses','#Courses'], axis=1)
+    data[y]=data[y].drop(['Part_id','Sc_id', 'ID','Group', 'Name','Gender','Age','Ethnicity','Education','GPA','Major','School','Courses','#Courses', 'Mean # of SRL processes per relevant page while on SG0', 'Mean # of SRL processes per relevant page while on SG1','DurationDay2InSecs'], axis=1)
     data[y] = data[y].apply(pd.to_numeric, errors='ignore', downcast = 'float')
     if y=='2016':
         extras = ['endpupilsize', 'fixationsaccadetimeratio', 'longestsaccadedistance', 'longestsaccadeduration', 'maxpupilsize', 'maxpupilvelocity', 'maxsaccadespeed', 'meanpupilsize', 'meanpupilvelocity', 'meansaccadedistance', 'meansaccadeduration', 'meansaccadespeed', 'minpupilsize', 'minpupilvelocity', 'minsaccadespeed', 'numsaccades', 'startpupilsize', 'stddevpupilsize', 'stddevpupilvelocity', 'stddevsaccadedistance', 'stddevsaccadeduration', 'stddevsaccadespeed', 'sumsaccadedistance', 'sumsaccadeduration']
@@ -51,24 +51,41 @@ print(df.shape)
 # print(data['2014'].isnull().sum())
 # print(data['2016'].isnull().sum())
 
-log_14=data['2014'][data['2014'].columns[-46:]]
+log_14=data['2014'][data['2014'].columns[-43:]]
 eye_14=data['2014'][data['2014'].columns[1:409]]
 
-log_16=data['2016'][data['2016'].columns[-46:]]
+log_16=data['2016'][data['2016'].columns[-43:]]
 eye_16=data['2016'][data['2016'].columns[1:409]]
+
+log_16 = log_16[log_16['Session duration']<10000]
+
+log_14 = log_14.dropna(thresh=40)
+eye_14 = eye_14.dropna(thresh=40)
+log_16 = log_16.dropna(thresh=40)
+eye_16 = eye_16.dropna(thresh=40)
+
+# print(log_14.isnull().sum())
+# print(eye_14.isnull().sum())
+# print(log_16.isnull().sum())
+# print(eye_16.isnull().sum())
+
+eye=pd.DataFrame(columns=['Feature','2014 Mean', '2014 Std', '2016 Mean', '2016 Std','Ratio of Means'])
+log=pd.DataFrame(columns=['Feature','2014 Mean', '2014 Std', '2016 Mean', '2016 Std','Ratio of Means'])
+
 
 print("log features\n\n")
 for c in log_14.columns:
-    print(c)
-    print("2014:",log_14[c].mean(), "+- ", log_14[c].std())
-    print("2016:",log_16[c].mean(), "+- ", log_16[c].std())
+    log.loc[len(log)] = [c,log_14[c].mean(),log_14[c].std(),log_16[c].mean(),log_16[c].std(),max(log_14[c].mean(),log_16[c].mean())/min(log_14[c].mean(),log_16[c].mean())]
 print("eye features\n\n")
 for c in eye_14.columns:
-    print(c)
-    print("2014:",eye_14[c].mean(), "+- ", eye_14[c].std())
-    print("2016:",eye_16[c].mean(), "+- ", eye_16[c].std())
+    eye.loc[len(eye)] = [c,eye_14[c].mean(),eye_14[c].std(),eye_16[c].mean(),eye_16[c].std(),max(eye_14[c].mean(),eye_16[c].mean())/min(eye_14[c].mean(),eye_16[c].mean())]
 
-compare = datacompy.Compare(eye_14,eye_16,join_columns='abspathanglesrate', df1_name='2014',df2_name='2016')
+eye = eye[(eye['2014 Std']!=0) & (eye['2016 Std']!=0)]
+log = log[(log['2014 Std']!=0) & (log['2016 Std']!=0)]
+
+print(log)
+
+# compare = datacompy.Compare(eye_14,eye_16,join_columns='abspathanglesrate', df1_name='2014',df2_name='2016')
 # print(compare.report())
 
 
@@ -98,7 +115,6 @@ with open(dir_path+'/stats/absolute_co_occur_percent_emotion_percentages_'+y+'_'
 # pprint.pprint(relative_co_occur_percent)
 # pprint.pprint(absolute_co_occur_percent)
 
-import pandas as pd
 cop=pd.DataFrame()
 fe=[]
 se=[]
@@ -120,5 +136,5 @@ ep['Percentage']=list(emotion_percent.values())
 ep=ep.sort_values(['Percentage'],ascending=False)
 ep = ep.set_index('Emotion')
 cop = cop.set_index('Emotion 1')
-print(ep.round(2).to_latex())
-print(cop.sort_values(['Absolute Cooccurring percent'],ascending = False).head(20).round(2).to_latex())
+# print(ep.round(2).to_latex())
+# print(cop.sort_values(['Absolute Cooccurring percent'],ascending = False).head(20).round(2).to_latex())
