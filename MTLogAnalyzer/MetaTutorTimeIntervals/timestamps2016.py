@@ -87,4 +87,6 @@ for index in range(data.shape[0]):
         time_zero = datetime.datetime.strptime(time_zero, format)
         t.append((time_curr_eiv - time_zero).seconds)
 
-print(sum(t)/len(t))
+
+# print(np.mean(t))
+# print(np.std(t))
