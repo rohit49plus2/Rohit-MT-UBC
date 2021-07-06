@@ -52,10 +52,10 @@ print(df.shape)
 # print(data['2016'].isnull().sum())
 
 log_14=data['2014'][data['2014'].columns[-41:]]
-eye_14=data['2014'][data['2014'].columns[1:409]]
+eye_14=data['2014'][data['2014'].columns[0:409]]
 
 log_16=data['2016'][data['2016'].columns[-41:]]
-eye_16=data['2016'][data['2016'].columns[1:409]]
+eye_16=data['2016'][data['2016'].columns[0:409]]
 
 for c in eye_16.columns:
     if 'timeto' in c or 'keypressedrate' in c or 'leftclicrate' in c:
@@ -75,7 +75,9 @@ eye_14 = eye_14.dropna(thresh=40)
 log_16 = log_16.dropna(thresh=40)
 eye_16 = eye_16.dropna(thresh=40)
 
-# print(log_16['Session duration'])
+# print(log_16['Note Taking Duration'])
+# print(eye_16.loc[:,['key','length']])
+print(eye_14.loc[:,['key','length']])
 
 # print(log_14.isnull().sum())
 # print(eye_14.isnull().sum())
