@@ -40,11 +40,12 @@ for file in os.listdir(eye_path):
 
 format1 = "%H:%M:%S"
 format2 = " %I:%M:%S %p"
-
+ids=[]
 for pair in start_times.keys():
     id = pair[0]
     ev_num=pair[1]
     if ev_num ==1:
+        ids.append(id)
         fsegoutfull = open("/home/rohit/Documents/Academics/UBC/RA-Project/MetaTutor - study data/Data 2014/EIV_window_segs/full_window/EIVsegs_"+str(id)+".segs", "w") # open new output segment file
         start_session = datetime.datetime.strptime(eye_start[id],format2)
         start_time=start_session
@@ -55,3 +56,5 @@ for pair in start_times.keys():
     end_time_corrected = (end_time - start_session).seconds*1000
     segname = "EIVreport_"+str(ev_num)+"_"+str(end_time_corrected)
     fsegoutfull.write(segname+"\t"+segname+"\t"+str(start_time_full)+"\t"+str(end_time_corrected)+"\n")
+
+print(ids)
