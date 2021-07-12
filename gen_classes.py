@@ -13,13 +13,13 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 emotion_file = dir_path+"/EmotionReportData2014.csv"
 threshold3=dict()
 threshold4=dict()
-eye_file1=dir_path+"/Eye_Tracking/sample_features_MetaTutor2014_EVfullwindow_6.tsv"
+eye_file1=dir_path+"/Eye_Tracking_Corrected/sample_features_MetaTutor2014_EVfullwindow.tsv"
 eye1=pd.read_csv(eye_file1,delimiter='\t')
-eye_file2=dir_path+"/Eye_Tracking/sample_features_MetaTutor2014_EV15swindow_6.tsv"
-eye2=pd.read_csv(eye_file2,delimiter='\t')
+# eye_file2=dir_path+"/Eye_Tracking/sample_features_MetaTutor2014_EV15swindow_6.tsv"
+# eye2=pd.read_csv(eye_file2,delimiter='\t')
 ul1=eye1['Part_id'].unique()
-ul2=eye2['Part_id'].unique()
-ul=[*ul1, *ul2]
+# ul2=eye2['Part_id'].unique()
+ul=[*ul1]
 #FOR 2016 set
 # emotion_qs=["Q1-enjoying myself","Q2-hopeful","Q3-proud","Q12-curious","Q14-eureka","Q4-frustrated","Q5-anxious","Q6-ashamed","Q7-hopeless","Q8-bored","Q10-contempt","Q11-confused","Q13-sad","Q9-surprised","Q15-neutral","Q16-task is valuable","Q17-can do well on this task"] #List of emotion headings, we will iterate over this list to generate classes
 # emotion_qs.sort()
@@ -62,15 +62,15 @@ with open (emotion_file, 'rt') as f:
 		EIV_count += 1
 
 #================
-f_full_threshold3 = open(dir_path+"/Eye_Tracking_Classes/data_2014_full_threshold3.csv", "wt")
-f_full_threshold4 = open(dir_path+"/Eye_Tracking_Classes/data_2014_full_threshold4.csv", "wt")
-f_15_threshold3 = open(dir_path+"/Eye_Tracking_Classes/data_2014_15s_threshold3.csv", "wt")
-f_15_threshold4 = open(dir_path+"/Eye_Tracking_Classes/data_2014_15s_threshold4.csv", "wt")
+f_full_threshold3 = open(dir_path+"/Eye_Tracking_Classes_Corrected/data_2014_full_threshold3.csv", "wt")
+f_full_threshold4 = open(dir_path+"/Eye_Tracking_Classes_Corrected/data_2014_full_threshold4.csv", "wt")
+# f_15_threshold3 = open(dir_path+"/Eye_Tracking_Classes/data_2014_15s_threshold3.csv", "wt")
+# f_15_threshold4 = open(dir_path+"/Eye_Tracking_Classes/data_2014_15s_threshold4.csv", "wt")
 
 
 #Full windows
 # MODIFIE ICI
-with open (dir_path+"/Eye_Tracking/sample_features_MetaTutor2014_EVfullwindow_6.tsv", 'rt') as f_full:
+with open (dir_path+"/Eye_Tracking_Corrected/sample_features_MetaTutor2014_EVfullwindow.tsv", 'rt') as f_full:
 	for line in f_full:
 		if line.find("Sc_id")>-1: #first line
 			f_full_threshold3.write(line.strip())
@@ -97,29 +97,29 @@ with open (dir_path+"/Eye_Tracking/sample_features_MetaTutor2014_EVfullwindow_6.
 		f_full_threshold3.write("\n")
 		f_full_threshold4.write("\n")
 
-with open (dir_path+"/Eye_Tracking/sample_features_MetaTutor2014_EV15swindow_6.tsv", 'rt') as f_15:
-	for line in f_15:
-		if line.find("Sc_id")>-1: #first line
-			f_15_threshold3.write(line.strip())
-			f_15_threshold4.write(line.strip())
-			for emotion in emotions:
-				f_15_threshold3.write("\t"+emotion)
-				f_15_threshold4.write("\t"+emotion)
-			f_15_threshold3.write("\n")
-			f_15_threshold4.write("\n")
-			continue
-
-		if line.find("_allsc")>-1: #ignore AVERAGE lines
-			continue
-
-		part_id=line.strip().split("\t")[0]
-		q = line.strip().split("\t")[1] #get segment ID (sc_id)
-		eiv_num = int(q.split('_')[1])
-		segID = (part_id,eiv_num)
-		f_15_threshold3.write(line.strip())
-		f_15_threshold4.write(line.strip())
-		for emotion in emotions:
-			f_15_threshold3.write("\t"+str(threshold3[segID][emotion]))
-			f_15_threshold4.write("\t"+str(threshold4[segID][emotion]))
-		f_15_threshold3.write("\n")
-		f_15_threshold4.write("\n")
+# with open (dir_path+"/Eye_Tracking/sample_features_MetaTutor2014_EV15swindow_6.tsv", 'rt') as f_15:
+# 	for line in f_15:
+# 		if line.find("Sc_id")>-1: #first line
+# 			f_15_threshold3.write(line.strip())
+# 			f_15_threshold4.write(line.strip())
+# 			for emotion in emotions:
+# 				f_15_threshold3.write("\t"+emotion)
+# 				f_15_threshold4.write("\t"+emotion)
+# 			f_15_threshold3.write("\n")
+# 			f_15_threshold4.write("\n")
+# 			continue
+#
+# 		if line.find("_allsc")>-1: #ignore AVERAGE lines
+# 			continue
+#
+# 		part_id=line.strip().split("\t")[0]
+# 		q = line.strip().split("\t")[1] #get segment ID (sc_id)
+# 		eiv_num = int(q.split('_')[1])
+# 		segID = (part_id,eiv_num)
+# 		f_15_threshold3.write(line.strip())
+# 		f_15_threshold4.write(line.strip())
+# 		for emotion in emotions:
+# 			f_15_threshold3.write("\t"+str(threshold3[segID][emotion]))
+# 			f_15_threshold4.write("\t"+str(threshold4[segID][emotion]))
+# 		f_15_threshold3.write("\n")
+# 		f_15_threshold4.write("\n")

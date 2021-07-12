@@ -13,15 +13,15 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 emotion_file = dir_path+"/2016 emotions reports.csv"
 threshold3=dict()
 threshold4=dict()
-eye_file1=dir_path+"/Eye_Tracking/smi_sample_features_full.tsv"
+eye_file1=dir_path+"/Eye_Tracking_Corrected/smi_sample_features_full.tsv"
 eye1=pd.read_csv(eye_file1,delimiter='\t')
-eye_file2=dir_path+"/Eye_Tracking/smi_sample_features_15s.tsv"
-eye2=pd.read_csv(eye_file2,delimiter='\t')
+# eye_file2=dir_path+"/Eye_Tracking/smi_sample_features_15s.tsv"
+# eye2=pd.read_csv(eye_file2,delimiter='\t')
 ul1=eye1['Part_id'].unique()
-ul2=eye2['Part_id'].unique()
+# ul2=eye2['Part_id'].unique()
 ul1=['MT430PN56'+str(x) for x in ul1]
-ul1=['MT430PN56'+str(x) for x in ul2]
-ul = [*ul1, *ul2]
+# ul2=['MT430PN56'+str(x) for x in ul2]
+ul = [*ul1]
 #FOR 2016 set
 emotion_qs=["Q1-enjoying myself","Q2-hopeful","Q3-proud","Q12-curious","Q14-eureka","Q4-frustrated","Q5-anxious","Q6-ashamed","Q7-hopeless","Q8-bored","Q10-contempt","Q11-confused","Q13-sad","Q9-surprised","Q15-neutral","Q16-task is valuable"] #List of emotion headings, we will iterate over this list to generate classes
 emotion_qs.sort()
@@ -64,10 +64,10 @@ with open (emotion_file, 'rt') as f:
 		EIV_count += 1
 
 #================
-f_full_threshold3 = open(dir_path+"/Eye_Tracking_Classes/data_2016_full_threshold3.csv", "wt")
-f_full_threshold4 = open(dir_path+"/Eye_Tracking_Classes/data_2016_full_threshold4.csv", "wt")
-f_15_threshold3 = open(dir_path+"/Eye_Tracking_Classes/data_2016_15s_threshold3.csv", "wt")
-f_15_threshold4 = open(dir_path+"/Eye_Tracking_Classes/data_2016_15s_threshold4.csv", "wt")
+f_full_threshold3 = open(dir_path+"/Eye_Tracking_Classes_Corrected/data_2016_full_threshold3.csv", "wt")
+f_full_threshold4 = open(dir_path+"/Eye_Tracking_Classes_Corrected/data_2016_full_threshold4.csv", "wt")
+# f_15_threshold3 = open(dir_path+"/Eye_Tracking_Classes/data_2016_15s_threshold3.csv", "wt")
+# f_15_threshold4 = open(dir_path+"/Eye_Tracking_Classes/data_2016_15s_threshold4.csv", "wt")
 
 
 #Full windows
@@ -100,30 +100,30 @@ with open (eye_file1, 'rt') as f_full:
 		f_full_threshold3.write("\n")
 		f_full_threshold4.write("\n")
 
-with open (eye_file2, 'rt') as f_15:
-	for line in f_15:
-		if line.find("Sc_id")>-1: #first line
-			f_15_threshold3.write(line.strip())
-			f_15_threshold4.write(line.strip())
-			for emotion in emotions:
-				f_15_threshold3.write("\t"+emotion)
-				f_15_threshold4.write("\t"+emotion)
-			f_15_threshold3.write("\n")
-			f_15_threshold4.write("\n")
-			continue
-
-		if line.find("_allsc")>-1: #ignore AVERAGE lines
-			continue
-
-		part_id=line.strip().split("\t")[0]
-		q = line.strip().split("\t")[1] #get segment ID (sc_id)
-		eiv_num = int(q.split('_')[1])
-		part_id = 'MT430PN56'+part_id
-		segID = (part_id,eiv_num)
-		f_15_threshold3.write(line.strip())
-		f_15_threshold4.write(line.strip())
-		for emotion in emotions:
-			f_15_threshold3.write("\t"+str(threshold3[segID][emotion]))
-			f_15_threshold4.write("\t"+str(threshold4[segID][emotion]))
-		f_15_threshold3.write("\n")
-		f_15_threshold4.write("\n")
+# with open (eye_file2, 'rt') as f_15:
+# 	for line in f_15:
+# 		if line.find("Sc_id")>-1: #first line
+# 			f_15_threshold3.write(line.strip())
+# 			f_15_threshold4.write(line.strip())
+# 			for emotion in emotions:
+# 				f_15_threshold3.write("\t"+emotion)
+# 				f_15_threshold4.write("\t"+emotion)
+# 			f_15_threshold3.write("\n")
+# 			f_15_threshold4.write("\n")
+# 			continue
+#
+# 		if line.find("_allsc")>-1: #ignore AVERAGE lines
+# 			continue
+#
+# 		part_id=line.strip().split("\t")[0]
+# 		q = line.strip().split("\t")[1] #get segment ID (sc_id)
+# 		eiv_num = int(q.split('_')[1])
+# 		part_id = 'MT430PN56'+part_id
+# 		segID = (part_id,eiv_num)
+# 		f_15_threshold3.write(line.strip())
+# 		f_15_threshold4.write(line.strip())
+# 		for emotion in emotions:
+# 			f_15_threshold3.write("\t"+str(threshold3[segID][emotion]))
+# 			f_15_threshold4.write("\t"+str(threshold4[segID][emotion]))
+# 		f_15_threshold3.write("\n")
+# 		f_15_threshold4.write("\n")
