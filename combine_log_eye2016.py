@@ -15,7 +15,7 @@ def make_id_tuple(part_id,sc_id):
 
 if year==2016:
     # eye_15s_name='/Eye_Tracking_Classes/data_2016_15s_threshold'
-    eye_full_name='/Eye_Tracking_Classes/data_2016_full_threshold'
+    eye_full_name='/Eye_Tracking_Classes_Corrected/data_2016_full_threshold'
     log_half_name='/Action Features Rohit 2016/test_file_rohit half' #temporarily keeping full
     log_full_name='/Action Features Rohit 2016/test_file_rohit full'
 for threshold in {3,4}:
@@ -37,7 +37,8 @@ for threshold in {3,4}:
         log_full_temp.insert(0,"key",[(id,eiv) for id in log_full_temp['ID']])
         log_full_temp.set_index('key')
         log_full=log_full.append(log_full_temp)
-    # print(eye_full.shape) #(270,431)
+    print(eye_full.shape) #(270,431)
+    print(list(eye_full.columns))
     # print(log_full.sort_values(by=['key']).shape) #(325,59)
     # merged_15s_half=eye_15s.merge(log_half,how='outer',on='key')
     # merged_15s_full=eye_15s.merge(log_full,how='outer',on='key')

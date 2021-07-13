@@ -6,6 +6,100 @@ import numpy as np
 import os
 import pandas as pd
 import math
+import matplotlib.pyplot as plt
+
+def stats(id,x, y, time,smi=False):
+    """
+    Currently NOT USED! But included here as for possible future tests of saccade detection (#TODO)
+
+    Detects saccades, defined as consecutive samples with an inter-sample
+    velocity of over a velocity threshold or an acceleration threshold
+
+    arguments
+    x        -    numpy array of x positions
+    y        -    numpy array of y positions
+    time     -    numpy array of tracker timestamps in milliseconds
+    """
+
+
+    # INTER-SAMPLE MEASURES
+    # the distance between samples is the square root of the sum
+    # of the squared horizontal and vertical interdistances
+    intdist = (np.diff(x)**2 + np.diff(y)**2)**0.5
+    # get inter-sample times
+    inttime = np.diff(time)
+    # recalculate inter-sample times to seconds
+    if smi:
+        inttime = inttime / 1000000.0
+    else:
+        inttime = inttime / 1000.0
+
+
+    # VELOCITY AND ACCELERATION
+    # the velocity between samples is the inter-sample distance
+    # divided by the inter-sample time
+    vel = intdist / inttime
+    # print(vel.shape)
+    # print(intdist.shape)
+    # print(inttime.shape)
+    # the acceleration is the sample-to-sample difference in
+    # eye movement velocity
+    vel_dif=np.diff(vel)
+    # print(vel_dif.shape)
+    # vel_dif = np.insert(vel_dif,0,0)
+    acc = np.divide(vel_dif,np.delete(inttime,0))
+
+    print('id',id)
+    # print("intdist")
+    # print(np.mean(intdist))
+    # print(np.std(intdist))
+    # print(np.max(intdist))
+    # print(np.min(intdist))
+    # print("vel")
+    # print(np.mean(vel))
+    # print(np.std(vel))
+    # print(np.max(vel))
+    # print(np.min(vel))
+    # print("acc")
+    # print(np.mean(acc))
+    # print(np.std(acc))
+    # print(np.max(acc))
+    # print(np.min(acc))
+
+    dt = 0.016
+    t = np.arange(0, 20, dt)
+
+    if smi:
+        study = '2016'
+    else:
+        study = '2014'
+
+    # plt.rc('font', size=20) #controls default text size
+    # plt.rc('axes', titlesize=20) #fontsize of the title
+    # plt.rc('axes', labelsize=12) #fontsize of the x and y labels
+    # plt.rc('xtick', labelsize=8) #fontsize of the x tick labels
+    # plt.rc('ytick', labelsize=8) #fontsize of the y tick labels
+
+    fig, axs = plt.subplots(2, 1)
+    fig.suptitle(study+' participant',fontsize=24)
+    axs[0].plot(t, vel[:len(t)])
+    # axs[0].set_xlim(0, 2)
+    axs[0].set_xlabel('time')
+    axs[0].set_ylabel('velocity in pixels/second')
+    axs[0].set_title('Velocity')
+    axs[0].grid(True)
+
+    axs[1].plot(t,acc[:len(t)])
+    axs[1].set_xlabel('time')
+    axs[1].set_ylabel('acceleration in pixels/second^2')
+    axs[1].set_title('Acceleration')
+    axs[1].grid(True)
+
+    fig.tight_layout()
+    plt.show()
+
+
+    return
 
 def fixation_detection(x, y, time, maxdist=35, mindur=100, smi=False):
         """
@@ -89,7 +183,7 @@ def get_saccade_distance(saccade_gaze_points):
 
     return (distance)
 
-def saccade_detection(x, y, time, missing=0.0, minlen=5, maxvel=40, maxacc=340,smi=False):
+def saccade_detection(x, y, time, missing=0.0, minlen=5, maxvel=35000, maxacc=100000,smi=False):
     """
     Currently NOT USED! But included here as for possible future tests of saccade detection (#TODO)
 
@@ -119,6 +213,9 @@ def saccade_detection(x, y, time, missing=0.0, minlen=5, maxvel=40, maxacc=340,s
     Ssac = []
     Esac = []
 
+    if smi:
+        minlen*=1000
+
     # INTER-SAMPLE MEASURES
     # the distance between samples is the square root of the sum
     # of the squared horizontal and vertical interdistances
@@ -127,17 +224,45 @@ def saccade_detection(x, y, time, missing=0.0, minlen=5, maxvel=40, maxacc=340,s
     inttime = np.diff(time)
     # recalculate inter-sample times to seconds
     if smi:
-        inttime = inttime / 1000000
+        inttime = inttime / 1000000.0
     else:
         inttime = inttime / 1000.0
+
 
     # VELOCITY AND ACCELERATION
     # the velocity between samples is the inter-sample distance
     # divided by the inter-sample time
     vel = intdist / inttime
+    # print(vel.shape)
+    # print(intdist.shape)
+    # print(inttime.shape)
     # the acceleration is the sample-to-sample difference in
     # eye movement velocity
-    acc = np.diff(vel)
+    vel_dif=np.diff(vel)
+    # print(vel_dif.shape)
+    # vel_dif = np.insert(vel_dif,0,0)
+    acc = np.divide(vel_dif,np.delete(inttime,0))
+
+    print("intdist")
+    print(np.mean(intdist))
+    print(np.std(intdist))
+    print(np.max(intdist))
+    print(np.min(intdist))
+    print("inttime")
+    print(np.mean(inttime))
+    print(np.std(inttime))
+    print(np.max(inttime))
+    print(np.min(inttime))
+    print("vel")
+    print(np.mean(vel))
+    print(np.std(vel))
+    print(np.max(vel))
+    print(np.min(vel))
+    print("acc")
+    print(np.mean(acc))
+    print(np.std(acc))
+    print(np.max(acc))
+    print(np.min(acc))
 
     # SACCADE START AND END
     t0i = 0
@@ -149,6 +274,7 @@ def saccade_detection(x, y, time, missing=0.0, minlen=5, maxvel=40, maxacc=340,s
 
         # detect saccade starts
         sacstarts = np.where((vel[1+t0i:] > maxvel).astype(int) + (acc[t0i:] > maxacc).astype(int) >= 1)[0]
+        # sacstarts = np.where((vel[1+t0i:] > maxvel).astype(int) == 1)[0]
         if len(sacstarts) > 0:
             # timestamp for starting position
             t1i = t0i + sacstarts[0] + 1
@@ -158,9 +284,11 @@ def saccade_detection(x, y, time, missing=0.0, minlen=5, maxvel=40, maxacc=340,s
 
             # add to saccade starts
             Ssac.append([t1])
+            # print("Start",t1)
 
             # detect saccade endings
             sacends = np.where((vel[1+t1i:] < maxvel).astype(int) + (acc[t1i:] < maxacc).astype(int) == 2)[0]
+            # sacends = np.where((vel[1+t1i:] < maxvel).astype(int) == 1)[0]
             if len(sacends) > 0:
                 # timestamp for ending position
                 t2i = sacends[0] + 1 + t1i + 2
@@ -172,10 +300,12 @@ def saccade_detection(x, y, time, missing=0.0, minlen=5, maxvel=40, maxacc=340,s
                 # ignore saccades that did not last long enough
                 if dur >= minlen:
                     gazepoints=list(zip(time[t1i:t2i],x[t1i:t2i],y[t1i:t2i]))
-                    # for i in range(t1i,t2i,1):
-                    #     gazepoints.append((time[i],x[i],y[i]))
                     d = get_saccade_distance(gazepoints)
                     # add to saccade ends
+                    # if smi:
+                    #     print("End",dur/1000)
+                    # else:
+                    #     print("End",dur)
                     Esac.append([t1, t2, dur, d, x[t1i], y[t1i], x[t2i], y[t2i]])
                 else:
                     # remove last saccade start on too low duration
@@ -242,168 +372,7 @@ def offlinefix(x, y, time, smi=False):
     return EndFixations
 
 
-def simulrealtimefix(x, y, time):
-    """
-    Simulate the real time detection of the fixations as done in the experimenter platforms,
-    by reading and processing previously recorded gaze sample one at a time, as it is done in real time.
-    Returns a list of Efix (end fixation information, see fixation_detection() above
-    """
-    EndFixations = []
-    array_index = 0
-    array_iterator = 7
-
-    newX = []
-    newY = []
-    newTime = []
-
-    while(1):
-        print ("Realtime fixation - in outter loop")
-        curX = x[array_index:(array_index + array_iterator)]
-        curY = y[array_index:(array_index + array_iterator)]
-        curTime = time[array_index:(array_index + array_iterator)]
-
-        newX = curX
-        newY = curY
-        newTime = curTime
-
-        if(curX == []):
-            break
-
-        [Sfix, Efix] = fixation_detection(curX, curY, curTime)
-        #print "after calling fixation_detection in outter loop"
-        #print Sfix
-        #print Efix
-        #When there is no fixation detected yet
-        while(1):
-            #print "in inner loop"
-            if(Sfix == []):
-                #print "in inner loop if statement"
-                array_index = array_index + array_iterator
-                nextX = x[array_index:(array_index + array_iterator)]
-                nextY = y[array_index:(array_index + array_iterator)]
-                nextTime = time[array_index:(array_index + array_iterator)]
-
-                """print "newX in 1st while loop"
-                print newX
-                print "nextX in 1st while loop:"
-                print nextX
-
-                print "curX in 1st while loop:"
-                print curX
-                """
-
-                newX = curX + nextX
-                #print "newX after extending in 1st while loop"
-                #print newX
-                newY = curY + nextY
-                newTime = curTime + nextTime
-                #print "calling method in first inner loop"
-                [Sfix, Efix] = fixation_detection(newX, newY, newTime)
-                #print "after calling in first inner loop"
-
-                curX = nextX
-                curY = nextY
-                curTime = nextTime
-            else:
-                break
-            if(nextX == []):
-                break
-
-        #When fixation is detected
-        while(1):
-            print("New fixation detected")
-            if(Efix == []):
-                #print "in second inner while loop if statement"
-                array_index = array_index + array_iterator
-                nextX = x[array_index:(array_index + array_iterator)]
-                nextY = y[array_index:(array_index + array_iterator)]
-                nextTime = time[array_index:(array_index + array_iterator)]
-
-                #print "newX in 2nd while loop:"
-                #print newX
-                #print "nextX in 2nd while loop:"
-                #print nextX
-
-                #newX should extend itself
-                #newX = newX.extend(nextX)
-                newX.extend(nextX)
-                #print "*******newX after extending in 2nd while loop*******"
-                #print newX
-                newY.extend(nextY)
-                newTime.extend(nextTime)
-
-                #print "calling method in first inner loop"
-                [Sfix, Efix] = fixation_detection(newX, newY, newTime)
-                #print "after calling in first inner loop"
-                #print Sfix
-                #print Efix
-            else:
-                EndFixations.append(Efix)
-
-
-                EfixEndTime = Efix[0][1]
-                '''
-                print "printing newTime"
-                print newTime
-                print "printing size of newTime"
-                print len(newTime)
-                print "printing EfixEndTime"
-                print EfixEndTime
-                print "printing next time"
-                print nextTime
-                print "printing array_index"
-                print array_index
-                print "printing index of newTime"
-                print newTime.index(EfixEndTime)
-                #endTimeIndex = nextTime.index(EfixEndTime)
-                #array_index = array_index + endTimeIndex
-                '''
-                array_index = time.index(EfixEndTime) + 1
-
-                #print EndFixations
-
-                #print a
-                #array_index = array_index + array_iterator
-                print("appending EndFixations")
-                break
-            if(nextX == []):
-                break
-
-    return EndFixations
-
-
-
-############################################################################ MAIN ##
-# if __name__ == "__main__":
-#     [time, x, y] = read('P18copy.tsv') #read the historical fixations
-#
-#     #detect fixations
-#     myfixations_real =  simulrealtimefix(x,y,time) ##simulated real time
-#     myfixations_off =  offlinefix(x,y,time) ##fully offline
-#
-#     #writing output
-#     outputfile_real = 'myfixations_P18_realtime.csv'
-#     outputfile_off = 'myfixations_P18_offline.csv'
-#
-#     print "\nWriting output in "+str(outputfile_real)+" and "+str(outputfile_off)+"\n"
-#     fl = open(outputfile_real, 'wb')
-#     writer = csv.writer(fl)
-#     writer.writerow(['fix_start_time', 'fix_end_time', 'fix_duration', 'fix_x', 'fix_y'])
-#     for values in myfixations_real:
-#         #print values
-#         writer.writerow(values[0])
-#     fl.close()
-#
-#     fl = open(outputfile_off, 'wb')
-#     writer = csv.writer(fl)
-#     writer.writerow(['fix_start_time', 'fix_end_time', 'fix_duration', 'fix_x', 'fix_y'])
-#     for values in myfixations_off:
-#         #print values
-#         writer.writerow(values[0])
-#     fl.close()
-
-
-eye_path='/home/rohit/Documents/Academics/UBC/RA-Project/MetaTutor - study data/Data 2014/EyeTrackingData'
+eye_path='/home/rohit/Documents/Academics/UBC/RA-Project/MetaTutor - study data/Data 2014/EyeTrackingData-temp'
 
 date=dict()
 eye_start=dict()
@@ -417,25 +386,30 @@ for file in os.listdir(eye_path):
             x = list(df['GazePointX'])
             y = list(df['GazePointY'])
 
-            # print(x.count(0)/len(x))
-            # print(x)
-            myfixations_off =  offlinefix(x,y,time) ##fully offline
+            # myfixations_off =  offlinefix(x,y,time) ##fully offline
             # print(myfixations_off)
+
+
             # mysaccades_off =  saccade_detection(x,y,time) ##fully offline
+            # print('num_saccades -',len(mysaccades_off))
+
+
+            stats(id,x,y,time)
+
             outputfile_off = '/home/rohit/Documents/Academics/UBC/RA-Project/MetaTutor - study data/Data 2014/EyeTrackingData/Fixations/' + id +'-Fixations.csv'
             sacfile_off = '/home/rohit/Documents/Academics/UBC/RA-Project/MetaTutor - study data/Data 2014/EyeTrackingData/Saccades/' + id +'-Saccades.csv'
 
 
-            fl = open(outputfile_off, 'w')
-            writer = csv.writer(fl)
-            writer.writerow(['index','fix_start_time', 'fix_end_time', 'fix_duration', 'fix_x', 'fix_y'])
-            i = 0
-            for values in myfixations_off:
-                # print(values)
-                values[0].insert(0,i)
-                writer.writerow(values[0])
-                i+=1
-            fl.close()
+            # fl = open(outputfile_off, 'w')
+            # writer = csv.writer(fl)
+            # writer.writerow(['index','fix_start_time', 'fix_end_time', 'fix_duration', 'fix_x', 'fix_y'])
+            # i = 0
+            # for values in myfixations_off:
+            #     # print(values)
+            #     values[0].insert(0,i)
+            #     writer.writerow(values[0])
+            #     i+=1
+            # fl.close()
 
             # fl = open(sacfile_off, 'w')
             # writer = csv.writer(fl)
@@ -448,8 +422,23 @@ for file in os.listdir(eye_path):
             #     i+=1
             # fl.close()
 
+def avg(a,b):
+    a=list(a)
+    b=list(b)
+    l = []
+    assert len(a)==len(b)
+    for i in range(len(a)):
+        if math.isnan(a[i]):
+            l.append(float('nan'))
+        elif math.isnan(b[i]):
+            l.append(a[i])
+            print("b missing")
+        else:
+            l.append((a[i]+b[i])/2)
+    return(l)
 
-eye_path='/home/rohit/Documents/Academics/UBC/RA-Project/MetaTutor - study data/Data 2016/Eye Tracking Data/SMI Data/Corrected'
+
+eye_path='/home/rohit/Documents/Academics/UBC/RA-Project/MetaTutor - study data/Data 2016/Eye Tracking Data/SMI Data/Corrected-temp'
 
 date=dict()
 eye_start=dict()
@@ -460,33 +449,39 @@ for file in os.listdir(eye_path):
             df = pd.read_csv(f, sep=',',skiprows=37)#skip to the data
             df = df.loc[:,['Time','L POR X [px]','L POR Y [px]', 'R POR X [px]', 'R POR Y [px]']].dropna()
             time = list(df['Time'])
-            x = list((df['L POR X [px]'] + df['R POR X [px]'])/2)
-            y = list((df['L POR Y [px]'] + df['R POR Y [px]'])/2)
-            myfixations_off =  offlinefix(x,y,time,smi=True) ##fully offline
+            x = avg(df['L POR X [px]'],df['R POR X [px]'])
+            y = avg(df['L POR Y [px]'],df['R POR Y [px]'])
+
+            # myfixations_off =  offlinefix(x,y,time,smi=True) ##fully offline
+
             # mysaccades_off =  saccade_detection(x,y,time,smi=True) ##fully offline
+            # print("num_saccades - ", len(mysaccades_off))
+
+            stats(id,x,y,time,smi=True)
+
             outputfile_off = '/home/rohit/Documents/Academics/UBC/RA-Project/MetaTutor - study data/Data 2016/Eye Tracking Data/SMI Data/Fixations/' + id +'-Fixations.csv'
             sacfile_off = '/home/rohit/Documents/Academics/UBC/RA-Project/MetaTutor - study data/Data 2016/Eye Tracking Data/SMI Data/Saccades/' + id +'-Saccades.csv'
 
 
-            fl = open(outputfile_off, 'w')
-            writer = csv.writer(fl)
-            writer.writerow(['index','fix_start_time', 'fix_end_time', 'fix_duration', 'fix_x', 'fix_y'])
-            i = 0
-            for values in myfixations_off:
-                # print(values)
-                values[0].insert(0,i)
-                writer.writerow(values[0])
-                i+=1
-            fl.close()
+            # fl = open(outputfile_off, 'w')
+            # writer = csv.writer(fl)
+            # writer.writerow(['index','fix_start_time', 'fix_end_time', 'fix_duration', 'fix_x', 'fix_y'])
+            # i = 0
+            # for values in myfixations_off:
+            #     # print(values)
+            #     values[0].insert(0,i)
+            #     writer.writerow(values[0])
+            #     i+=1
+            # fl.close()
 #
 #
-#             fl = open(sacfile_off, 'w')
-#             writer = csv.writer(fl)
-#             writer.writerow(['index','sac_start_time', 'sac_end_time', 'sac_duration', 'sac_distance', 'sac_start_x', 'sac_start_y', 'sac_end_x', 'sac_end_y'])
-#             i = 0
-#             for values in mysaccades_off:
-#                 # print(values)
-#                 values.insert(0,i)
-#                 writer.writerow(values)
-#                 i+=1
-#             fl.close()
+            # fl = open(sacfile_off, 'w')
+            # writer = csv.writer(fl)
+            # writer.writerow(['index','sac_start_time', 'sac_end_time', 'sac_duration', 'sac_distance', 'sac_start_x', 'sac_start_y', 'sac_end_x', 'sac_end_y'])
+            # i = 0
+            # for values in mysaccades_off:
+            #     # print(values)
+            #     values.insert(0,i)
+            #     writer.writerow(values)
+            #     i+=1
+            # fl.close()
