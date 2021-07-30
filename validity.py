@@ -27,14 +27,16 @@ with open(file_path,'r') as f:
 
 x = []
 y = []
-for thres in np.arange(0,1.02,.02):
+for thres in np.arange(0,1.02,.01):
     prop_samples = (df['Score']>thres).sum()/df.shape[0]
-    print(thres,prop_samples)
+    print(thres,prop_samples*df.shape[0])
     x.append(thres)
     y.append(prop_samples)
 
 fig, ax = plt.subplots()
 ax.plot(x, y, label='prop_samples')
+
+
 
 plt.rc('font', size=20) #controls default text size
 plt.rc('axes', titlesize=20) #fontsize of the title

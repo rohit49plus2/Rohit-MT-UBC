@@ -31,7 +31,7 @@ for y in ['2014','2016']:
     #Get classes
     class_file = dir_path+"/Combined_Data_"+y+"_Corrected/data_full_full_"+t+".pkl"
     data[y]=pd.read_pickle(class_file)
-    data[y]=data[y].drop(['Part_id','Sc_id', 'ID','Group', 'Name','Gender','Age','Ethnicity','Education','GPA','Major','School','Courses','#Courses','blinkrate', 'Mean # of SRL processes per relevant page while on SG0', 'Mean # of SRL processes per relevant page while on SG1','DurationDay2InSecs','#PLAN','#DEPENDS'], axis=1)
+    data[y]=data[y].drop(['Part_id','Sc_id', 'ID','Group', 'Name','Gender','Age','Ethnicity','Education','GPA','Major','School','Courses','#Courses', 'Mean # of SRL processes per relevant page while on SG0', 'Mean # of SRL processes per relevant page while on SG1','DurationDay2InSecs','#PLAN','#DEPENDS'], axis=1)
     data[y] = data[y].apply(pd.to_numeric, errors='ignore', downcast = 'float')
     if y=='2016':
         # extras = ['endpupilsize', 'fixationsaccadetimeratio', 'longestsaccadedistance', 'longestsaccadeduration', 'maxpupilsize', 'maxpupilvelocity', 'maxsaccadespeed', 'meanpupilsize', 'meanpupilvelocity', 'meansaccadedistance', 'meansaccadeduration', 'meansaccadespeed', 'minpupilsize', 'minpupilvelocity', 'minsaccadespeed', 'numsaccades', 'startpupilsize', 'stddevpupilsize', 'stddevpupilvelocity', 'stddevsaccadedistance', 'stddevsaccadeduration', 'stddevsaccadespeed', 'sumsaccadedistance', 'sumsaccadeduration']
@@ -64,11 +64,11 @@ print(df.shape)
 
 
 log_14=data['2014'][data['2014'].columns[-41:]]
-eye_14=data['2014'][data['2014'].columns[1:587]]
+eye_14=data['2014'][data['2014'].columns[1:550]]
 
 log_16=data['2016'][data['2016'].columns[-41:]]
-eye_16=data['2016'][data['2016'].columns[1:587]]
-# print(eye_16.columns)
+eye_16=data['2016'][data['2016'].columns[1:550]]
+
 
 for c in eye_16.columns:
     if 'timeto' in c or 'keypressedrate' in c or 'leftclicrate' in c:
@@ -106,7 +106,8 @@ eye_16 = eye_16.dropna(thresh=40)
 
 
 for c in eye_14.columns:
-    if 'numfixations' in c or 'totaltimespent' in c  or 'numtransfrom' in c:
+    if 'numfixations' in c or 'totaltimespent' in c:
+    # if 'numfixations' in c or 'totaltimespent' in c  or 'numtransfrom' in c:
         eye_14[c]=eye_14[c]/eye_14['length']
         eye_16[c]=eye_16[c]/eye_16['length']
 for c in log_14.columns:
@@ -128,11 +129,18 @@ eye_16['sumabspathangles']=eye_16['sumabspathangles']/eye_16['length']
 eye_14['sumrelpathangles']=eye_14['sumrelpathangles']/eye_14['length']
 eye_16['sumrelpathangles']=eye_16['sumrelpathangles']/eye_16['length']
 
-eye_14['sumsaccadedistance']=eye_14['sumsaccadedistance']/eye_14['length']
-eye_16['sumsaccadedistance']=eye_16['sumsaccadedistance']/eye_16['length']
+# eye_14['sumsaccadedistance']=eye_14['sumsaccadedistance']/eye_14['length']
+# eye_16['sumsaccadedistance']=eye_16['sumsaccadedistance']/eye_16['length']
+#
+# eye_14['sumsaccadeduration']=eye_14['sumsaccadeduration']/eye_14['length']
+# eye_16['sumsaccadeduration']=eye_16['sumsaccadeduration']/eye_16['length']
 
-eye_14['sumsaccadeduration']=eye_14['sumsaccadeduration']/eye_14['length']
-eye_16['sumsaccadeduration']=eye_16['sumsaccadeduration']/eye_16['length']
+eye_14['numsamples']=eye_14['numsamples']/eye_14['length']
+eye_16['numsamples']=eye_16['numsamples']/eye_16['length']
+
+# eye_14['numsaccades']=eye_14['numsaccades']/eye_14['length']
+# eye_16['numsaccades']=eye_16['numsaccades']/eye_16['length']
+
 
 eye=pd.DataFrame(columns=['Feature','2014 Mean', '2014 Std', '2016 Mean', '2016 Std','Ratio of Means'])
 log=pd.DataFrame(columns=['Feature','2014 Mean', '2014 Std', '2016 Mean', '2016 Std','Ratio of Means'])
@@ -147,7 +155,7 @@ for c in eye_14.columns:
     eye.loc[len(eye)] = [c,eye_14[c].mean(),eye_14[c].std(),eye_16[c].mean(),eye_16[c].std(),max(eye_14[c].mean(),eye_16[c].mean())/min(eye_14[c].mean(),eye_16[c].mean())]
 
 print(eye.shape)
-# print(eye[eye['2014 Std']==0])
+# print(eye[(eye['2014 Std']==0) | (eye['2016 Std']==0) | (eye['2016 Mean']==float('inf'))])
 eye = eye[(eye['2014 Std']!=0) & (eye['2016 Std']!=0) & (eye['2016 Mean']!=float('inf'))]
 print(eye.shape)
 print(log.shape)
@@ -157,27 +165,32 @@ print(log.shape)
 
 
 
-
 # print(eye[eye['Ratio of Means']>100])
 import math
+eye = eye.drop(eye[(eye['Feature']=='numsamples') | (eye['Feature']=='numsaccades') | (eye['Feature']=='numfixations')].index)
 eye.reset_index(drop = True, inplace=True)
+
 # print(eye)
 N=3
-display = log[log['Ratio of Means']>2].loc[:,['Feature','Ratio of Means']]
+# display = log[log['Ratio of Means']>2].loc[:,['Feature','Ratio of Means']]
 # display = log.loc[:,:]
 
-# display = eye.loc[58:,['Feature','Ratio of Means']]
-# display = eye.loc[58:,:]
-# display = eye[eye['Ratio of Means']>5].loc[57:,['Feature','Ratio of Means']]
-# display = eye[eye['Ratio of Means']>1.5].loc[57:,:]
+# display = eye.loc[32:,['Feature','Ratio of Means']]
+# display = eye.loc[32:,:]
+display = eye[eye['Ratio of Means']>5].loc[32:,['Feature','Ratio of Means']]
+# display = eye[eye['Ratio of Means']>5].loc[32:,:]
+# display = eye[eye['Ratio of Means']>1.5].loc[32:,:]
 
 
-# display = eye[eye['Ratio of Means']>1.5].loc[:56,['Feature','Ratio of Means']]
-# display = eye[eye['Ratio of Means']>1.5].loc[:56,:]
-# print(display)
+# display = eye.loc[:31,['Feature','Ratio of Means']]
+# display = eye.loc[:31,:]
+# display = eye[eye['Ratio of Means']>1.5].loc[:31,['Feature','Ratio of Means']]
+# display = eye[eye['Ratio of Means']>1.5].loc[:31,:]
+
 display.loc[:,display.columns!= 'Feature'] = display.loc[:,display.columns!= 'Feature'].applymap(lambda x: round(x, N - int(np.floor(math.log(abs(x),10)))))#round to N
 
-# print(display.dtypes)
+# print(display)
+print(display.shape)
 print(display.to_latex())
 
 compare = datacompy.Compare(eye_14,eye_16,join_columns='abspathanglesrate', df1_name='2014',df2_name='2016')
