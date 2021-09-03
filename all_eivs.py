@@ -65,7 +65,7 @@ with open (emotion_file, 'rt') as f:
 
 #================
 pd.options.mode.chained_assignment = None
-combined_files = dir_path+"/Combined_Data/"
+combined_files = dir_path+"/Combined_Data_2014_Corrected/"
 for file in os.listdir(combined_files):
 	rf_full = os.path.join(combined_files,file)
 	print('Loading %s' % rf_full)

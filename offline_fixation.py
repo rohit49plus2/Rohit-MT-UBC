@@ -105,7 +105,7 @@ def stats(id,x, y, time,smi=False):
 
     return
 
-def fixation_detection(x, y, time, maxdist=35, mindur=100, smi=False,N=5):
+def fixation_detection(x, y, time,N, maxdist=35, mindur=100, smi=False):
         """
         This the the detector itnegrated in the platform!
 
@@ -141,14 +141,16 @@ def fixation_detection(x, y, time, maxdist=35, mindur=100, smi=False,N=5):
         #print "in fixation algorithm"
         #print x
         missing = False
+        # miss_start = False
         for i in range(1,len(x)):
             # calculate Euclidean distance from the current fixation coordinate
             # to the next coordinate
+            # if i < 500:
+            #     print(i,x[i],y[i])
             if (x[i]==0.0) & (y[i] ==0.0) and i>N:
                 missing=True
             else:
                 missing=False
-
             if missing:
                 gaze = np.array(list(zip(x[i-N:i],y[i-N:i])))
                 # print(gaze.shape)
@@ -159,6 +161,9 @@ def fixation_detection(x, y, time, maxdist=35, mindur=100, smi=False,N=5):
                 lr = LinearRegression().fit(times,gaze)
                 x[i]=lr.predict([[time[i]]])[0][0]
                 y[i]=lr.predict([[time[i]]])[0][1]
+                # if miss_start==False:
+                #     print(x[i],y[i])
+                # miss_start=True
 
             # print(list(zip(x,y)))
 
@@ -388,32 +393,58 @@ def read(filename):
         return timestamps, gaze_x, gaze_y
 
 
-def offlinefix(x, y, time, smi=False,N=5):
+def offlinefix(x, y, time,Num, smi=False):
     """
     Simply run the algorithm offline, i.e., on the entire list of gaze samples
     Returns a list of Efix (end fixation information, see fixation_detection() above
     """
     EndFixations = []
-    Sfix, Efix = fixation_detection(x, y, time, smi=smi,N=N)
+    Sfix, Efix = fixation_detection(x, y, time,N=Num, smi=smi)
     # print(Efix)
     for fix in Efix:
        EndFixations.append([fix])
     return EndFixations
 
 
-eye_path='/home/rohit/Documents/Academics/UBC/RA-Project/MetaTutor - study data/Data 2014/EyeTrackingData'
+# eye_path='/home/rohit/Documents/Academics/UBC/RA-Project/MetaTutor - study data/Data 2014/EyeTrackingData'
+#
+# date=dict()
+# eye_start=dict()
+# for file in os.listdir(eye_path):
+#     if 'All-Data' in file and file.split('.')[-1] =='tsv':
+#         id = file.split('-')[0].upper()
+#         with open(os.path.join(eye_path,file),'r') as f:
+#             df = pd.read_csv(f, sep='\t',skiprows=23)#skip to the data
+#             df = df.loc[:,['Timestamp','GazePointX','GazePointY']].dropna()
+#             time = list(df['Timestamp'])
+#             x = list(df['GazePointX'])
+#             y = list(df['GazePointY'])
 
-date=dict()
-eye_start=dict()
-for file in os.listdir(eye_path):
-    if 'All-Data' in file and file.split('.')[-1] =='tsv':
-        id = file.split('-')[0].upper()
-        with open(os.path.join(eye_path,file),'r') as f:
-            df = pd.read_csv(f, sep='\t',skiprows=23)#skip to the data
-            df = df.loc[:,['Timestamp','GazePointX','GazePointY']].dropna()
-            time = list(df['Timestamp'])
-            x = list(df['GazePointX'])
-            y = list(df['GazePointY'])
+            # for N in [5,10,15,20]:
+            #     print(id,N)
+            #     missing = False
+            #     for i in range(1,len(x)):
+            #         # calculate Euclidean distance from the current fixation coordinate
+            #         # to the next coordinate
+            #         if (x[i]==0.0) & (y[i] ==0.0) and i>N:
+            #             missing=True
+            #         else:
+            #             missing=False
+            #
+            #         if missing:
+            #             gaze = np.array(list(zip(x[i-N:i],y[i-N:i])))
+            #             # print(gaze.shape)
+            #             times = np.array(time[i-N:i]).reshape(-1,1)
+            #             # print(times.shape)
+            #             # print(times)
+            #             # print(gaze)
+            #             lr = LinearRegression().fit(times,gaze)
+            #             x[i]=lr.predict([[time[i]]])[0][0]
+            #             y[i]=lr.predict([[time[i]]])[0][1]
+            #             print(x[i],y[i])
+            #             break
+            #
+            #     print(list(zip(x,y)))
 
             # print(myfixations_off)
 
@@ -425,24 +456,26 @@ for file in os.listdir(eye_path):
             # stats(id,x,y,time)
 
             # outputfile_off = '/home/rohit/Documents/Academics/UBC/RA-Project/MetaTutor - study data/Data 2014/EyeTrackingData/Fixations/' + id +'-Fixations.csv'
-            sacfile_off = '/home/rohit/Documents/Academics/UBC/RA-Project/MetaTutor - study data/Data 2014/EyeTrackingData/Saccades/' + id +'-Saccades.csv'
+            # sacfile_off = '/home/rohit/Documents/Academics/UBC/RA-Project/MetaTutor - study data/Data 2014/EyeTrackingData/Saccades/' + id +'-Saccades.csv'
 
-            for N in [5,10,15,20]:
-
-                myfixations_off =  offlinefix(x,y,time,smi=False,N=N) ##fully offline
-                # print(N,id)
-                outputfile_off = '/home/rohit/Documents/Academics/UBC/RA-Project/MetaTutor - study data/Data 2014/EyeTrackingData/Fixations/Tests/' + id +'-Fixations-'+str(N)+'.csv'
-
-                fl = open(outputfile_off, 'w')
-                writer = csv.writer(fl)
-                writer.writerow(['index','fix_start_time', 'fix_end_time', 'fix_duration', 'fix_x', 'fix_y'])
-                i = 0
-                for values in myfixations_off:
-                    # print(values)
-                    values[0].insert(0,i)
-                    writer.writerow(values[0])
-                    i+=1
-                fl.close()
+            # for N in [2]:
+            #
+            #     print(N,id)
+            #     myfixations_off =  offlinefix(x.copy(),y.copy(),time.copy(),Num=N,smi=False) ##fully offline
+            #     print('Fixations Generated')
+            #     # outputfile_off = '/home/rohit/Documents/Academics/UBC/RA-Project/MetaTutor - study data/Data 2014/EyeTrackingData/Fixations/Tests/' + id +'-Fixations-'+str(N)+'.csv'
+            #
+            #     fl = open(outputfile_off, 'w')
+            #     writer = csv.writer(fl)
+            #     writer.writerow(['index','fix_start_time', 'fix_end_time', 'fix_duration', 'fix_x', 'fix_y'])
+            #     i = 0
+            #     for values in myfixations_off:
+            #         # print(values)
+            #         values[0].insert(0,i)
+            #         writer.writerow(values[0])
+            #         i+=1
+            #     fl.close()
+            #     print('written', N)
 
             # fl = open(sacfile_off, 'w')
             # writer = csv.writer(fl)
@@ -471,43 +504,44 @@ def avg(a,b):
     return(l)
 
 
-# eye_path='/home/rohit/Documents/Academics/UBC/RA-Project/MetaTutor - study data/Data 2016/Eye Tracking Data/SMI Data/Corrected'
-#
-# date=dict()
-# eye_start=dict()
-# for file in os.listdir(eye_path):
-#     if 'Raw' in file and file.split('.')[-1] =='csv':
-#         id = file.split('-')[0].upper()
-#         id = (id.split('_')[0] + id.split('_')[1]).upper()
-#         with open(os.path.join(eye_path,file),'r') as f:
-#             df = pd.read_csv(f, sep=',',skiprows=37)#skip to the data
-#             df = df.loc[:,['Time','L POR X [px]','L POR Y [px]', 'R POR X [px]', 'R POR Y [px]']].dropna()
-#             time = list(df['Time'])
-#             x = avg(df['L POR X [px]'],df['R POR X [px]'])
-#             y = avg(df['L POR Y [px]'],df['R POR Y [px]'])
-#
-#             myfixations_off =  offlinefix(x,y,time,smi=True) ##fully offline
-#             # print(myfixations_off)
-#
-#             # mysaccades_off =  saccade_detection(x,y,time,smi=True) ##fully offline
-#             # print("num_saccades - ", len(mysaccades_off))
-#
-#             # stats(id,x,y,time,smi=True)
-#
-#             # outputfile_off = '/home/rohit/Documents/Academics/UBC/RA-Project/MetaTutor - study data/Data 2016/Eye Tracking Data/SMI Data/Fixations/' + id +'-Fixations.csv'
-#             sacfile_off = '/home/rohit/Documents/Academics/UBC/RA-Project/MetaTutor - study data/Data 2016/Eye Tracking Data/SMI Data/Saccades/' + id +'-Saccades.csv'
-#
-#
-#             fl = open(outputfile_off, 'w')
-#             writer = csv.writer(fl)
-#             writer.writerow(['index','fix_start_time', 'fix_end_time', 'fix_duration', 'fix_x', 'fix_y'])
-#             i = 0
-#             for values in myfixations_off:
-#                 # print(values)
-#                 values[0].insert(0,i)
-#                 writer.writerow(values[0])
-#                 i+=1
-#             fl.close()
+eye_path='/home/rohit/Documents/Academics/UBC/RA-Project/MetaTutor - study data/Data 2016/Eye Tracking Data/SMI Data/Corrected'
+
+date=dict()
+eye_start=dict()
+for file in os.listdir(eye_path):
+    if 'Raw' in file and file.split('.')[-1] =='csv':
+        id = file.split('-')[0].upper()
+        id = (id.split('_')[0] + id.split('_')[1]).upper()
+        with open(os.path.join(eye_path,file),'r') as f:
+            df = pd.read_csv(f, sep=',',skiprows=37)#skip to the data
+            df = df.loc[:,['Time','L POR X [px]','L POR Y [px]', 'R POR X [px]', 'R POR Y [px]']].dropna()
+            time = list(df['Time'])
+            x = avg(df['L POR X [px]'],df['R POR X [px]'])
+            y = avg(df['L POR Y [px]'],df['R POR Y [px]'])
+
+            print(id)
+            myfixations_off =  offlinefix(x.copy(),y.copy(),time.copy(),Num=2,smi=True) ##fully offline
+            # print(myfixations_off)
+
+            # mysaccades_off =  saccade_detection(x,y,time,smi=True) ##fully offline
+            # print("num_saccades - ", len(mysaccades_off))
+
+            # stats(id,x,y,time,smi=True)
+
+            outputfile_off = '/home/rohit/Documents/Academics/UBC/RA-Project/MetaTutor - study data/Data 2016/Eye Tracking Data/SMI Data/Fixations/' + id +'-Fixations.csv'
+            # sacfile_off = '/home/rohit/Documents/Academics/UBC/RA-Project/MetaTutor - study data/Data 2016/Eye Tracking Data/SMI Data/Saccades/' + id +'-Saccades.csv'
+
+
+            fl = open(outputfile_off, 'w')
+            writer = csv.writer(fl)
+            writer.writerow(['index','fix_start_time', 'fix_end_time', 'fix_duration', 'fix_x', 'fix_y'])
+            i = 0
+            for values in myfixations_off:
+                # print(values)
+                values[0].insert(0,i)
+                writer.writerow(values[0])
+                i+=1
+            fl.close()
 # #
 # #
 #             # fl = open(sacfile_off, 'w')

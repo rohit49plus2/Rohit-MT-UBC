@@ -6,6 +6,8 @@ import pickle
 import itertools
 import numpy as np
 import datacompy
+import matplotlib.pyplot as plt
+
 
 np.set_printoptions(threshold=sys.maxsize)
 pd.set_option('display.max_rows', None)
@@ -23,15 +25,14 @@ from gen_classes2016 import emotions as emotions2016
 d = {'enjoying myself':'Enjoyment', 'contempt': 'Contempt', 'confused':'Confusion', 'curious':'Curiosity', 'sad':'Sadness', 'eureka':'Eureka', 'neutral':'Neutral','task is valuable':'Task Value', 'hopeful':'Hope', 'proud':'Pride','frustrated': 'Frustration', 'anxious': 'Anxiety', 'ashamed': 'Shame', 'hopeless':'Hopelessness', 'bored': 'Boredom', 'surprised':'Surprise'}
 #no happy,disgust, fear, anger
 
-
-t = 4 #threshold
+t = 3 #threshold
 t=str(t)
 data = {'2014':0,'2016':0}
 for y in ['2014','2016']:
     #Get classes
     class_file = dir_path+"/Combined_Data_"+y+"_Corrected/data_full_full_"+t+".pkl"
     data[y]=pd.read_pickle(class_file)
-    data[y]=data[y].drop(['Part_id','Sc_id', 'ID','Group', 'Name','Gender','Age','Ethnicity','Education','GPA','Major','School','Courses','#Courses', 'Mean # of SRL processes per relevant page while on SG0', 'Mean # of SRL processes per relevant page while on SG1','DurationDay2InSecs','#PLAN','#DEPENDS'], axis=1)
+    data[y]=data[y].drop(['Part_id','Sc_id', 'ID','Group', 'Name','Gender','Age','Ethnicity','Education','GPA','Major','School','Courses','#Courses', 'Mean # of SRL processes per relevant page while on SG0', 'Mean # of SRL processes per relevant page while on SG1','DurationDay2InSecs','#PLAN','#DEPENDS','maxpupilvelocity','meanpupilvelocity','stddevpupilvelocity'], axis=1)
     data[y] = data[y].apply(pd.to_numeric, errors='ignore', downcast = 'float')
     if y=='2016':
         # extras = ['endpupilsize', 'fixationsaccadetimeratio', 'longestsaccadedistance', 'longestsaccadeduration', 'maxpupilsize', 'maxpupilvelocity', 'maxsaccadespeed', 'meanpupilsize', 'meanpupilvelocity', 'meansaccadedistance', 'meansaccadeduration', 'meansaccadespeed', 'minpupilsize', 'minpupilvelocity', 'minsaccadespeed', 'numsaccades', 'startpupilsize', 'stddevpupilsize', 'stddevpupilvelocity', 'stddevsaccadedistance', 'stddevsaccadeduration', 'stddevsaccadespeed', 'sumsaccadedistance', 'sumsaccadeduration']
@@ -43,6 +44,7 @@ for y in ['2014','2016']:
 # print(data['2016'].columns)
 print(data['2014'].shape)
 print(data['2016'].shape)
+
 # print(data['2014'].dtypes)
 # print(data['2016'].dtypes)
 df = data['2016'].merge(data['2014'],how='outer')
@@ -52,7 +54,6 @@ print(df.shape)
 # print(df.isnull().sum())
 # print(data['2014'].isnull().sum())
 # print(data['2016'].isnull().sum())
-
 # drop_columns = [x for x in data['2014'].columns if x not in data['2016'].columns]
 #
 # for column in drop_columns:
@@ -63,11 +64,11 @@ print(df.shape)
 # print(data['2014'].columns[0:409])
 
 
-log_14=data['2014'][data['2014'].columns[-41:]]
-eye_14=data['2014'][data['2014'].columns[1:550]]
+log_14=data['2014'][list([data['2016'].columns[0]])+list(data['2014'].columns[-41:])]
+eye_14=data['2014'][data['2014'].columns[:547]]
 
-log_16=data['2016'][data['2016'].columns[-41:]]
-eye_16=data['2016'][data['2016'].columns[1:550]]
+log_16=data['2016'][list([data['2016'].columns[0]])+list(data['2016'].columns[-41:])]
+eye_16=data['2016'][data['2016'].columns[:547]]
 
 
 for c in eye_16.columns:
@@ -115,6 +116,10 @@ for c in log_14.columns:
         if c != '#Subgoals attempted':
             log_14[c]=log_14[c]/log_14['#Subgoals attempted']
             log_16[c]=log_16[c]/log_16['#Subgoals attempted']
+    if 'Time' in c:
+        if c != 'TimeSpentWithContentOverall':
+            log_14[c+'_mod']=log_14[c]/log_14['TimeSpentWithContentOverall']
+            log_16[c+'_mod']=log_16[c]/log_16['TimeSpentWithContentOverall']
 
 
 eye_14['sumfixationduration']=eye_14['sumfixationduration']/eye_14['length']
@@ -147,10 +152,10 @@ log=pd.DataFrame(columns=['Feature','2014 Mean', '2014 Std', '2016 Mean', '2016 
 
 
 # print("log features\n\n")
-for c in log_14.columns:
+for c in log_14.columns[1:]:
     log.loc[len(log)] = [c,log_14[c].mean(),log_14[c].std(),log_16[c].mean(),log_16[c].std(),max(log_14[c].mean(),log_16[c].mean())/min(log_14[c].mean(),log_16[c].mean())]
 # print("eye features\n\n")
-for c in eye_14.columns:
+for c in eye_14.columns[1:]:
     # print(c)
     eye.loc[len(eye)] = [c,eye_14[c].mean(),eye_14[c].std(),eye_16[c].mean(),eye_16[c].std(),max(eye_14[c].mean(),eye_16[c].mean())/min(eye_14[c].mean(),eye_16[c].mean())]
 
@@ -167,31 +172,106 @@ print(log.shape)
 
 # print(eye[eye['Ratio of Means']>100])
 import math
-eye = eye.drop(eye[(eye['Feature']=='numsamples') | (eye['Feature']=='numsaccades') | (eye['Feature']=='numfixations')].index)
+eye = eye.drop(eye[(eye['Feature']=='numsamples') | (eye['Feature']=='numsaccades') | (eye['Feature']=='numfixations')  | (eye['Feature']=='length')].index)
 eye.reset_index(drop = True, inplace=True)
 
+
+# numaoi=[]
+# xaxis = np.arange(1,10.2,.2)
+# for N in xaxis:
+#     numaoi.append(eye[eye['Ratio of Means']<N].loc[29:,:].shape[0])
+# plt.plot(xaxis,numaoi)
+# plt.yticks(np.arange(0,232,10),fontsize=16)
+# plt.xticks(np.arange(1,10.2,1),fontsize=16)
+# plt.title('AOI Features',fontsize=24)
+# plt.grid(True)
+# plt.ylabel('Number of Features',fontsize=22)
+# plt.xlabel('Threshold',fontsize=22)
+# plt.show()
+#
+#
+numaoi=[]
+xaxis = np.arange(1,10.2,.2)
+for n in xaxis:
+    numaoi.append(log[log['Ratio of Means']<n].shape[0])
+plt.plot(xaxis,numaoi)
+plt.yticks(np.arange(0,46,2),fontsize=16)
+plt.xticks(np.arange(1,10.2,1),fontsize=16)
+plt.title('Log Features',fontsize=24)
+plt.grid(True)
+plt.ylabel('Number of Features',fontsize=22)
+plt.xlabel('Threshold',fontsize=22)
+plt.show()
+
+
+
+
 # print(eye)
-N=3
-# display = log[log['Ratio of Means']>2].loc[:,['Feature','Ratio of Means']]
+N=2
+display = log[log['Ratio of Means']>5].loc[:,['Feature','Ratio of Means']]
+# display = log[log['Ratio of Means']>5].loc[:,:]
 # display = log.loc[:,:]
 
-# display = eye.loc[32:,['Feature','Ratio of Means']]
-# display = eye.loc[32:,:]
-display = eye[eye['Ratio of Means']>5].loc[32:,['Feature','Ratio of Means']]
-# display = eye[eye['Ratio of Means']>5].loc[32:,:]
-# display = eye[eye['Ratio of Means']>1.5].loc[32:,:]
+# display = eye.loc[28:,['Feature','Ratio of Means']]
+# display = eye.loc[28:,:]
+# display = eye[eye['Ratio of Means']>5].loc[28:,['Feature','Ratio of Means']]
+# display = eye[eye['Ratio of Means']>5].loc[28:,:]
+# display = eye[eye['Ratio of Means']>1.5].loc[28:,:]
+# print(numaoi)
+# display = eye.loc[:27,['Feature','Ratio of Means']]
+# display = eye.loc[:27,:]
+# display = eye[eye['Ratio of Means']>1.5].loc[:27,['Feature','Ratio of Means']]
+# display = eye[eye['Ratio of Means']>1.5].loc[:27,:]
 
-
-# display = eye.loc[:31,['Feature','Ratio of Means']]
-# display = eye.loc[:31,:]
-# display = eye[eye['Ratio of Means']>1.5].loc[:31,['Feature','Ratio of Means']]
-# display = eye[eye['Ratio of Means']>1.5].loc[:31,:]
-
+display.reset_index(drop = True, inplace=True)
 display.loc[:,display.columns!= 'Feature'] = display.loc[:,display.columns!= 'Feature'].applymap(lambda x: round(x, N - int(np.floor(math.log(abs(x),10)))))#round to N
 
 # print(display)
 print(display.shape)
 print(display.to_latex())
+
+eye_columns_to_keep = list(eye[eye['Ratio of Means']<=1.5].loc[:31,:]['Feature']) + list(eye[eye['Ratio of Means']<=5].loc[32:,:]['Feature'])
+
+log_columns_to_keep =  list(log[log['Ratio of Means']<5]['Feature'])
+
+
+eye_16 = eye_16[['key']+eye_columns_to_keep]
+eye_14 = eye_14[['key']+eye_columns_to_keep]
+
+log_16 = log_16[['key']+log_columns_to_keep]
+log_14 = log_14[['key']+log_columns_to_keep]
+
+eye_full = eye_16.merge(eye_14,how='outer')
+log_full = log_16.merge(log_14,how='outer')
+combined_full=eye_full.merge(log_full,how='outer').dropna(thresh=100)
+
+emotion_set=list(d.values())
+
+eye_full = eye_full.merge(df[['key']+emotion_set],on='key',how='left')
+log_full = log_full.merge(df[['key']+emotion_set],on='key',how='left')
+combined_full = combined_full.merge(df[['key']+emotion_set],on='key',how='left')
+
+
+# print(eye_full)
+# print(log_full)
+# print(combined_full)
+print(eye_full.shape)
+print(log_full.shape)
+print(combined_full.shape)
+
+eye_full.to_csv('Processed_Data/eye_'+str(t)+'.csv')
+log_full.to_csv('Processed_Data/log_'+str(t)+'.csv')
+combined_full.to_csv('Processed_Data/combined_'+str(t)+'.csv')
+
+print(eye_16.shape)
+print(eye_14.shape)
+print(log_16.shape)
+print(log_14.shape)
+
+# df2 = df[['key']+columns_to_keep]
+# df2=df2.dropna(thresh=40)
+# df2.reset_index(drop=True,inplace=True)
+# print(df2)
 
 compare = datacompy.Compare(eye_14,eye_16,join_columns='abspathanglesrate', df1_name='2014',df2_name='2016')
 # print(compare.report())

@@ -1,5 +1,11 @@
 from gen_classes import *
 year = 2014
+import numpy as np
+np.set_printoptions(threshold=sys.maxsize)
+pd.set_option('display.max_rows', None)
+pd.set_option('display.max_columns', None)
+pd.set_option('display.width', None)
+pd.set_option('display.max_colwidth', None)
 
 def make_id_tuple(part_id,sc_id):
     eiv_num = int(sc_id.split('_')[1])
@@ -31,12 +37,15 @@ for threshold in {3,4}:
         log_full_temp.set_index('key')
         log_full=log_full.append(log_full_temp)
     print(eye_full.shape) #(319,610)
-    print(list(eye_full.columns)) 
+    print(list(eye_full.columns))
     # print(log_full.sort_values(by=['key']).shape) #(325,59)
     # merged_15s_half=eye_15s.merge(log_half,how='outer',on='key')
     # merged_15s_full=eye_15s.merge(log_full,how='outer',on='key')
     merged_full_half=eye_full.merge(log_half,how='outer',on='key')
     merged_full_full=eye_full.merge(log_full,how='outer',on='key')
+
+    # print(eye_full.isnull().sum())
+    # print(merged_full_full.isnull().sum())
     # print(merged_full_full.shape)
     # merged_15s_half.to_pickle(dir_path+'/Combined_Data_2014/data_15s_half_'+str(threshold)+'.pkl')
     # merged_15s_full.to_pickle(dir_path+'/Combined_Data_2014/data_15s_full_'+str(threshold)+'.pkl')
