@@ -211,6 +211,98 @@ def anova_class(smote,eye_window,log_window,ep,data,threshold,models,usercv):
             print("Total Accuracy t tests")
             print(multipletests(ttest_ind(total_accs[i],total_accs[j])[1]))
 
+def manova_old(smote,eye_window,log_window,ep,threshold,models,usercv):
+    data_types=['log','eye','both']
+    if smote:
+        results='/results_smote/'
+    else:
+        results='/results/'
+    if len(ep)==1:
+        type='/single'
+        eps=ep[0]
+        classes = ['None',ep[0]]
+    else:
+        if usercv:
+            type='/cooccur_usercv_new'
+        else:
+            type='/cooccur'
+        eps=ep[0]+'_'+ep[1]
+        classes = ['No_emotion',ep[0],ep[1],ep[0]+'-x-'+ ep[1]]
+    folder='/'
+    result_suffix='_'+threshold
+    column_names=['Feature_Set','Model','Total']+classes
+    df=pd.DataFrame(columns=column_names)
+    for model in models:
+        if 'ENSEMBLE' in model:
+            for data in data_types:
+                    with open(dir_path+type+results+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'.pickle', 'rb') as handle:
+                        res=pickle.load(handle)
+                    # print(len(res['confusion_matrices']))
+                    matrices=res['confusion_matrices']
+                    for matrix in matrices:
+                        row=[data,model]
+                        row.append((np.trace(matrix))/matrix.sum()*100)
+                        for i in range(4):
+                            row.append(matrix[i][i]/matrix[i].sum()*100)
+                        df.loc[len(df)] =row
+        else:
+            for data in data_types:
+                    with open(dir_path+type+results+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'_'+data+'.pickle', 'rb') as handle:
+                        res=pickle.load(handle)
+                    # print(len(res['confusion_matrices']))
+                    matrices=res['confusion_matrices']
+                    for matrix in matrices:
+                        row=[data,model]
+                        row.append((np.trace(matrix))/matrix.sum()*100)
+                        for i in range(4):
+                            row.append(matrix[i][i]/matrix[i].sum()*100)
+                        df.loc[len(df)] =row
+    argument='Total'
+    f=open(dir_path+'/stats_results_2016_' +eps+'.txt','w')
+    for i in range(len(classes)):
+        argument+=' + '+classes[i]
+    argument+=' ~ Model + Feature_Set'
+    print("MANOVA",argument,file=f)
+    maov = MANOVA.from_formula(argument, data=df)
+    print(maov.mv_test(),file=f)
+    argument='Total'
+    argument+=' ~ C(Model) + C(Feature_Set) + C(Model):C(Feature_Set)'
+    print("2-way ANOVA", argument,file=f)
+    model = ols(argument, data=df).fit()
+    print(sm.stats.anova_lm(model, typ=2),file=f)
+    for i in range(len(classes)):
+        argument=classes[i]
+        argument+=' ~ C(Model) + C(Feature_Set) + C(Model):C(Feature_Set)'
+        print("2-way ANOVA", argument,file=f)
+        model = ols(argument, data=df).fit()
+        print(sm.stats.anova_lm(model, typ=2),file=f)
+    print("\n\nMultiple T Test Analysis across Models",file=f)
+    for i in range(len(models)):
+        for j in range(i+1,len(models)):
+            print('\n',models[i], 'vs',models[j],'\n',file=f)
+            t1=df[df['Model']==models[i]]['Total'].values.tolist()
+            t2=df[df['Model']==models[j]]['Total'].values.tolist()
+            print("Total Accuracy t test",file=f)
+            print(multipletests(ttest_ind(t1,t2)[1]),file=f)
+            for c in range(4):
+                print("Class - ", classes[c],"t test",file=f)
+                t1=df[df['Model']==models[i]][classes[c]].values.tolist()
+                t2=df[df['Model']==models[j]][classes[c]].values.tolist()
+                print(multipletests(ttest_ind(t1,t2)[1]),file=f)
+    print("\n\nMultiple T Test Analysis across Feature Sets",file=f)
+    for i in range(len(data_types)):
+        for j in range(i+1,len(data_types)):
+            print('\n',data_types[i], 'vs',data_types[j],'\n',file=f)
+            t1=df[df['Feature_Set']==data_types[i]]['Total'].values.tolist()
+            t2=df[df['Feature_Set']==data_types[j]]['Total'].values.tolist()
+            print("Total Accuracy t test",file=f)
+            print(multipletests(ttest_ind(t1,t2)[1]),file=f)
+            for c in range(4):
+                print("Class - ", classes[c],"t test",file=f)
+                t1=df[df['Feature_Set']==data_types[i]][classes[c]].values.tolist()
+                t2=df[df['Feature_Set']==data_types[j]][classes[c]].values.tolist()
+                print(multipletests(ttest_ind(t1,t2)[1]),file=f)
+    f.close()
 
 def manova(smote,eye_window,log_window,ep,threshold,models,usercv,data_types,years=False,indiv=False):
     data_types_titles=['Interaction','Gaze','Combined'][:len(data_types)]
@@ -252,7 +344,8 @@ def manova(smote,eye_window,log_window,ep,threshold,models,usercv,data_types,yea
                 # print(len(res['confusion_matrices']))
                 matrices=res['confusion_matrices']
                 for matrix in matrices:
-                    if indiv:
+                    if indiv and model!= 'Strat':
+                    # if indiv:
                         row=[data,model + '_'+str(data),'2016 + 2014']
                     else:
                         row=[data,model,'2016 + 2014']
@@ -268,7 +361,8 @@ def manova(smote,eye_window,log_window,ep,threshold,models,usercv,data_types,yea
                 else:
                     with open(dir_path+type+results[:-1]+'_2014/'+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'_'+data+'.pickle', 'rb') as handle:
                         res=pickle.load(handle)
-                    if indiv:
+                    if indiv and model!= 'Strat':
+                    # if indiv:
                         model = model + '_' + str(data)#toggle this on for individual figures and the below toggle
                 # print(len(res['confusion_matrices']))
                 matrices=res['confusion_matrices']
@@ -287,7 +381,8 @@ def manova(smote,eye_window,log_window,ep,threshold,models,usercv,data_types,yea
                 else:
                     with open(dir_path+type+results+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'_'+data+'.pickle', 'rb') as handle:
                         res=pickle.load(handle)
-                    if indiv:
+                    if indiv and model!= 'Strat':
+                    # if indiv:
                         model = model + '_' + str(data)#toggle this on for individual figures and the below toggle
                 # print(len(res['confusion_matrices']))
                 matrices=res['confusion_matrices']
@@ -300,8 +395,8 @@ def manova(smote,eye_window,log_window,ep,threshold,models,usercv,data_types,yea
 
     new_models=[]
     for model in models:
-        # if 'ENSEMBLE' not in model and model != 'Strat':
-        if 'ENSEMBLE' not in model:
+        if 'ENSEMBLE' not in model and model != 'Strat':
+        # if 'ENSEMBLE' not in model:
             for data in data_types:
                 m = model + '_' + str(data)
                 new_models.append(m)
@@ -510,7 +605,8 @@ def plots(smote,eye_window,log_window,ep,threshold,models,usercv,data_types,year
                 # print(len(res['confusion_matrices']))
                 matrices=res['confusion_matrices']
                 for matrix in matrices:
-                    if indiv:
+                    if indiv and model!= 'Strat':
+                    # if indiv:
                         row=[data,model + '_'+str(data),'2016 + 2014']
                     else:
                         row=[data,model,'2016 + 2014']
@@ -526,7 +622,8 @@ def plots(smote,eye_window,log_window,ep,threshold,models,usercv,data_types,year
                 else:
                     with open(dir_path+type+results[:-1]+'_2014/'+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'_'+data+'.pickle', 'rb') as handle:
                         res=pickle.load(handle)
-                    if indiv:
+                    if indiv and model!= 'Strat':
+                    # if indiv:
                         model = model + '_' + str(data)#toggle this on for individual figures and the below toggle
                 # print(len(res['confusion_matrices']))
                 matrices=res['confusion_matrices']
@@ -545,7 +642,8 @@ def plots(smote,eye_window,log_window,ep,threshold,models,usercv,data_types,year
                 else:
                     with open(dir_path+type+results+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'_'+data+'.pickle', 'rb') as handle:
                         res=pickle.load(handle)
-                    if indiv:
+                    if indiv and model!= 'Strat':
+                    # if indiv:
                         model = model + '_' + str(data)#toggle this on for individual figures and the below toggle
                 # print(len(res['confusion_matrices']))
                 matrices=res['confusion_matrices']
@@ -558,8 +656,8 @@ def plots(smote,eye_window,log_window,ep,threshold,models,usercv,data_types,year
 
     new_models=[]
     for model in models:
-        # if 'ENSEMBLE' not in model and model != 'Strat':
-        if 'ENSEMBLE' not in model:
+        if 'ENSEMBLE' not in model and model != 'Strat':
+        # if 'ENSEMBLE' not in model:
             for data in data_types:
                 m = model + '_' + str(data)
                 new_models.append(m)
@@ -863,5 +961,6 @@ usercv=True
 # print('\n')
 # plot_accuracy(smote,'','',ep,'eye','3',models,usercv)
 # anova_class(smote,'','',ep,'both','3',models,usercv)
-manova(smote,'','',ep,'3',models,usercv,data_types,True,False)
-# plots(smote,'','',ep,'3',models,usercv,data_types,False,True)
+# manova_old(smote,'','',ep,'3',models,usercv)
+# manova(smote,'','',ep,'3',models,usercv,data_types,True,False)
+plots(smote,'','',ep,'3',models,usercv,data_types,False,True)

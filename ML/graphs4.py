@@ -18,19 +18,21 @@ pd.set_option('display.max_rows', None)  # or 1000
 pd.set_option('display.max_colwidth', None)  # or 199
 
 labels=['Acc_Overall','Acc_None','Acc_Frus','Acc_Bore','Acc_Both']
-base=[25.20,25.24,24.28,24.41,26.41]
-rf=[26.20,29.85,17.98,28.74,22.55]
-lr=[24.01,17.36,21.24,33.43,27.95]
-# svm=[26.75,23.00,20.39,36.76,26.72]
+rf_log=[36.49, 32.94,18.05,39.37,51.54]
+rf_eye=[26.56,40.48,9.06,21.18,19.10]
+lr_log=[28.64,6.37,3.74,63.76,48.51]
+lr_eye=[22.77,12.79,19.19,16.36,48.56]
+en=[34.36,38.57,9.12, 31.82,44.89]
 
 x = np.arange(len(labels))  # the label locations
-width = 0.2  # the width of the bars
+width = 0.15  # the width of the bars
 
 fig, ax = plt.subplots()
-rects1 = ax.bar(x - width, base, width, label='Baseline',color='#F4D4D4',hatch='/')
-rects2 = ax.bar(x , rf, width, label='RF',color='#342A1F',hatch='.')
-rects3 = ax.bar(x + width, lr, width, label='LR',color='#CAB8C8',hatch='*')
-# rects4 = ax.bar(x + 2*width, svm, width, label='SVM',color='grey',hatch='-')
+rects1 = ax.bar(x - 2*width, rf_log, width, label='RF_log',color='#F4D4D4',hatch='/')
+rects2 = ax.bar(x - width, rf_eye, width, label='RF_eye',color='#342A1F',hatch='.')
+rects3 = ax.bar(x, lr_log, width, label='LR_log',color='#CAB8C8',hatch='*')
+rects4 = ax.bar(x + width, lr_eye, width, label='LR_eye',color='grey',hatch='-')
+rects5 = ax.bar(x + 2*width, en, width, label='Ensemble',color='black',hatch='-')
 
 
 # Add some text for labels, title and custom x-axis tick labels, etc.
@@ -41,7 +43,7 @@ ax.set_xticklabels(labels)
 ax.legend(fontsize=20,loc='upper left')
 plt.yticks(fontsize=19)
 plt.xticks(fontsize=19)
-ax.set_ylim([0,40])
+ax.set_ylim([0,90])
 
 def autolabel(rects):
     """Attach a text label above each bar in *rects*, displaying its height."""
@@ -60,6 +62,7 @@ def autolabel(rects):
 # autolabel(rects2)
 # autolabel(rects3)
 # autolabel(rects4)
+# autolabel(rects5)
 #
 # ax.annotate('*',
 #             xy=(0.4, 35.28),color='black',
@@ -111,18 +114,20 @@ plt.show()
 print('\n\n\n')
 
 labels=['Acc_Overall','Acc_None','Acc_Curi','Acc_Anxi','Acc_Both']
-base=[25.87,26.11,26.10,25.37,25.75]
-rf=[27.38,26.40,31.84,17.77,27.74]
-lr=[20.66,27.29,13.76,42.31,13.90]
-# svm=[23.94,22.49,23.27,28.84,24.02]
+rf_log=[25.62,29.22,28.71,22.82,20.22]
+rf_eye=[26.23,23.15,33.15, 7.90,29.97]
+lr_log=[13.96,8.47, 6.98,33.30,16.87]
+lr_eye=[26.76,51.54, 4.67,22.89,35.61]
+en=[24.31,26.70,28.02, 9.17,26.24]
 
 x = np.arange(len(labels))  # the label locations
 
 fig, ax = plt.subplots()
-rects1 = ax.bar(x - width, base, width, label='Baseline',color='#F4D4D4',hatch='/')
-rects2 = ax.bar(x , rf, width, label='RF',color='#342A1F',hatch='.')
-rects3 = ax.bar(x + width, lr, width, label='LR',color='#CAB8C8',hatch='*')
-# rects4 = ax.bar(x + 2*width, svm, width, label='SVM',color='grey',hatch='-')
+rects1 = ax.bar(x - 2*width, rf_log, width, label='RF_log',color='#F4D4D4',hatch='/')
+rects2 = ax.bar(x - width, rf_eye, width, label='RF_eye',color='#342A1F',hatch='.')
+rects3 = ax.bar(x, lr_log, width, label='LR_log',color='#CAB8C8',hatch='*')
+rects4 = ax.bar(x + width, lr_eye, width, label='LR_eye',color='grey',hatch='-')
+rects5 = ax.bar(x + 2*width, en, width, label='Ensemble',color='black',hatch='-')
 
 
 
@@ -132,7 +137,7 @@ ax.set_title('Curiosity x Anxiety',fontsize=24)
 ax.set_xticks(x)
 ax.set_xticklabels(labels)
 ax.legend(fontsize=20,loc='upper left')
-ax.set_ylim([0,45])
+ax.set_ylim([0,70])
 plt.yticks(fontsize=19)
 plt.xticks(fontsize=19)
 
@@ -141,6 +146,7 @@ plt.xticks(fontsize=19)
 # autolabel(rects2)
 # autolabel(rects3)
 # autolabel(rects4)
+# autolabel(rects5)
 
 # ax.annotate('*',
 #             xy=(0.4, 28.04),color='black',

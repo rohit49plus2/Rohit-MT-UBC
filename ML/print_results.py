@@ -252,12 +252,27 @@ def manova(smote,eye_window,log_window,ep,threshold,models,usercv):
                         res=pickle.load(handle)
                     # print(len(res['confusion_matrices']))
                     matrices=res['confusion_matrices']
+                    if model != 'Strat':
+                        model_name = model + '_' + str(data)
+                    else:
+                        model_name = model
                     for matrix in matrices:
-                        row=[data,model]
+                        row=[data,model_name]
                         row.append((np.trace(matrix))/matrix.sum()*100)
                         for i in range(4):
                             row.append(matrix[i][i]/matrix[i].sum()*100)
                         df.loc[len(df)] =row
+
+    new_models=[]
+    for model in models:
+        if 'ENSEMBLE' not in model and model != 'Strat':
+            for data in data_types:
+                m = model + '_' + str(data)
+                new_models.append(m)
+        else:
+            m = model
+            new_models.append(m)
+    models = new_models
     argument='Total'
     f=open(dir_path+'/stats_results_' +eps+'.txt','w')
     for i in range(len(classes)):
@@ -357,7 +372,7 @@ def plots(smote,eye_window,log_window,ep,threshold,models,usercv):
             m = model
             new_models.append(m)
     models = new_models
-    #accuracies across feature Sets
+    # accuracies across feature Sets
     y=[]
     for i in range(len(models)):
         t=df[df['Model']==models[i]]['Total'].values.tolist()
@@ -465,15 +480,17 @@ def plots(smote,eye_window,log_window,ep,threshold,models,usercv):
 
 
 
-ep=["Frustration","Boredom"]
+# ep=["Frustration","Boredom"]
 # ep=["Curiosity"]
-# ep=["Curiosity","Anxiety"]
+ep=["Curiosity","Anxiety"]
 # ep=["Boredom"]
 
 smote = True
 # smote = False
 
-models=['Strat','RF','LR','ENSEMBLE3']
+models=['Strat','RF','LR']
+# models=['Strat','RF','LR','SVM']
+# models=['Strat','RF','LR','ENSEMBLE2']
 # models=['ENSEMBLE2']
 
 # usercv=False

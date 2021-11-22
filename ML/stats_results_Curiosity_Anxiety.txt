@@ -5,141 +5,193 @@ MANOVA Total + No_emotion + Curiosity + Anxiety + Curiosity-x-Anxiety ~ Model + 
 ---------------------------------------------------------------
         Intercept        Value  Num DF  Den DF  F Value  Pr > F
 ---------------------------------------------------------------
-           Wilks' lambda 0.3183 3.0000 633.0000 451.9111 0.0000
-          Pillai's trace 0.6817 3.0000 633.0000 451.9111 0.0000
-  Hotelling-Lawley trace 2.1418 3.0000 633.0000 451.9111 0.0000
-     Roy's greatest root 2.1418 3.0000 633.0000 451.9111 0.0000
+           Wilks' lambda 0.2573 3.0000 472.0000 454.1446 0.0000
+          Pillai's trace 0.7427 3.0000 472.0000 454.1446 0.0000
+  Hotelling-Lawley trace 2.8865 3.0000 472.0000 454.1446 0.0000
+     Roy's greatest root 2.8865 3.0000 472.0000 454.1446 0.0000
 ---------------------------------------------------------------
                                                                
 ---------------------------------------------------------------
-         Model          Value  Num DF   Den DF  F Value  Pr > F
+         Model          Value   Num DF   Den DF  F Value Pr > F
 ---------------------------------------------------------------
-          Wilks' lambda 0.6553 9.0000 1540.7063  32.4637 0.0000
-         Pillai's trace 0.3501 9.0000 1905.0000  27.9658 0.0000
- Hotelling-Lawley trace 0.5176 9.0000  991.5357  36.3657 0.0000
-    Roy's greatest root 0.5011 3.0000  635.0000 106.0623 0.0000
+          Wilks' lambda 0.4138 12.0000 1249.0861 41.2000 0.0000
+         Pillai's trace 0.7106 12.0000 1422.0000 36.7832 0.0000
+ Hotelling-Lawley trace 1.1181 12.0000  821.6979 43.9009 0.0000
+    Roy's greatest root 0.7016  4.0000  474.0000 83.1399 0.0000
 ---------------------------------------------------------------
                                                                
 ---------------------------------------------------------------
         Feature_Set       Value  Num DF  Den DF  F Value Pr > F
 ---------------------------------------------------------------
-            Wilks' lambda 0.9432 3.0000 633.0000 12.7064 0.0000
-           Pillai's trace 0.0568 3.0000 633.0000 12.7064 0.0000
-   Hotelling-Lawley trace 0.0602 3.0000 633.0000 12.7064 0.0000
-      Roy's greatest root 0.0602 3.0000 633.0000 12.7064 0.0000
+            Wilks' lambda 0.9987 3.0000 472.0000  0.2036 0.8939
+           Pillai's trace 0.0013 3.0000 472.0000  0.2036 0.8939
+   Hotelling-Lawley trace 0.0013 3.0000 472.0000  0.2036 0.8939
+      Roy's greatest root 0.0013 3.0000 472.0000  0.2036 0.8939
 ===============================================================
 
 2-way ANOVA Total ~ C(Model) + C(Feature_Set) + C(Model):C(Feature_Set)
                                sum_sq     df          F        PR(>F)
-C(Model)                  3132.949276    3.0  17.657280  5.116484e-11
-C(Feature_Set)            1914.379156    1.0  32.368282  1.951931e-08
-C(Model):C(Feature_Set)   4655.840015    3.0  26.240281  5.249327e-16
-Residual                 37378.802390  632.0        NaN           NaN
+C(Model)                  3316.733633    4.0  14.834897  5.634910e-07
+C(Feature_Set)              57.140718    1.0   1.022303  3.124892e-01
+C(Model):C(Feature_Set)  10706.881284    4.0  47.889129  4.757804e-27
+Residual                 26493.808692  474.0        NaN           NaN
 2-way ANOVA No_emotion ~ C(Model) + C(Feature_Set) + C(Model):C(Feature_Set)
                                 sum_sq     df          F        PR(>F)
-C(Model)                   1864.192637    3.0   1.598657  1.885029e-01
-C(Feature_Set)            12677.305393    1.0  32.614640  1.730241e-08
-C(Model):C(Feature_Set)   63087.620913    3.0  54.101404  3.902793e-31
-Residual                 245658.298957  632.0        NaN           NaN
+C(Model)                   6528.716667    4.0   5.232523  5.652842e-03
+C(Feature_Set)            11264.298515    1.0  36.111659  3.718653e-09
+C(Model):C(Feature_Set)   99101.012214    4.0  79.425762  1.219459e-41
+Residual                 147854.670997  474.0        NaN           NaN
 2-way ANOVA Curiosity ~ C(Model) + C(Feature_Set) + C(Model):C(Feature_Set)
-                                sum_sq     df           F        PR(>F)
-C(Model)                  62465.253266    3.0  103.578168  1.523161e-54
-C(Feature_Set)               81.334912    1.0    0.404602  5.249524e-01
-C(Model):C(Feature_Set)     943.683469    3.0    1.564790  1.967262e-01
-Residual                 127047.494679  632.0         NaN           NaN
+                               sum_sq     df          F        PR(>F)
+C(Model)                 58340.516459    4.0  79.958268  1.196366e-30
+C(Feature_Set)             225.317276    1.0   1.235229  2.669559e-01
+C(Model):C(Feature_Set)  37551.713768    4.0  51.466291  8.244648e-29
+Residual                 86461.993093  474.0        NaN           NaN
 2-way ANOVA Anxiety ~ C(Model) + C(Feature_Set) + C(Model):C(Feature_Set)
                                 sum_sq     df          F        PR(>F)
-C(Model)                  37744.608024    3.0  32.244644  2.106307e-19
-C(Feature_Set)             4194.572195    1.0  10.750078  1.099962e-03
-C(Model):C(Feature_Set)    9996.058208    3.0   8.539480  1.448538e-05
-Residual                 246600.045174  632.0        NaN           NaN
+C(Model)                  44132.101344    4.0  24.913654  5.150848e-11
+C(Feature_Set)              175.155359    1.0   0.395518  5.297160e-01
+C(Model):C(Feature_Set)    9019.780014    4.0   5.091887  1.774012e-03
+Residual                 209911.156285  474.0        NaN           NaN
 2-way ANOVA Curiosity-x-Anxiety ~ C(Model) + C(Feature_Set) + C(Model):C(Feature_Set)
-                                sum_sq     df           F        PR(>F)
-C(Model)                  62465.253266    3.0  103.578168  1.523161e-54
-C(Feature_Set)               81.334912    1.0    0.404602  5.249524e-01
-C(Model):C(Feature_Set)     943.683469    3.0    1.564790  1.967262e-01
-Residual                 127047.494679  632.0         NaN           NaN
+                               sum_sq     df          F        PR(>F)
+C(Model)                 58340.516459    4.0  79.958268  1.196366e-30
+C(Feature_Set)             225.317276    1.0   1.235229  2.669559e-01
+C(Model):C(Feature_Set)  37551.713768    4.0  51.466291  8.244648e-29
+Residual                 86461.993093  474.0        NaN           NaN
 
 
 Multiple T Test Analysis across Models
 
- Strat vs RF 
+ Strat vs RF_log 
 
 Total Accuracy t test
-(array([False]), array([0.70598019]), 0.050000000000000044, 0.05)
+(array([False]), array([0.98367735]), 0.050000000000000044, 0.05)
 Class -  No_emotion t test
-(array([False]), array([0.77723424]), 0.050000000000000044, 0.05)
+(array([False]), array([0.16394566]), 0.050000000000000044, 0.05)
 Class -  Curiosity t test
-(array([ True]), array([0.00280209]), 0.050000000000000044, 0.05)
+(array([False]), array([0.18021702]), 0.050000000000000044, 0.05)
 Class -  Anxiety t test
-(array([ True]), array([6.82646687e-06]), 0.050000000000000044, 0.05)
+(array([False]), array([0.33336917]), 0.050000000000000044, 0.05)
 Class -  Curiosity-x-Anxiety t test
-(array([False]), array([0.82812313]), 0.050000000000000044, 0.05)
+(array([ True]), array([0.02151537]), 0.050000000000000044, 0.05)
 
- Strat vs LR 
+ Strat vs RF_eye 
 
 Total Accuracy t test
-(array([ True]), array([4.80060794e-08]), 0.050000000000000044, 0.05)
+(array([False]), array([0.51049879]), 0.050000000000000044, 0.05)
 Class -  No_emotion t test
-(array([False]), array([0.0728471]), 0.050000000000000044, 0.05)
+(array([False]), array([0.21997221]), 0.050000000000000044, 0.05)
+Class -  Curiosity t test
+(array([ True]), array([1.22481869e-05]), 0.050000000000000044, 0.05)
+Class -  Anxiety t test
+(array([ True]), array([4.36428671e-13]), 0.050000000000000044, 0.05)
+Class -  Curiosity-x-Anxiety t test
+(array([ True]), array([0.0188938]), 0.050000000000000044, 0.05)
+
+ Strat vs LR_log 
+
+Total Accuracy t test
+(array([ True]), array([0.]), 0.050000000000000044, 0.05)
+Class -  No_emotion t test
+(array([ True]), array([1.55431223e-15]), 0.050000000000000044, 0.05)
 Class -  Curiosity t test
 (array([ True]), array([0.]), 0.050000000000000044, 0.05)
 Class -  Anxiety t test
-(array([False]), array([0.32426355]), 0.050000000000000044, 0.05)
+(array([ True]), array([0.01606522]), 0.050000000000000044, 0.05)
 Class -  Curiosity-x-Anxiety t test
-(array([False]), array([0.69487428]), 0.050000000000000044, 0.05)
+(array([ True]), array([0.00016421]), 0.050000000000000044, 0.05)
 
- Strat vs ENSEMBLE2 
+ Strat vs LR_eye 
 
 Total Accuracy t test
-(array([False]), array([0.13997288]), 0.050000000000000044, 0.05)
+(array([False]), array([0.22442568]), 0.050000000000000044, 0.05)
 Class -  No_emotion t test
-(array([False]), array([0.63171767]), 0.050000000000000044, 0.05)
-Class -  Curiosity t test
-(array([False]), array([0.15555334]), 0.050000000000000044, 0.05)
-Class -  Anxiety t test
-(array([ True]), array([4.4408921e-16]), 0.050000000000000044, 0.05)
-Class -  Curiosity-x-Anxiety t test
-(array([False]), array([0.69125485]), 0.050000000000000044, 0.05)
-
- RF vs LR 
-
-Total Accuracy t test
-(array([ True]), array([3.659777e-08]), 0.050000000000000044, 0.05)
-Class -  No_emotion t test
-(array([False]), array([0.16444853]), 0.050000000000000044, 0.05)
+(array([ True]), array([0.]), 0.050000000000000044, 0.05)
 Class -  Curiosity t test
 (array([ True]), array([0.]), 0.050000000000000044, 0.05)
 Class -  Anxiety t test
-(array([ True]), array([1.0315665e-06]), 0.050000000000000044, 0.05)
+(array([False]), array([0.26971651]), 0.050000000000000044, 0.05)
 Class -  Curiosity-x-Anxiety t test
-(array([False]), array([0.58787085]), 0.050000000000000044, 0.05)
+(array([ True]), array([1.97596706e-07]), 0.050000000000000044, 0.05)
 
- RF vs ENSEMBLE2 
+ RF_log vs RF_eye 
 
 Total Accuracy t test
-(array([False]), array([0.08117856]), 0.050000000000000044, 0.05)
+(array([False]), array([0.64121693]), 0.050000000000000044, 0.05)
 Class -  No_emotion t test
-(array([False]), array([0.84308776]), 0.050000000000000044, 0.05)
+(array([False]), array([0.07128665]), 0.050000000000000044, 0.05)
 Class -  Curiosity t test
-(array([False]), array([0.1296425]), 0.050000000000000044, 0.05)
+(array([False]), array([0.12385015]), 0.050000000000000044, 0.05)
 Class -  Anxiety t test
-(array([ True]), array([0.00288987]), 0.050000000000000044, 0.05)
+(array([ True]), array([4.67222745e-06]), 0.050000000000000044, 0.05)
 Class -  Curiosity-x-Anxiety t test
-(array([False]), array([0.5837827]), 0.050000000000000044, 0.05)
+(array([ True]), array([0.00054601]), 0.050000000000000044, 0.05)
 
- LR vs ENSEMBLE2 
+ RF_log vs LR_log 
 
 Total Accuracy t test
-(array([ True]), array([7.94281413e-05]), 0.050000000000000044, 0.05)
+(array([ True]), array([7.99360578e-15]), 0.050000000000000044, 0.05)
 Class -  No_emotion t test
-(array([False]), array([0.25817262]), 0.050000000000000044, 0.05)
+(array([ True]), array([4.85175433e-09]), 0.050000000000000044, 0.05)
+Class -  Curiosity t test
+(array([ True]), array([5.07482945e-13]), 0.050000000000000044, 0.05)
+Class -  Anxiety t test
+(array([ True]), array([0.0172727]), 0.050000000000000044, 0.05)
+Class -  Curiosity-x-Anxiety t test
+(array([False]), array([0.3042912]), 0.050000000000000044, 0.05)
+
+ RF_log vs LR_eye 
+
+Total Accuracy t test
+(array([False]), array([0.3812441]), 0.050000000000000044, 0.05)
+Class -  No_emotion t test
+(array([ True]), array([2.37549402e-09]), 0.050000000000000044, 0.05)
+Class -  Curiosity t test
+(array([ True]), array([1.11022302e-16]), 0.050000000000000044, 0.05)
+Class -  Anxiety t test
+(array([False]), array([0.98451883]), 0.050000000000000044, 0.05)
+Class -  Curiosity-x-Anxiety t test
+(array([ True]), array([9.70014123e-08]), 0.050000000000000044, 0.05)
+
+ RF_eye vs LR_log 
+
+Total Accuracy t test
+(array([ True]), array([0.]), 0.050000000000000044, 0.05)
+Class -  No_emotion t test
+(array([ True]), array([9.02828057e-09]), 0.050000000000000044, 0.05)
 Class -  Curiosity t test
 (array([ True]), array([0.]), 0.050000000000000044, 0.05)
 Class -  Anxiety t test
-(array([ True]), array([2.44249065e-15]), 0.050000000000000044, 0.05)
+(array([ True]), array([1.89990246e-11]), 0.050000000000000044, 0.05)
 Class -  Curiosity-x-Anxiety t test
-(array([False]), array([0.99867547]), 0.050000000000000044, 0.05)
+(array([ True]), array([3.4091434e-06]), 0.050000000000000044, 0.05)
+
+ RF_eye vs LR_eye 
+
+Total Accuracy t test
+(array([False]), array([0.60245821]), 0.050000000000000044, 0.05)
+Class -  No_emotion t test
+(array([ True]), array([0.]), 0.050000000000000044, 0.05)
+Class -  Curiosity t test
+(array([ True]), array([0.]), 0.050000000000000044, 0.05)
+Class -  Anxiety t test
+(array([ True]), array([7.50273399e-10]), 0.050000000000000044, 0.05)
+Class -  Curiosity-x-Anxiety t test
+(array([ True]), array([0.00783078]), 0.050000000000000044, 0.05)
+
+ LR_log vs LR_eye 
+
+Total Accuracy t test
+(array([ True]), array([0.]), 0.050000000000000044, 0.05)
+Class -  No_emotion t test
+(array([ True]), array([0.]), 0.050000000000000044, 0.05)
+Class -  Curiosity t test
+(array([False]), array([0.11816986]), 0.050000000000000044, 0.05)
+Class -  Anxiety t test
+(array([ True]), array([0.00658495]), 0.050000000000000044, 0.05)
+Class -  Curiosity-x-Anxiety t test
+(array([ True]), array([1.10092824e-10]), 0.050000000000000044, 0.05)
 
 
 Multiple T Test Analysis across Feature Sets
@@ -147,12 +199,12 @@ Multiple T Test Analysis across Feature Sets
  log vs eye 
 
 Total Accuracy t test
-(array([ True]), array([2.6864792e-07]), 0.050000000000000044, 0.05)
+(array([ True]), array([3.41252004e-09]), 0.050000000000000044, 0.05)
 Class -  No_emotion t test
-(array([ True]), array([4.41884023e-07]), 0.050000000000000044, 0.05)
+(array([ True]), array([1.05807296e-09]), 0.050000000000000044, 0.05)
 Class -  Curiosity t test
-(array([False]), array([0.60186781]), 0.050000000000000044, 0.05)
+(array([False]), array([0.54836637]), 0.050000000000000044, 0.05)
 Class -  Anxiety t test
-(array([ True]), array([0.00266934]), 0.050000000000000044, 0.05)
+(array([ True]), array([0.00076717]), 0.050000000000000044, 0.05)
 Class -  Curiosity-x-Anxiety t test
-(array([ True]), array([4.76474617e-07]), 0.050000000000000044, 0.05)
+(array([ True]), array([1.93538907e-09]), 0.050000000000000044, 0.05)

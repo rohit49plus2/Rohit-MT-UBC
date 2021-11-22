@@ -1,7 +1,7 @@
 MANOVA Total + No_emotion + Curiosity + Anxiety + Curiosity-x-Anxiety ~ Model + Feature_Set + Dataset
                    Multivariate linear model
 ===============================================================
-                                                               
+
 ---------------------------------------------------------------
        Intercept        Value  Num DF   Den DF  F Value  Pr > F
 ---------------------------------------------------------------
@@ -10,7 +10,7 @@ MANOVA Total + No_emotion + Curiosity + Anxiety + Curiosity-x-Anxiety ~ Model + 
  Hotelling-Lawley trace 1.5174 3.0000 1911.0000 966.6100 0.0000
     Roy's greatest root 1.5174 3.0000 1911.0000 966.6100 0.0000
 ---------------------------------------------------------------
-                                                               
+
 ---------------------------------------------------------------
          Model          Value  Num DF   Den DF  F Value  Pr > F
 ---------------------------------------------------------------
@@ -19,7 +19,7 @@ MANOVA Total + No_emotion + Curiosity + Anxiety + Curiosity-x-Anxiety ~ Model + 
  Hotelling-Lawley trace 0.3915 9.0000 2999.8180  83.1008 0.0000
     Roy's greatest root 0.3658 3.0000 1913.0000 233.2774 0.0000
 ---------------------------------------------------------------
-                                                               
+
 ---------------------------------------------------------------
        Feature_Set       Value  Num DF   Den DF  F Value Pr > F
 ---------------------------------------------------------------
@@ -28,7 +28,7 @@ MANOVA Total + No_emotion + Curiosity + Anxiety + Curiosity-x-Anxiety ~ Model + 
   Hotelling-Lawley trace 0.1549 6.0000 2546.2230 49.3288 0.0000
      Roy's greatest root 0.1535 3.0000 1912.0000 97.8350 0.0000
 ---------------------------------------------------------------
-                                                               
+
 ---------------------------------------------------------------
          Dataset         Value  Num DF   Den DF  F Value Pr > F
 ---------------------------------------------------------------
@@ -152,7 +152,7 @@ Residual                 354969.744613  1908.0         NaN            NaN
 
 Multiple T Test Analysis across Models
 
- Strat vs LR 
+ Strat vs LR
 
 Total Accuracy t test
 (array([ True]), array([0.]), 0.050000000000000044, 0.05)
@@ -165,7 +165,7 @@ Class -  Anxiety t test
 Class -  Curiosity-x-Anxiety t test
 (array([ True]), array([1.10596538e-05]), 0.050000000000000044, 0.05)
 
- Strat vs RF 
+ Strat vs RF
 
 Total Accuracy t test
 (array([ True]), array([0.01074919]), 0.050000000000000044, 0.05)
@@ -178,7 +178,7 @@ Class -  Anxiety t test
 Class -  Curiosity-x-Anxiety t test
 (array([False]), array([0.06516713]), 0.050000000000000044, 0.05)
 
- Strat vs SVM 
+ Strat vs SVM
 
 Total Accuracy t test
 (array([ True]), array([1.01945274e-09]), 0.050000000000000044, 0.05)
@@ -191,7 +191,7 @@ Class -  Anxiety t test
 Class -  Curiosity-x-Anxiety t test
 (array([False]), array([0.52209062]), 0.050000000000000044, 0.05)
 
- LR vs RF 
+ LR vs RF
 
 Total Accuracy t test
 (array([ True]), array([0.]), 0.050000000000000044, 0.05)
@@ -204,7 +204,7 @@ Class -  Anxiety t test
 Class -  Curiosity-x-Anxiety t test
 (array([ True]), array([2.02417539e-08]), 0.050000000000000044, 0.05)
 
- LR vs SVM 
+ LR vs SVM
 
 Total Accuracy t test
 (array([ True]), array([0.02371812]), 0.050000000000000044, 0.05)
@@ -217,7 +217,7 @@ Class -  Anxiety t test
 Class -  Curiosity-x-Anxiety t test
 (array([ True]), array([0.00104315]), 0.050000000000000044, 0.05)
 
- RF vs SVM 
+ RF vs SVM
 
 Total Accuracy t test
 (array([ True]), array([3.10862447e-15]), 0.050000000000000044, 0.05)
@@ -233,7 +233,7 @@ Class -  Curiosity-x-Anxiety t test
 
 Multiple T Test Analysis across Feature Sets
 
- log vs eye 
+ log vs eye
 
 Total Accuracy t test
 (array([ True]), array([0.]), 0.050000000000000044, 0.05)
@@ -246,7 +246,7 @@ Class -  Anxiety t test
 Class -  Curiosity-x-Anxiety t test
 (array([ True]), array([0.]), 0.050000000000000044, 0.05)
 
- log vs both 
+ log vs both
 
 Total Accuracy t test
 (array([ True]), array([0.]), 0.050000000000000044, 0.05)
@@ -259,7 +259,7 @@ Class -  Anxiety t test
 Class -  Curiosity-x-Anxiety t test
 (array([ True]), array([0.]), 0.050000000000000044, 0.05)
 
- eye vs both 
+ eye vs both
 
 Total Accuracy t test
 (array([ True]), array([0.03334681]), 0.050000000000000044, 0.05)
@@ -275,7 +275,7 @@ Class -  Curiosity-x-Anxiety t test
 
 Multiple T Test Analysis across Datasets for a particular Model
 
- Model Strat 2014 vs 2016 + 2014 
+ Model Strat 2014 vs 2016 + 2014
 
 Total Accuracy t test
 (array([False]), array([0.61189141]), 0.050000000000000044, 0.05)
@@ -288,7 +288,7 @@ Class -  Anxiety t test
 Class -  Curiosity-x-Anxiety t test
 (array([False]), array([0.83398337]), 0.050000000000000044, 0.05)
 
- Model LR 2014 vs 2016 + 2014 
+ Model LR 2014 vs 2016 + 2014
 
 Total Accuracy t test
 (array([ True]), array([0.03444012]), 0.050000000000000044, 0.05)
@@ -301,7 +301,7 @@ Class -  Anxiety t test
 Class -  Curiosity-x-Anxiety t test
 (array([ True]), array([0.]), 0.050000000000000044, 0.05)
 
- Model RF 2014 vs 2016 + 2014 
+ Model RF 2014 vs 2016 + 2014
 
 Total Accuracy t test
 (array([False]), array([0.19595087]), 0.050000000000000044, 0.05)
@@ -314,7 +314,7 @@ Class -  Anxiety t test
 Class -  Curiosity-x-Anxiety t test
 (array([False]), array([0.93915771]), 0.050000000000000044, 0.05)
 
- Model SVM 2014 vs 2016 + 2014 
+ Model SVM 2014 vs 2016 + 2014
 
 Total Accuracy t test
 (array([ True]), array([0.00105995]), 0.050000000000000044, 0.05)
@@ -330,7 +330,7 @@ Class -  Curiosity-x-Anxiety t test
 
 Multiple T Test Analysis across Datasets for a particular Feature_Set
 
- Feature_Set log 2014 vs 2016 + 2014 
+ Feature_Set log 2014 vs 2016 + 2014
 
 Total Accuracy t test
 (array([False]), array([0.57891972]), 0.050000000000000044, 0.05)
@@ -343,7 +343,7 @@ Class -  Anxiety t test
 Class -  Curiosity-x-Anxiety t test
 (array([False]), array([0.34216081]), 0.050000000000000044, 0.05)
 
- Feature_Set eye 2014 vs 2016 + 2014 
+ Feature_Set eye 2014 vs 2016 + 2014
 
 Total Accuracy t test
 (array([ True]), array([0.00579949]), 0.050000000000000044, 0.05)
@@ -356,7 +356,7 @@ Class -  Anxiety t test
 Class -  Curiosity-x-Anxiety t test
 (array([ True]), array([1.5225598e-08]), 0.050000000000000044, 0.05)
 
- Feature_Set both 2014 vs 2016 + 2014 
+ Feature_Set both 2014 vs 2016 + 2014
 
 Total Accuracy t test
 (array([False]), array([0.73498184]), 0.050000000000000044, 0.05)
@@ -374,7 +374,7 @@ Interaction T Test Analysis across Models and Datasets
 
 
 
- 2014 vs 2016 + 2014 
+ 2014 vs 2016 + 2014
 
 Total Accuracy t test
 (array([False]), array([0.13392205]), 0.050000000000000044, 0.05)

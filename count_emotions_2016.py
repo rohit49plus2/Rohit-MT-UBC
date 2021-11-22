@@ -19,20 +19,20 @@ pd.set_option('display.max_colwidth', None)
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
-from gen_classes import emotions
-from gen_classes2016 import emotions as emotions2016
+# from gen_classes import emotions
+# from gen_classes2016 import emotions as emotions2016
 
 d = {'enjoying myself':'Enjoyment', 'contempt': 'Contempt', 'confused':'Confusion', 'curious':'Curiosity', 'sad':'Sadness', 'eureka':'Eureka', 'neutral':'Neutral','task is valuable':'Task Value', 'hopeful':'Hope', 'proud':'Pride','frustrated': 'Frustration', 'anxious': 'Anxiety', 'ashamed': 'Shame', 'hopeless':'Hopelessness', 'bored': 'Boredom', 'surprised':'Surprise'}
 #no happy,disgust, fear, anger
 
-t = 3 #threshold
+t = 4 #threshold
 t=str(t)
 data = {'2014':0,'2016':0}
 for y in ['2014','2016']:
     #Get classes
     class_file = dir_path+"/Combined_Data_"+y+"_Corrected/data_full_full_"+t+".pkl"
     data[y]=pd.read_pickle(class_file)
-    data[y]=data[y].drop(['Part_id','Sc_id', 'ID','Group', 'Name','Gender','Age','Ethnicity','Education','GPA','Major','School','Courses','#Courses', 'Mean # of SRL processes per relevant page while on SG0', 'Mean # of SRL processes per relevant page while on SG1','DurationDay2InSecs','#PLAN','#DEPENDS','maxpupilvelocity','meanpupilvelocity','stddevpupilvelocity'], axis=1)
+    data[y]=data[y].drop(['Part_id','Sc_id', 'ID','Group', 'Name','Gender','Age','Ethnicity','Education','GPA','Major','School','Courses','#Courses', 'Mean # of SRL processes per relevant page while on SG0', 'Mean # of SRL processes per relevant page while on SG1','DurationDay2InSecs','#PLAN','#RR','#COIS','#DEPENDS','maxpupilvelocity','meanpupilvelocity','stddevpupilvelocity'], axis=1)
     data[y] = data[y].apply(pd.to_numeric, errors='ignore', downcast = 'float')
     if y=='2016':
         # extras = ['endpupilsize', 'fixationsaccadetimeratio', 'longestsaccadedistance', 'longestsaccadeduration', 'maxpupilsize', 'maxpupilvelocity', 'maxsaccadespeed', 'meanpupilsize', 'meanpupilvelocity', 'meansaccadedistance', 'meansaccadeduration', 'meansaccadespeed', 'minpupilsize', 'minpupilvelocity', 'minsaccadespeed', 'numsaccades', 'startpupilsize', 'stddevpupilsize', 'stddevpupilvelocity', 'stddevsaccadedistance', 'stddevsaccadeduration', 'stddevsaccadespeed', 'sumsaccadedistance', 'sumsaccadeduration']
@@ -64,10 +64,10 @@ print(df.shape)
 # print(data['2014'].columns[0:409])
 
 
-log_14=data['2014'][list([data['2016'].columns[0]])+list(data['2014'].columns[-41:])]
+log_14=data['2014'][list([data['2016'].columns[0]])+list(data['2014'].columns[-39:])]
 eye_14=data['2014'][data['2014'].columns[:547]]
 
-log_16=data['2016'][list([data['2016'].columns[0]])+list(data['2016'].columns[-41:])]
+log_16=data['2016'][list([data['2016'].columns[0]])+list(data['2016'].columns[-39:])]
 eye_16=data['2016'][data['2016'].columns[:547]]
 
 
@@ -152,13 +152,21 @@ log=pd.DataFrame(columns=['Feature','2014 Mean', '2014 Std', '2016 Mean', '2016 
 
 
 # print("log features\n\n")
+print(len(log_14.columns))
 for c in log_14.columns[1:]:
-    log.loc[len(log)] = [c,log_14[c].mean(),log_14[c].std(),log_16[c].mean(),log_16[c].std(),max(log_14[c].mean(),log_16[c].mean())/min(log_14[c].mean(),log_16[c].mean())]
+    if min(log_14[c].mean(),log_16[c].mean()) != 0:
+        log.loc[len(log)] = [c,log_14[c].mean(),log_14[c].std(),log_16[c].mean(),log_16[c].std(),max(log_14[c].mean(),log_16[c].mean())/min(log_14[c].mean(),log_16[c].mean())]
+    else:
+        # print(c)
+        pass
 # print("eye features\n\n")
 for c in eye_14.columns[1:]:
     # print(c)
-    eye.loc[len(eye)] = [c,eye_14[c].mean(),eye_14[c].std(),eye_16[c].mean(),eye_16[c].std(),max(eye_14[c].mean(),eye_16[c].mean())/min(eye_14[c].mean(),eye_16[c].mean())]
-
+    if min(eye_14[c].mean(),eye_16[c].mean()) != 0:
+        eye.loc[len(eye)] = [c,eye_14[c].mean(),eye_14[c].std(),eye_16[c].mean(),eye_16[c].std(),max(eye_14[c].mean(),eye_16[c].mean())/min(eye_14[c].mean(),eye_16[c].mean())]
+    else:
+        # print(c)
+        pass
 print(eye.shape)
 # print(eye[(eye['2014 Std']==0) | (eye['2016 Std']==0) | (eye['2016 Mean']==float('inf'))])
 eye = eye[(eye['2014 Std']!=0) & (eye['2016 Std']!=0) & (eye['2016 Mean']!=float('inf'))]
@@ -181,27 +189,27 @@ eye.reset_index(drop = True, inplace=True)
 # for N in xaxis:
 #     numaoi.append(eye[eye['Ratio of Means']<N].loc[29:,:].shape[0])
 # plt.plot(xaxis,numaoi)
-# plt.yticks(np.arange(0,232,10),fontsize=16)
+# plt.yticks(np.arange(0,232,20),fontsize=16)
 # plt.xticks(np.arange(1,10.2,1),fontsize=16)
 # plt.title('AOI Features',fontsize=24)
 # plt.grid(True)
 # plt.ylabel('Number of Features',fontsize=22)
 # plt.xlabel('Threshold',fontsize=22)
 # plt.show()
-#
-#
-numaoi=[]
-xaxis = np.arange(1,10.2,.2)
-for n in xaxis:
-    numaoi.append(log[log['Ratio of Means']<n].shape[0])
-plt.plot(xaxis,numaoi)
-plt.yticks(np.arange(0,46,2),fontsize=16)
-plt.xticks(np.arange(1,10.2,1),fontsize=16)
-plt.title('Log Features',fontsize=24)
-plt.grid(True)
-plt.ylabel('Number of Features',fontsize=22)
-plt.xlabel('Threshold',fontsize=22)
-plt.show()
+# #
+# #
+# numaoi=[]
+# xaxis = np.arange(1,10.2,.2)
+# for n in xaxis:
+#     numaoi.append(log[log['Ratio of Means']<n].shape[0])
+# plt.plot(xaxis,numaoi)
+# plt.yticks(np.arange(0,46,4),fontsize=16)
+# plt.xticks(np.arange(1,10.2,1),fontsize=16)
+# plt.title('Log Features',fontsize=24)
+# plt.grid(True)
+# plt.ylabel('Number of Features',fontsize=22)
+# plt.xlabel('Threshold',fontsize=22)
+# plt.show()
 
 
 
@@ -212,7 +220,14 @@ display = log[log['Ratio of Means']>5].loc[:,['Feature','Ratio of Means']]
 # display = log[log['Ratio of Means']>5].loc[:,:]
 # display = log.loc[:,:]
 
-# display = eye.loc[28:,['Feature','Ratio of Means']]
+display = eye.loc[:27,['Feature','Ratio of Means']]
+print("Mean of non-AOI - ",np.mean(display['Ratio of Means']))
+print("StdDev of non-AOI - ",np.std(display['Ratio of Means']))
+print("len non-AOI - ",len(display['Ratio of Means']))
+display = eye.loc[28:,['Feature','Ratio of Means']]
+print("Mean of AOI - ",np.mean(display['Ratio of Means']))
+print("StdDev of AOI - ",np.std(display['Ratio of Means']))
+print("len AOI - ",len(display['Ratio of Means']))
 # display = eye.loc[28:,:]
 # display = eye[eye['Ratio of Means']>5].loc[28:,['Feature','Ratio of Means']]
 # display = eye[eye['Ratio of Means']>5].loc[28:,:]
@@ -233,6 +248,9 @@ print(display.to_latex())
 eye_columns_to_keep = list(eye[eye['Ratio of Means']<=1.5].loc[:31,:]['Feature']) + list(eye[eye['Ratio of Means']<=5].loc[32:,:]['Feature'])
 
 log_columns_to_keep =  list(log[log['Ratio of Means']<5]['Feature'])
+
+print('Eye length', len(eye_columns_to_keep))
+print('log length', len(log_columns_to_keep))
 
 
 eye_16 = eye_16[['key']+eye_columns_to_keep]
@@ -259,9 +277,9 @@ print(eye_full.shape)
 print(log_full.shape)
 print(combined_full.shape)
 
-eye_full.to_csv('Processed_Data/eye_'+str(t)+'.csv')
-log_full.to_csv('Processed_Data/log_'+str(t)+'.csv')
-combined_full.to_csv('Processed_Data/combined_'+str(t)+'.csv')
+# eye_full.to_csv('Processed_Data/eye_'+str(t)+'.csv')
+# log_full.to_csv('Processed_Data/log_'+str(t)+'.csv')
+# combined_full.to_csv('Processed_Data/combined_'+str(t)+'.csv')
 
 print(eye_16.shape)
 print(eye_14.shape)
@@ -277,58 +295,60 @@ compare = datacompy.Compare(eye_14,eye_16,join_columns='abspathanglesrate', df1_
 # print(compare.report())
 
 
-# # PRINT CO-OCCURRING PERCENTAGES
-#
-# emotion_percent=dict()
-# relative_co_occur_percent=dict()
-# absolute_co_occur_percent=dict()
-# emotion_set=list(d.values())
-# emotion_set.remove('Task Value')
-# for emotion in emotion_set:
-#     emotion_percent[emotion]= 100*df[emotion].sum()/df.shape[0]
-#
-# # iterator=itertools.permutations(emotion_set, 2)
+# PRINT CO-OCCURRING PERCENTAGES
+
+emotion_percent=dict()
+relative_co_occur_percent=dict()
+absolute_co_occur_percent=dict()
+emotion_set=list(d.values())
+emotion_set.remove('Task Value')
+for emotion in emotion_set:
+    emotion_percent[emotion]= 100*df[emotion].sum()/df.shape[0]
+
+print("number of EVS total = ", df.shape[0])
+
+iterator=itertools.permutations(emotion_set, 2)
 # iterator=itertools.product(['Task Value'],emotion_set)
-# for emotion_pair in iterator:
-# 	relative_co_occur_percent[frozenset(emotion_pair)] = 100*(df[emotion_pair[0]][df[emotion_pair[1]]==1].sum())/np.array([1 for x in (df[emotion_pair[0]] + df[emotion_pair[1]]) if x>0]).sum()
-# 	absolute_co_occur_percent[frozenset(emotion_pair)] = 100*(df[emotion_pair[0]][df[emotion_pair[1]]==1].sum())/df.shape[0]
-#
-# relative_co_occur_percent={k: v for k, v in sorted(relative_co_occur_percent.items(), key=lambda item: item[1],reverse=True)}
-# absolute_co_occur_percent={k: v for k, v in sorted(absolute_co_occur_percent.items(), key=lambda item: item[1],reverse=True)}
-#
-#
-# with open(dir_path+'/stats/emotion_percentages_'+y+'_'+t+'.pickle', 'wb') as handle:
-#     pickle.dump(emotion_percent, handle, protocol=pickle.HIGHEST_PROTOCOL)
-# with open(dir_path+'/stats/relative_co_occur_percent_emotion_percentages_'+y+'_'+t+'.pickle', 'wb') as handle:
-#     pickle.dump(relative_co_occur_percent, handle, protocol=pickle.HIGHEST_PROTOCOL)
-# with open(dir_path+'/stats/absolute_co_occur_percent_emotion_percentages_'+y+'_'+t+'.pickle', 'wb') as handle:
-#     pickle.dump(absolute_co_occur_percent, handle, protocol=pickle.HIGHEST_PROTOCOL)
-#
-# # import pprint
-#
-# # pprint.pprint(relative_co_occur_percent)
-# # pprint.pprint(absolute_co_occur_percent)
-#
-# cop=pd.DataFrame()
-# fe=[]
-# se=[]
-# rcop=[]
-# acop=[]
-# for pair in relative_co_occur_percent:
-# 	fe.append(list(pair)[0])
-# 	se.append(list(pair)[1])
-# 	rcop.append(relative_co_occur_percent[pair])
-# 	acop.append(absolute_co_occur_percent[pair])
-# cop['Emotion 1']=fe
-# cop['Emotion 2']=se
-# # cop['Relative Cooccurring percent']=rcop
-# cop['Cooccurring percent']=acop
-# # print(emotion_percent)
-# ep=pd.DataFrame()
-# ep['Emotion']=emotion_percent.keys()
-# ep['Percentage']=list(emotion_percent.values())
-# ep=ep.sort_values(['Percentage'],ascending=False)
-# ep = ep.set_index('Emotion')
-# cop = cop.set_index('Emotion 1')
-# print(ep.round(2).to_latex())
-# print(cop.sort_values(['Cooccurring percent'],ascending = False).head(10).round(2).to_latex())
+for emotion_pair in iterator:
+	relative_co_occur_percent[frozenset(emotion_pair)] = 100*(df[emotion_pair[0]][df[emotion_pair[1]]==1].sum())/np.array([1 for x in (df[emotion_pair[0]] + df[emotion_pair[1]]) if x>0]).sum()
+	absolute_co_occur_percent[frozenset(emotion_pair)] = 100*(df[emotion_pair[0]][df[emotion_pair[1]]==1].sum())/df.shape[0]
+
+relative_co_occur_percent={k: v for k, v in sorted(relative_co_occur_percent.items(), key=lambda item: item[1],reverse=True)}
+absolute_co_occur_percent={k: v for k, v in sorted(absolute_co_occur_percent.items(), key=lambda item: item[1],reverse=True)}
+
+
+with open(dir_path+'/stats/emotion_percentages_'+y+'_'+t+'.pickle', 'wb') as handle:
+    pickle.dump(emotion_percent, handle, protocol=pickle.HIGHEST_PROTOCOL)
+with open(dir_path+'/stats/relative_co_occur_percent_emotion_percentages_'+y+'_'+t+'.pickle', 'wb') as handle:
+    pickle.dump(relative_co_occur_percent, handle, protocol=pickle.HIGHEST_PROTOCOL)
+with open(dir_path+'/stats/absolute_co_occur_percent_emotion_percentages_'+y+'_'+t+'.pickle', 'wb') as handle:
+    pickle.dump(absolute_co_occur_percent, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+# import pprint
+
+# pprint.pprint(relative_co_occur_percent)
+# pprint.pprint(absolute_co_occur_percent)
+
+cop=pd.DataFrame()
+fe=[]
+se=[]
+rcop=[]
+acop=[]
+for pair in relative_co_occur_percent:
+	fe.append(list(pair)[0])
+	se.append(list(pair)[1])
+	rcop.append(relative_co_occur_percent[pair])
+	acop.append(absolute_co_occur_percent[pair])
+cop['Emotion 1']=fe
+cop['Emotion 2']=se
+# cop['Relative Cooccurring percent']=rcop
+cop['Cooccurring percent']=acop
+# print(emotion_percent)
+ep=pd.DataFrame()
+ep['Emotion']=emotion_percent.keys()
+ep['Percentage']=list(emotion_percent.values())
+ep=ep.sort_values(['Percentage'],ascending=False)
+ep = ep.set_index('Emotion')
+cop = cop.set_index('Emotion 1')
+print(ep.round(2).to_latex())
+print(cop.sort_values(['Cooccurring percent'],ascending = False).head(10).round(2).to_latex())

@@ -58,11 +58,11 @@ def autolabel(rects):
                     ha='center', va='bottom',fontsize=12)
 
 
-autolabel(rects1)
-autolabel(rects2)
-autolabel(rects3)
-autolabel(rects4)
-autolabel(rects5)
+# autolabel(rects1)
+# autolabel(rects2)
+# autolabel(rects3)
+# autolabel(rects4)
+# autolabel(rects5)
 #
 # ax.annotate('*',
 #             xy=(0.4, 35.28),color='black',
@@ -142,11 +142,11 @@ plt.yticks(fontsize=19)
 plt.xticks(fontsize=19)
 
 
-autolabel(rects1)
-autolabel(rects2)
-autolabel(rects3)
-autolabel(rects4)
-autolabel(rects5)
+# autolabel(rects1)
+# autolabel(rects2)
+# autolabel(rects3)
+# autolabel(rects4)
+# autolabel(rects5)
 
 # ax.annotate('*',
 #             xy=(0.4, 28.04),color='black',

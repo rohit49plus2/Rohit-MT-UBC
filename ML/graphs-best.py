@@ -18,19 +18,17 @@ pd.set_option('display.max_rows', None)  # or 1000
 pd.set_option('display.max_colwidth', None)  # or 199
 
 labels=['Acc_Overall','Acc_None','Acc_Frus','Acc_Bore','Acc_Both']
-base=[25.20,25.24,24.28,24.41,26.41]
-rf=[26.20,29.85,17.98,28.74,22.55]
-lr=[24.01,17.36,21.24,33.43,27.95]
-# svm=[26.75,23.00,20.39,36.76,26.72]
+log=[36.49, 32.94,18.05,63.76,51.54]
+eye=[26.56,40.48,19.19,21.18,48.56]
+base=[25.48,24.73,24.24, 27.39,25.46]
 
 x = np.arange(len(labels))  # the label locations
-width = 0.2  # the width of the bars
+width = 0.15  # the width of the bars
 
 fig, ax = plt.subplots()
-rects1 = ax.bar(x - width, base, width, label='Baseline',color='#F4D4D4',hatch='/')
-rects2 = ax.bar(x , rf, width, label='RF',color='#342A1F',hatch='.')
-rects3 = ax.bar(x + width, lr, width, label='LR',color='#CAB8C8',hatch='*')
-# rects4 = ax.bar(x + 2*width, svm, width, label='SVM',color='grey',hatch='-')
+rects1 = ax.bar(x - width, log, width, label='log',color='#F4D4D4',hatch='/')
+rects2 = ax.bar(x, eye, width, label='eye',color='#342A1F',hatch='.')
+rects3 = ax.bar(x + width, base, width, label='baseline',color='grey',hatch='-')
 
 
 # Add some text for labels, title and custom x-axis tick labels, etc.
@@ -41,7 +39,7 @@ ax.set_xticklabels(labels)
 ax.legend(fontsize=20,loc='upper left')
 plt.yticks(fontsize=19)
 plt.xticks(fontsize=19)
-ax.set_ylim([0,40])
+ax.set_ylim([0,70])
 
 def autolabel(rects):
     """Attach a text label above each bar in *rects*, displaying its height."""
@@ -60,6 +58,7 @@ def autolabel(rects):
 # autolabel(rects2)
 # autolabel(rects3)
 # autolabel(rects4)
+# autolabel(rects5)
 #
 # ax.annotate('*',
 #             xy=(0.4, 35.28),color='black',
@@ -111,18 +110,16 @@ plt.show()
 print('\n\n\n')
 
 labels=['Acc_Overall','Acc_None','Acc_Curi','Acc_Anxi','Acc_Both']
-base=[25.87,26.11,26.10,25.37,25.75]
-rf=[27.38,26.40,31.84,17.77,27.74]
-lr=[20.66,27.29,13.76,42.31,13.90]
-# svm=[23.94,22.49,23.27,28.84,24.02]
+log=[25.62,29.22,28.71,33.30,20.22]
+eye=[26.76,51.54,33.15, 22.89,35.61]
+base=[25.59,25.61,25.81, 25.68,25.49]
 
 x = np.arange(len(labels))  # the label locations
 
 fig, ax = plt.subplots()
-rects1 = ax.bar(x - width, base, width, label='Baseline',color='#F4D4D4',hatch='/')
-rects2 = ax.bar(x , rf, width, label='RF',color='#342A1F',hatch='.')
-rects3 = ax.bar(x + width, lr, width, label='LR',color='#CAB8C8',hatch='*')
-# rects4 = ax.bar(x + 2*width, svm, width, label='SVM',color='grey',hatch='-')
+rects1 = ax.bar(x - width, log, width, label='log',color='#F4D4D4',hatch='/')
+rects2 = ax.bar(x, eye, width, label='eye',color='#342A1F',hatch='.')
+rects3 = ax.bar(x + width, base, width, label='baseline',color='grey',hatch='-')
 
 
 
@@ -132,7 +129,7 @@ ax.set_title('Curiosity x Anxiety',fontsize=24)
 ax.set_xticks(x)
 ax.set_xticklabels(labels)
 ax.legend(fontsize=20,loc='upper left')
-ax.set_ylim([0,45])
+ax.set_ylim([0,70])
 plt.yticks(fontsize=19)
 plt.xticks(fontsize=19)
 
@@ -141,6 +138,7 @@ plt.xticks(fontsize=19)
 # autolabel(rects2)
 # autolabel(rects3)
 # autolabel(rects4)
+# autolabel(rects5)
 
 # ax.annotate('*',
 #             xy=(0.4, 28.04),color='black',
