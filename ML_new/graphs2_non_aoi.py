@@ -18,9 +18,9 @@ pd.set_option('display.max_rows', None)  # or 1000
 pd.set_option('display.max_colwidth', None)  # or 199
 
 labels=['Acc_Overall','Acc_None','Acc_Frus','Acc_Bore','Acc_Both']
-interaction=[30.83,19.62,17.80,50.37,39.37]
-gaze=[26.00,28.08,19.83,22.02,30.32]
-combined=[27.55,29.93,19.36,23.77,32.58]
+interaction=[23.86,13.79,15.33,40.21,28.72]
+gaze=[25.91,21.85,27.26,30.60,26.01]
+combined=[23.94,14.86,16.66,25.86,41.06]
 
 x = np.arange(len(labels))  # the label locations
 width = 0.3  # the width of the bars
@@ -37,7 +37,7 @@ ax.set_title('Frustration x Boredom',fontsize=24)
 ax.set_xticks(x)
 ax.set_xticklabels(labels)
 ax.legend(fontsize=22,loc='upper left')
-ax.set_ylim([0,70])
+ax.set_ylim([0,50])
 plt.yticks(fontsize=19)
 plt.xticks(fontsize=19)
 
@@ -110,9 +110,9 @@ plt.show()
 print('\n\n\n')
 
 labels=['Acc_Overall','Acc_None','Acc_Curi','Acc_Anxi','Acc_Both']
-interaction=[20.40,17.84,17.70,33.36,19.14]
-gaze=[25.67,32.14,20.94,16.73,31.03]
-combined=[25.66,31.21,21.44,15.75,31.61]
+interaction=[20.31,20.85,16.54,37.25,16.75]
+gaze=[24.64,12.58,34.90,20.37,23.87]
+combined=[25.05,19.43,20.29,20.51,36.91]
 
 x = np.arange(len(labels))  # the label locations
 width = 0.3  # the width of the bars

@@ -213,7 +213,7 @@ def anova_class(smote,eye_window,log_window,ep,data,threshold,models,usercv):
 
 
 def manova(smote,eye_window,log_window,ep,threshold,models,usercv):
-    data_types=['log','eye']
+    data_types=['log','eye','both']
     if smote:
         results='/results_smote/'
     else:
@@ -252,10 +252,11 @@ def manova(smote,eye_window,log_window,ep,threshold,models,usercv):
                         res=pickle.load(handle)
                     # print(len(res['confusion_matrices']))
                     matrices=res['confusion_matrices']
-                    if model != 'Strat':
-                        model_name = model + '_' + str(data)
-                    else:
-                        model_name = model
+                    # if model != 'Strat':
+                    #     # model_name = model + '_' + str(data)
+                    #     pass
+                    # else:
+                    model_name = model
                     for matrix in matrices:
                         row=[data,model_name]
                         row.append((np.trace(matrix))/matrix.sum()*100)
@@ -272,7 +273,7 @@ def manova(smote,eye_window,log_window,ep,threshold,models,usercv):
         else:
             m = model
             new_models.append(m)
-    models = new_models
+    # models = new_models
     argument='Total'
     f=open(dir_path+'/stats_results_' +eps+'.txt','w')
     for i in range(len(classes)):
@@ -321,7 +322,7 @@ def manova(smote,eye_window,log_window,ep,threshold,models,usercv):
     f.close()
 
 def plots(smote,eye_window,log_window,ep,threshold,models,usercv):
-    data_types=['log','eye']
+    data_types=['log','eye','both']
     data_types_titles=['Interaction','Gaze','Combined']
     if smote:
         results='/results_smote/'
@@ -352,8 +353,8 @@ def plots(smote,eye_window,log_window,ep,threshold,models,usercv):
             else:
                 with open(dir_path+type+results+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'_'+data+'.pickle', 'rb') as handle:
                     res=pickle.load(handle)
-                if model != 'Strat':
-                    model = model + '_' + str(data)
+                # if model != 'Strat':
+                #     model = model + '_' + str(data)
             # print(len(res['confusion_matrices']))
             matrices=res['confusion_matrices']
             for matrix in matrices:
@@ -371,7 +372,7 @@ def plots(smote,eye_window,log_window,ep,threshold,models,usercv):
         else:
             m = model
             new_models.append(m)
-    models = new_models
+    # models = new_models
     # accuracies across feature Sets
     y=[]
     for i in range(len(models)):
@@ -424,56 +425,56 @@ def plots(smote,eye_window,log_window,ep,threshold,models,usercv):
     print(class_table.to_latex())
 
 
-    # #accuracies across classifiers
-    # y=[]
-    # for i in range(len(data_types)):
-    #     t=df[df['Feature_Set']==data_types[i]]['Total'].values.tolist()
-    #     y.append(np.mean(t).round(2))
-    # x=data_types_titles
-    # y_pos = np.arange(len(x))
-    # fig=plt.bar(y_pos,y,align='center',color='gray')
-    # plt.xticks(y_pos, x,fontsize=15)
-    # plt.yticks(fontsize=15)
-    # plt.ylabel('Accuracy',fontsize=15)
-    # axes = plt.gca()
-    # axes.set_ylim([0,100])
-    # plt.setp(axes.get_xticklabels(), rotation=30, horizontalalignment='center')
-    # title="Mean Overall Accuracy Across Classifiers For Emotion Pair " + eps_title
-    # plt.title(title,fontsize=18)
-    # # plt.axhline(y = y[0], color = 'black', linestyle = '--')
-    # for i in range(len(x)):
-    #     plt.annotate(y[i], (-0.1 + i, y[i] +1),fontsize=15)
-    # plt.show()
-    # table=pd.DataFrame(list(zip(x,y)),columns=['Feature Set','Accuracy'])
-    # table=table.set_index('Feature Set')
-    # print(table.to_latex())
-    # class_tables=[]
-    # for j in range(len(classes)):
-    #     y=[]
-    #     for i in range(len(data_types)):
-    #         t=df[df['Feature_Set']==data_types[i]][classes[j]].values.tolist()
-    #         y.append(np.mean(t).round(2))
-    #     x=data_types_titles
-    #     y_pos = np.arange(len(x))
-    #     fig=plt.bar(y_pos,y,align='center',color='gray')
-    #     plt.xticks(y_pos, x,fontsize=15)
-    #     plt.yticks(fontsize=15)
-    #     plt.ylabel('Accuracy',fontsize=15)
-    #     axes = plt.gca()
-    #     axes.set_ylim([0,100])
-    #     plt.setp(axes.get_xticklabels(), rotation=30, horizontalalignment='center')
-    #     title="Mean Class Accuracy For " + classes_title[j]+ " Across Classifiers For Emotion Pair " + eps_title
-    #     plt.title(title,fontsize=18)
-    #     # plt.axhline(y = y[0], color = 'black', linestyle = '--')
-    #     for i in range(len(x)):
-    #         plt.annotate(y[i], (-0.1 + i, y[i] +1),fontsize=15)
-    #     plt.show()
-    #     table=pd.DataFrame(list(zip(x,y)),columns=['Feature Set',classes_title[j]])
-    #     table=table.set_index('Feature Set')
-    #     # print(table)
-    #     class_tables.append(table)
-    # class_table=reduce(lambda x, y: pd.merge(x, y, on = 'Feature Set'), class_tables)
-    # print(class_table.to_latex())
+    #accuracies across classifiers
+    y=[]
+    for i in range(len(data_types)):
+        t=df[df['Feature_Set']==data_types[i]]['Total'].values.tolist()
+        y.append(np.mean(t).round(2))
+    x=data_types_titles
+    y_pos = np.arange(len(x))
+    fig=plt.bar(y_pos,y,align='center',color='gray')
+    plt.xticks(y_pos, x,fontsize=15)
+    plt.yticks(fontsize=15)
+    plt.ylabel('Accuracy',fontsize=15)
+    axes = plt.gca()
+    axes.set_ylim([0,100])
+    plt.setp(axes.get_xticklabels(), rotation=30, horizontalalignment='center')
+    title="Mean Overall Accuracy Across Classifiers For Emotion Pair " + eps_title
+    plt.title(title,fontsize=18)
+    # plt.axhline(y = y[0], color = 'black', linestyle = '--')
+    for i in range(len(x)):
+        plt.annotate(y[i], (-0.1 + i, y[i] +1),fontsize=15)
+    plt.show()
+    table=pd.DataFrame(list(zip(x,y)),columns=['Feature Set','Accuracy'])
+    table=table.set_index('Feature Set')
+    print(table.to_latex())
+    class_tables=[]
+    for j in range(len(classes)):
+        y=[]
+        for i in range(len(data_types)):
+            t=df[df['Feature_Set']==data_types[i]][classes[j]].values.tolist()
+            y.append(np.mean(t).round(2))
+        x=data_types_titles
+        y_pos = np.arange(len(x))
+        fig=plt.bar(y_pos,y,align='center',color='gray')
+        plt.xticks(y_pos, x,fontsize=15)
+        plt.yticks(fontsize=15)
+        plt.ylabel('Accuracy',fontsize=15)
+        axes = plt.gca()
+        axes.set_ylim([0,100])
+        plt.setp(axes.get_xticklabels(), rotation=30, horizontalalignment='center')
+        title="Mean Class Accuracy For " + classes_title[j]+ " Across Classifiers For Emotion Pair " + eps_title
+        plt.title(title,fontsize=18)
+        # plt.axhline(y = y[0], color = 'black', linestyle = '--')
+        for i in range(len(x)):
+            plt.annotate(y[i], (-0.1 + i, y[i] +1),fontsize=15)
+        plt.show()
+        table=pd.DataFrame(list(zip(x,y)),columns=['Feature Set',classes_title[j]])
+        table=table.set_index('Feature Set')
+        # print(table)
+        class_tables.append(table)
+    class_table=reduce(lambda x, y: pd.merge(x, y, on = 'Feature Set'), class_tables)
+    print(class_table.to_latex())
 
 
 
@@ -488,8 +489,8 @@ ep=["Curiosity","Anxiety"]
 smote = True
 # smote = False
 
-models=['Strat','RF','LR']
-# models=['Strat','RF','LR','SVM']
+# models=['Strat','RF','LR']
+models=['Strat','RF','LR','SVM']
 # models=['Strat','RF','LR','ENSEMBLE2']
 # models=['ENSEMBLE2']
 
@@ -503,4 +504,4 @@ usercv=True
 # plot_accuracy(smote,'full','full',ep,'eye','3',models,usercv)
 # anova_class(smote,'full','full',ep,'both','3',models,usercv)
 manova(smote,'full','full',ep,'3',models,usercv)
-plots(smote,'full','full',ep,'3',models,usercv)
+# plots(smote,'full','full',ep,'3',models,usercv)

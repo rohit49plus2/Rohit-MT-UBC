@@ -1,0 +1,184 @@
+MANOVA Total + No_emotion + Frustration + Boredom + Frustration_Boredom ~ Model + Feature_Set
+                   Multivariate linear model
+===============================================================
+                                                               
+---------------------------------------------------------------
+        Intercept        Value  Num DF  Den DF  F Value  Pr > F
+---------------------------------------------------------------
+           Wilks' lambda 0.3402 5.0000 950.0000 368.4958 0.0000
+          Pillai's trace 0.6598 5.0000 950.0000 368.4958 0.0000
+  Hotelling-Lawley trace 1.9395 5.0000 950.0000 368.4958 0.0000
+     Roy's greatest root 1.9395 5.0000 950.0000 368.4958 0.0000
+---------------------------------------------------------------
+                                                               
+---------------------------------------------------------------
+         Model          Value   Num DF   Den DF  F Value Pr > F
+---------------------------------------------------------------
+          Wilks' lambda 0.6380 15.0000 2622.9331 30.9188 0.0000
+         Pillai's trace 0.3737 15.0000 2856.0000 27.0958 0.0000
+ Hotelling-Lawley trace 0.5491 15.0000 1789.2168 34.7444 0.0000
+    Roy's greatest root 0.5137  5.0000  952.0000 97.8096 0.0000
+---------------------------------------------------------------
+                                                               
+---------------------------------------------------------------
+      Feature_Set       Value   Num DF   Den DF  F Value Pr > F
+---------------------------------------------------------------
+          Wilks' lambda 0.7177 10.0000 1900.0000 34.2765 0.0000
+         Pillai's trace 0.3034 10.0000 1902.0000 34.0157 0.0000
+ Hotelling-Lawley trace 0.3639 10.0000 1422.2528 34.5491 0.0000
+    Roy's greatest root 0.2427  5.0000  951.0000 46.1658 0.0000
+===============================================================
+
+2-way ANOVA Total ~ C(Model) + C(Feature_Set) + C(Model):C(Feature_Set)
+                               sum_sq     df         F    PR(>F)
+C(Model)                  1303.205587    3.0  8.417332  0.000016
+C(Feature_Set)             867.041312    2.0  8.400257  0.000242
+C(Model):C(Feature_Set)   1312.000973    6.0  4.237070  0.000322
+Residual                 48924.408246  948.0       NaN       NaN
+2-way ANOVA No_emotion ~ C(Model) + C(Feature_Set) + C(Model):C(Feature_Set)
+                                sum_sq     df           F        PR(>F)
+C(Model)                  53413.507727    3.0  150.762601  7.020857e-80
+C(Feature_Set)            12274.185074    2.0   51.966857  3.842931e-22
+C(Model):C(Feature_Set)    8379.755675    6.0   11.826164  8.028701e-13
+Residual                 111955.274615  948.0         NaN           NaN
+2-way ANOVA Frustration ~ C(Model) + C(Feature_Set) + C(Model):C(Feature_Set)
+                                sum_sq     df          F        PR(>F)
+C(Model)                   8698.727600    3.0   9.247308  4.952474e-06
+C(Feature_Set)            27343.569591    2.0  43.601966  7.671306e-19
+C(Model):C(Feature_Set)   46893.327271    6.0  24.925315  1.511008e-27
+Residual                 297253.846018  948.0        NaN           NaN
+2-way ANOVA Boredom ~ C(Model) + C(Feature_Set) + C(Model):C(Feature_Set)
+                                sum_sq     df          F        PR(>F)
+C(Model)                  16805.023024    3.0  14.087475  5.460261e-09
+C(Feature_Set)            34217.556381    2.0  43.026329  1.299970e-18
+C(Model):C(Feature_Set)   39051.523261    6.0  16.368242  5.295451e-18
+Residual                 376958.064259  948.0        NaN           NaN
+2-way ANOVA Frustration_Boredom ~ C(Model) + C(Feature_Set) + C(Model):C(Feature_Set)
+                                sum_sq     df          F        PR(>F)
+C(Model)                  23437.533635    3.0  19.172288  4.480585e-12
+C(Feature_Set)            41183.470307    2.0  50.533133  1.401415e-21
+C(Model):C(Feature_Set)   64157.170212    6.0  26.240810  5.521237e-29
+Residual                 386300.309185  948.0        NaN           NaN
+
+
+Multiple T Test Analysis across Models
+
+ Strat vs LR 
+
+Total Accuracy t test
+(array([ True]), array([0.01672075]), 0.050000000000000044, 0.05)
+Class -  No_emotion t test
+(array([ True]), array([0.]), 0.050000000000000044, 0.05)
+Class -  Frustration t test
+(array([ True]), array([2.83932564e-05]), 0.050000000000000044, 0.05)
+Class -  Boredom t test
+(array([ True]), array([1.56903734e-09]), 0.050000000000000044, 0.05)
+Class -  Frustration_Boredom t test
+(array([ True]), array([2.09995732e-09]), 0.050000000000000044, 0.05)
+
+ Strat vs RF 
+
+Total Accuracy t test
+(array([False]), array([0.56276805]), 0.050000000000000044, 0.05)
+Class -  No_emotion t test
+(array([False]), array([0.08246221]), 0.050000000000000044, 0.05)
+Class -  Frustration t test
+(array([ True]), array([1.35487843e-05]), 0.050000000000000044, 0.05)
+Class -  Boredom t test
+(array([ True]), array([0.00548885]), 0.050000000000000044, 0.05)
+Class -  Frustration_Boredom t test
+(array([ True]), array([0.01188566]), 0.050000000000000044, 0.05)
+
+ Strat vs SVM 
+
+Total Accuracy t test
+(array([ True]), array([9.51152658e-05]), 0.050000000000000044, 0.05)
+Class -  No_emotion t test
+(array([ True]), array([0.]), 0.050000000000000044, 0.05)
+Class -  Frustration t test
+(array([ True]), array([0.02123803]), 0.050000000000000044, 0.05)
+Class -  Boredom t test
+(array([ True]), array([0.00117908]), 0.050000000000000044, 0.05)
+Class -  Frustration_Boredom t test
+(array([ True]), array([1.47827738e-08]), 0.050000000000000044, 0.05)
+
+ LR vs RF 
+
+Total Accuracy t test
+(array([ True]), array([0.00596953]), 0.050000000000000044, 0.05)
+Class -  No_emotion t test
+(array([ True]), array([0.]), 0.050000000000000044, 0.05)
+Class -  Frustration t test
+(array([False]), array([0.75004966]), 0.050000000000000044, 0.05)
+Class -  Boredom t test
+(array([ True]), array([0.00025222]), 0.050000000000000044, 0.05)
+Class -  Frustration_Boredom t test
+(array([ True]), array([0.00033643]), 0.050000000000000044, 0.05)
+
+ LR vs SVM 
+
+Total Accuracy t test
+(array([False]), array([0.17158403]), 0.050000000000000044, 0.05)
+Class -  No_emotion t test
+(array([False]), array([0.20119013]), 0.050000000000000044, 0.05)
+Class -  Frustration t test
+(array([False]), array([0.07508054]), 0.050000000000000044, 0.05)
+Class -  Boredom t test
+(array([ True]), array([0.02565571]), 0.050000000000000044, 0.05)
+Class -  Frustration_Boredom t test
+(array([False]), array([0.50113146]), 0.050000000000000044, 0.05)
+
+ RF vs SVM 
+
+Total Accuracy t test
+(array([ True]), array([3.35980395e-05]), 0.050000000000000044, 0.05)
+Class -  No_emotion t test
+(array([ True]), array([0.]), 0.050000000000000044, 0.05)
+Class -  Frustration t test
+(array([False]), array([0.10202484]), 0.050000000000000044, 0.05)
+Class -  Boredom t test
+(array([False]), array([0.28655732]), 0.050000000000000044, 0.05)
+Class -  Frustration_Boredom t test
+(array([ True]), array([0.00217914]), 0.050000000000000044, 0.05)
+
+
+Multiple T Test Analysis across Feature Sets
+
+ log vs eye 
+
+Total Accuracy t test
+(array([ True]), array([0.00022272]), 0.050000000000000044, 0.05)
+Class -  No_emotion t test
+(array([ True]), array([8.60422844e-14]), 0.050000000000000044, 0.05)
+Class -  Frustration t test
+(array([ True]), array([9.88098492e-15]), 0.050000000000000044, 0.05)
+Class -  Boredom t test
+(array([ True]), array([1.23715529e-07]), 0.050000000000000044, 0.05)
+Class -  Frustration_Boredom t test
+(array([False]), array([0.07759904]), 0.050000000000000044, 0.05)
+
+ log vs both 
+
+Total Accuracy t test
+(array([False]), array([0.89310691]), 0.050000000000000044, 0.05)
+Class -  No_emotion t test
+(array([False]), array([0.32011713]), 0.050000000000000044, 0.05)
+Class -  Frustration t test
+(array([False]), array([0.37246445]), 0.050000000000000044, 0.05)
+Class -  Boredom t test
+(array([ True]), array([1.4321877e-14]), 0.050000000000000044, 0.05)
+Class -  Frustration_Boredom t test
+(array([ True]), array([3.71331188e-10]), 0.050000000000000044, 0.05)
+
+ eye vs both 
+
+Total Accuracy t test
+(array([ True]), array([0.00061169]), 0.050000000000000044, 0.05)
+Class -  No_emotion t test
+(array([ True]), array([9.8823838e-11]), 0.050000000000000044, 0.05)
+Class -  Frustration t test
+(array([ True]), array([2.89560598e-11]), 0.050000000000000044, 0.05)
+Class -  Boredom t test
+(array([ True]), array([0.00069033]), 0.050000000000000044, 0.05)
+Class -  Frustration_Boredom t test
+(array([ True]), array([2.22044605e-16]), 0.050000000000000044, 0.05)
