@@ -1,0 +1,6 @@
+Dataset:  both
+Base Accuracy 0.6484149855907781
+Stratified Class Base Accuracy 0.5504322766570605
+[[13.775 14.35 ]
+ [ 7.65   7.6  ]]
+Accuracy: 0.4927578 (0.0781170)

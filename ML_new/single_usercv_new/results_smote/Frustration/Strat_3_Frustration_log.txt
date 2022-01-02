@@ -1,0 +1,6 @@
+Dataset:  log
+Base Accuracy 0.6188436830835118
+Stratified Class Base Accuracy 0.5053533190578159
+[[17.8875 18.2375]
+ [10.95   11.3   ]]
+Accuracy: 0.4998435 (0.0683897)

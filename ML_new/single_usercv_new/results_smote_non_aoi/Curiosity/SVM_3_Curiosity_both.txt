@@ -1,0 +1,5 @@
+Majority Class Base Accuracy 0.6484149855907781
+Stratified Class Base Accuracy 0.5504322766570605
+[[ 3.7875 11.4625]
+ [ 8.5    19.625 ]]
+Accuracy: 0.5398678 (0.0975173)

@@ -1,0 +1,6 @@
+Dataset:  eye
+Base Accuracy 0.6340852130325815
+Stratified Class Base Accuracy 0.5213032581453634
+[[ 9.2875  8.9625]
+ [16.0625 15.5625]]
+Accuracy: 0.4985844 (0.0712191)
