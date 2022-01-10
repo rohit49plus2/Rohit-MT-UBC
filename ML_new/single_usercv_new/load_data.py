@@ -55,6 +55,46 @@ combined=combined[combined_c]
 combined=combined.dropna(thresh=len(emotions),axis=0,subset=emotions)
 combined=combined.dropna(thresh=combined.shape[1],axis=0)
 
+a1=(eye['Frustration']==0).sum()
+b1=(eye['Frustration']==1).sum()
+c1=(log['Frustration']==0).sum()
+d1=(log['Frustration']==1).sum()
+
+print(a1/(a1+b1))
+print(b1/(a1+b1))
+print(c1/(c1+d1))
+print(d1/(c1+d1))
+
+a2=(eye['Boredom']==0).sum()
+b2=(eye['Boredom']==1).sum()
+c2=(log['Boredom']==0).sum()
+d2=(log['Boredom']==1).sum()
+
+print(a2/(a2+b2))
+print(b2/(a2+b2))
+print(c2/(c2+d2))
+print(d2/(c2+d2))
+
+a3=(eye['Curiosity']==0).sum()
+b3=(eye['Curiosity']==1).sum()
+c3=(log['Curiosity']==0).sum()
+d3=(log['Curiosity']==1).sum()
+
+print(a3/(a3+b3))
+print(b3/(a3+b3))
+print(c3/(c3+d3))
+print(d3/(c3+d3))
+
+a4=(eye['Anxiety']==0).sum()
+b4=(eye['Anxiety']==1).sum()
+c4=(log['Anxiety']==0).sum()
+d4=(log['Anxiety']==1).sum()
+
+print(a4/(a4+b4))
+print(b4/(a4+b4))
+print(c4/(c4+d4))
+print(d4/(c4+d4))
+
 # print(combined)
 # print(eye.shape)
 # print(log.shape)

@@ -1,0 +1,136 @@
+MANOVA Total + No_emotion + Boredom ~ Model + Feature_Set
+                   Multivariate linear model
+===============================================================
+                                                               
+---------------------------------------------------------------
+       Intercept        Value  Num DF  Den DF   F Value  Pr > F
+---------------------------------------------------------------
+          Wilks' lambda 0.1606 3.0000 952.0000 1658.6367 0.0000
+         Pillai's trace 0.8394 3.0000 952.0000 1658.6367 0.0000
+ Hotelling-Lawley trace 5.2268 3.0000 952.0000 1658.6367 0.0000
+    Roy's greatest root 5.2268 3.0000 952.0000 1658.6367 0.0000
+---------------------------------------------------------------
+                                                               
+---------------------------------------------------------------
+          Model          Value  Num DF   Den DF  F Value Pr > F
+---------------------------------------------------------------
+           Wilks' lambda 0.8025 9.0000 2317.0685 24.3653 0.0000
+          Pillai's trace 0.2055 9.0000 2862.0000 23.3865 0.0000
+  Hotelling-Lawley trace 0.2363 9.0000 1492.8197 24.9747 0.0000
+     Roy's greatest root 0.1847 3.0000  954.0000 58.7480 0.0000
+---------------------------------------------------------------
+                                                               
+---------------------------------------------------------------
+       Feature_Set       Value  Num DF   Den DF  F Value Pr > F
+---------------------------------------------------------------
+           Wilks' lambda 0.8848 6.0000 1904.0000 20.0284 0.0000
+          Pillai's trace 0.1169 6.0000 1906.0000 19.7280 0.0000
+  Hotelling-Lawley trace 0.1283 6.0000 1267.5571 20.3392 0.0000
+     Roy's greatest root 0.1105 3.0000  953.0000 35.1170 0.0000
+===============================================================
+
+2-way ANOVA Total ~ C(Model) + C(Feature_Set) + C(Model):C(Feature_Set)
+                               sum_sq     df          F        PR(>F)
+C(Model)                  2791.403043    3.0  12.882860  2.965588e-08
+C(Feature_Set)            3629.861220    2.0  25.128758  2.323618e-11
+C(Model):C(Feature_Set)   3100.839705    6.0   7.155485  1.775247e-07
+Residual                 68469.528002  948.0        NaN           NaN
+2-way ANOVA No_emotion ~ C(Model) + C(Feature_Set) + C(Model):C(Feature_Set)
+                                sum_sq     df          F        PR(>F)
+C(Model)                  36627.509462    3.0  51.031952  1.403141e-30
+C(Feature_Set)            11980.987985    2.0  25.039098  2.530151e-11
+C(Model):C(Feature_Set)    9662.218445    6.0   6.731032  5.378340e-07
+Residual                 226804.823782  948.0        NaN           NaN
+2-way ANOVA Boredom ~ C(Model) + C(Feature_Set) + C(Model):C(Feature_Set)
+                                sum_sq     df          F        PR(>F)
+C(Model)                  36484.381826    3.0  43.351666  2.951769e-26
+C(Feature_Set)              418.379277    2.0   0.745693  4.746833e-01
+C(Model):C(Feature_Set)   14084.238254    6.0   8.367624  7.373431e-09
+Residual                 265942.826004  948.0        NaN           NaN
+
+
+Multiple T Test Analysis across Models
+
+ Strat vs LR 
+
+Total Accuracy t test
+(array([False]), array([0.80335258]), 0.050000000000000044, 0.05)
+Class -  No_emotion t test
+(array([ True]), array([9.3929856e-08]), 0.050000000000000044, 0.05)
+Class -  Boredom t test
+(array([ True]), array([7.8526455e-08]), 0.050000000000000044, 0.05)
+
+ Strat vs RF 
+
+Total Accuracy t test
+(array([ True]), array([5.18937865e-08]), 0.050000000000000044, 0.05)
+Class -  No_emotion t test
+(array([ True]), array([3.10006021e-09]), 0.050000000000000044, 0.05)
+Class -  Boredom t test
+(array([False]), array([0.34912096]), 0.050000000000000044, 0.05)
+
+ Strat vs SVM 
+
+Total Accuracy t test
+(array([ True]), array([0.01313009]), 0.050000000000000044, 0.05)
+Class -  No_emotion t test
+(array([ True]), array([0.]), 0.050000000000000044, 0.05)
+Class -  Boredom t test
+(array([ True]), array([0.]), 0.050000000000000044, 0.05)
+
+ LR vs RF 
+
+Total Accuracy t test
+(array([ True]), array([4.65766263e-06]), 0.050000000000000044, 0.05)
+Class -  No_emotion t test
+(array([False]), array([0.99497754]), 0.050000000000000044, 0.05)
+Class -  Boredom t test
+(array([ True]), array([2.41324622e-07]), 0.050000000000000044, 0.05)
+
+ LR vs SVM 
+
+Total Accuracy t test
+(array([False]), array([0.05319386]), 0.050000000000000044, 0.05)
+Class -  No_emotion t test
+(array([ True]), array([5.34643252e-09]), 0.050000000000000044, 0.05)
+Class -  Boredom t test
+(array([ True]), array([0.00024805]), 0.050000000000000044, 0.05)
+
+ RF vs SVM 
+
+Total Accuracy t test
+(array([ True]), array([0.00548108]), 0.050000000000000044, 0.05)
+Class -  No_emotion t test
+(array([ True]), array([5.56693247e-10]), 0.050000000000000044, 0.05)
+Class -  Boredom t test
+(array([ True]), array([0.]), 0.050000000000000044, 0.05)
+
+
+Multiple T Test Analysis across Feature Sets
+
+ log vs eye 
+
+Total Accuracy t test
+(array([ True]), array([2.49602752e-08]), 0.050000000000000044, 0.05)
+Class -  No_emotion t test
+(array([ True]), array([4.60865487e-06]), 0.050000000000000044, 0.05)
+Class -  Boredom t test
+(array([False]), array([0.39771427]), 0.050000000000000044, 0.05)
+
+ log vs both 
+
+Total Accuracy t test
+(array([False]), array([0.64617338]), 0.050000000000000044, 0.05)
+Class -  No_emotion t test
+(array([False]), array([0.06839082]), 0.050000000000000044, 0.05)
+Class -  Boredom t test
+(array([False]), array([0.32307459]), 0.050000000000000044, 0.05)
+
+ eye vs both 
+
+Total Accuracy t test
+(array([ True]), array([8.45287174e-11]), 0.050000000000000044, 0.05)
+Class -  No_emotion t test
+(array([ True]), array([2.40197306e-10]), 0.050000000000000044, 0.05)
+Class -  Boredom t test
+(array([False]), array([0.73952708]), 0.050000000000000044, 0.05)

@@ -28,12 +28,52 @@ pd.set_option('display.width', None)
 pd.set_option('display.max_colwidth', None)
 # print(data.isnull().sum())
 eye_and_log=data.dropna(thresh=480)
-# print(data.isnull().sum())
 eye_and_log=eye_and_log.drop(['Mean # of SRL processes per relevant page while on SG1'],axis=1)
 # print(eye_and_log.columns[-57:])
 # print(eye_and_log.columns[:-57])
 
 # print(eye_and_log.isnull().sum())
+# a1=(eye_and_log['Frustration']==0).sum()
+# b1=(eye_and_log['Frustration']==1).sum()
+# c1=(data['Frustration']==0).sum()
+# d1=(data['Frustration']==1).sum()
+#
+# print(a1/(a1+b1))
+# print(b1/(a1+b1))
+# print(c1/(c1+d1))
+# print(d1/(c1+d1))
+#
+# a2=(eye_and_log['Boredom']==0).sum()
+# b2=(eye_and_log['Boredom']==1).sum()
+# c2=(data['Boredom']==0).sum()
+# d2=(data['Boredom']==1).sum()
+#
+# print(a2/(a2+b2))
+# print(b2/(a2+b2))
+# print(c2/(c2+d2))
+# print(d2/(c2+d2))
+#
+# a3=(eye_and_log['Curiosity']==0).sum()
+# b3=(eye_and_log['Curiosity']==1).sum()
+# c3=(data['Curiosity']==0).sum()
+# d3=(data['Curiosity']==1).sum()
+#
+# print(a3/(a3+b3))
+# print(b3/(a3+b3))
+# print(c3/(c3+d3))
+# print(d3/(c3+d3))
+#
+# a4=(eye_and_log['Anxiety']==0).sum()
+# b4=(eye_and_log['Anxiety']==1).sum()
+# c4=(data['Anxiety']==0).sum()
+# d4=(data['Anxiety']==1).sum()
+#
+# print(a4/(a4+b4))
+# print(b4/(a4+b4))
+# print(c4/(c4+d4))
+# print(d4/(c4+d4))
+
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from gen_classes import emotions
 #

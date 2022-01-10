@@ -29,7 +29,7 @@ pd.set_option('display.max_colwidth', None)  # or 199
 #     results='/results/'
 #
 # if len(ep)==1:
-#     type='/single'
+#     type='/single_usercv_new'
 #     eps=ep[0]
 # else:
 #     type='/cooccur'u
@@ -58,9 +58,11 @@ def class_accuracy(smote,eye_window,log_window,ep,data,threshold,models,usercv):
     else:
         results='/results/'
     if len(ep)==1:
-        type='/single'
+        type='/single_usercv_new'
         eps=ep[0]
-        classes = ['None',ep[0]]
+        eps_title=eps
+        classes = ['No_emotion',ep[0]]
+        classes_title=['None',ep[0]]
     else:
         if usercv:
             type='/cooccur_usercv_new'
@@ -96,7 +98,7 @@ def accuracy(smote,eye_window,log_window,ep,data,threshold,models,usercv):
     else:
         results='/results/'
     if len(ep)==1:
-        type='/single'
+        type='/single_usercv_new'
         eps=ep[0]
     else:
         if usercv:
@@ -159,9 +161,11 @@ def anova_class(smote,eye_window,log_window,ep,data,threshold,models,usercv):
     else:
         results='/results/'
     if len(ep)==1:
-        type='/single'
+        type='/single_usercv_new'
         eps=ep[0]
-        classes = ['None',ep[0]]
+        eps_title=eps
+        classes = ['No_emotion',ep[0]]
+        classes_title=['None',ep[0]]
     else:
         if usercv:
             type='/cooccur_usercv_new'
@@ -212,6 +216,117 @@ def anova_class(smote,eye_window,log_window,ep,data,threshold,models,usercv):
             print("Total Accuracy t tests")
             print(multipletests(ttest_ind(total_accs[i],total_accs[j])[1]))
 
+def manova_old(smote,eye_window,log_window,ep,threshold,models,usercv):
+    data_types=['log','eye','both']
+    if smote:
+        results='/results_smote_2014/'
+    else:
+        results='/results/'
+    if len(ep)==1:
+        type='/single_usercv_new'
+        eps=ep[0]
+        eps_title=eps
+        classes = ['No_emotion',ep[0]]
+        classes_title=['None',ep[0]]
+    else:
+        if usercv:
+            type='/cooccur-usercv'
+        else:
+            type='/cooccur'
+        eps=ep[0]+'_'+ep[1]
+        classes = ['No_emotion',ep[0],ep[1],ep[0]+'-x-'+ ep[1]]
+    folder='/'
+    result_suffix='_'+threshold
+    column_names=['Feature_Set','Model','Total']+classes
+    df=pd.DataFrame(columns=column_names)
+    for model in models:
+        if 'ENSEMBLE' in model:
+            for data in data_types:
+                    with open(dir_path+type+results+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'.pickle', 'rb') as handle:
+                        res=pickle.load(handle)
+                    # print(len(res['confusion_matrices']))
+                    matrices=res['confusion_matrices']
+                    for matrix in matrices:
+                        row=[data,model]
+                        row.append((np.trace(matrix))/matrix.sum()*100)
+                        for i in range(2*len(ep)):
+                            row.append(matrix[i][i]/matrix[i].sum()*100)
+                        df.loc[len(df)] =row
+        else:
+            for data in data_types:
+                    with open(dir_path+type+results+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'_'+data+'.pickle', 'rb') as handle:
+                        res=pickle.load(handle)
+                    # print(len(res['confusion_matrices']))
+                    matrices=res['confusion_matrices']
+                    # if model != 'Strat':
+                    #     # model_name = model + '_' + str(data)
+                    #     pass
+                    # else:
+                    model_name = model
+                    for matrix in matrices:
+                        row=[data,model_name]
+                        row.append((np.trace(matrix))/matrix.sum()*100)
+                        for i in range(2*len(ep)):
+                            row.append(matrix[i][i]/matrix[i].sum()*100)
+                        df.loc[len(df)] =row
+
+    new_models=[]
+    for model in models:
+        if 'ENSEMBLE' not in model and model != 'Strat':
+            for data in data_types:
+                m = model + '_' + str(data)
+                new_models.append(m)
+        else:
+            m = model
+            new_models.append(m)
+    # models = new_models
+    argument='Total'
+    f=open(dir_path+'/stats_results_2014_' +eps+'.txt','w')
+    for i in range(len(classes)):
+        argument+=' + '+classes[i]
+    argument+=' ~ Model + Feature_Set'
+    print("MANOVA",argument,file=f)
+    maov = MANOVA.from_formula(argument, data=df)
+    print(maov.mv_test(),file=f)
+    argument='Total'
+    argument+=' ~ C(Model) + C(Feature_Set) + C(Model):C(Feature_Set)'
+    print("2-way ANOVA", argument,file=f)
+    model = ols(argument, data=df).fit()
+    print(sm.stats.anova_lm(model, typ=2),file=f)
+    for i in range(len(classes)):
+        argument=classes[i]
+        argument+=' ~ C(Model) + C(Feature_Set) + C(Model):C(Feature_Set)'
+        print("2-way ANOVA", argument,file=f)
+        model = ols(argument, data=df).fit()
+        print(sm.stats.anova_lm(model, typ=2),file=f)
+    print("\n\nMultiple T Test Analysis across Models",file=f)
+    for i in range(len(models)):
+        for j in range(i+1,len(models)):
+            print('\n',models[i], 'vs',models[j],'\n',file=f)
+            t1=df[df['Model']==models[i]]['Total'].values.tolist()
+            t2=df[df['Model']==models[j]]['Total'].values.tolist()
+            print("Total Accuracy t test",file=f)
+            print(multipletests(ttest_ind(t1,t2)[1]),file=f)
+            for c in range(2*len(ep)):
+                print("Class - ", classes[c],"t test",file=f)
+                t1=df[df['Model']==models[i]][classes[c]].values.tolist()
+                t2=df[df['Model']==models[j]][classes[c]].values.tolist()
+                print(multipletests(ttest_ind(t1,t2)[1]),file=f)
+    print("\n\nMultiple T Test Analysis across Feature Sets",file=f)
+    for i in range(len(data_types)):
+        for j in range(i+1,len(data_types)):
+            print('\n',data_types[i], 'vs',data_types[j],'\n',file=f)
+            t1=df[df['Feature_Set']==data_types[i]]['Total'].values.tolist()
+            t2=df[df['Feature_Set']==data_types[j]]['Total'].values.tolist()
+            print("Total Accuracy t test",file=f)
+            print(multipletests(ttest_ind(t1,t2)[1]),file=f)
+            for c in range(2*len(ep)):
+                print("Class - ", classes[c],"t test",file=f)
+                t1=df[df['Feature_Set']==data_types[i]][classes[c]].values.tolist()
+                t2=df[df['Feature_Set']==data_types[j]][classes[c]].values.tolist()
+                print(multipletests(ttest_ind(t1,t2)[1]),file=f)
+    f.close()
+
 def manova_old_non_aoi(smote,eye_window,log_window,ep,threshold,models,usercv):
     data_types=['log','eye','both']
     if smote:
@@ -222,8 +337,8 @@ def manova_old_non_aoi(smote,eye_window,log_window,ep,threshold,models,usercv):
         type='/single_usercv_new'
         eps=ep[0]
         eps_title=eps
-        classes = ['None',ep[0]]
-        classes_title=classes
+        classes = ['No_emotion',ep[0]]
+        classes_title=['None',ep[0]]
     else:
         if usercv:
             type='/cooccur_usercv_new'
@@ -315,9 +430,263 @@ def plots_old_non_aoi(smote,eye_window,log_window,ep,threshold,models,usercv):
     else:
         results='/results/'
     if len(ep)==1:
-        type='/single'
+        type='/single_usercv_new'
         eps=ep[0]
-        classes = ['None',ep[0]]
+        eps_title=eps
+        classes = ['No_emotion',ep[0]]
+        classes_title=['None',ep[0]]
+    else:
+        if usercv:
+            type='/cooccur_usercv_new'
+        else:
+            type='/cooccur'
+        eps=ep[0]+'_'+ep[1]
+        eps_title=ep[0]+' x '+ep[1]
+        classes = ['No_emotion',ep[0],ep[1],ep[0]+'_'+ ep[1]]
+        classes_title = ['None',ep[0],ep[1],ep[0]+' and '+ ep[1]]
+    folder='/'
+    result_suffix='_'+threshold
+    column_names=['Feature_Set','Model','Total']+classes
+    df=pd.DataFrame(columns=column_names)
+    for data in data_types:
+        for model in models:
+            if 'ENSEMBLE' in model :
+                with open(dir_path+type+results+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'.pickle', 'rb') as handle:
+                    res=pickle.load(handle)
+            else:
+                with open(dir_path+type+results+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'_'+data+'.pickle', 'rb') as handle:
+                    res=pickle.load(handle)
+                # if model != 'Strat':
+                #     model = model + '_' + str(data)
+            # print(len(res['confusion_matrices']))
+            matrices=res['confusion_matrices']
+            for matrix in matrices:
+                row=[data,model]
+                row.append((np.trace(matrix))/matrix.sum()*100)
+                for i in range(2*len(ep)):
+                    row.append(matrix[i][i]/matrix[i].sum()*100)
+                df.loc[len(df)] =row
+    new_models=[]
+    for model in models:
+        if 'ENSEMBLE' not in model and model != 'Strat':
+            for data in data_types:
+                m = model + '_' + str(data)
+                new_models.append(m)
+        else:
+            m = model
+            new_models.append(m)
+    # models = new_models
+    # accuracies across feature Sets
+    y=[]
+    for i in range(len(models)):
+        t=df[df['Model']==models[i]]['Total'].values.tolist()
+        y.append(np.mean(t).round(2))
+    x=models
+    y_pos = np.arange(len(x))
+    fig=plt.bar(y_pos,y,align='center',color='gray')
+    plt.xticks(y_pos, x,fontsize=15)
+    plt.yticks(fontsize=15)
+    plt.ylabel('Accuracy',fontsize=15)
+    axes = plt.gca()
+    axes.set_ylim([0,100])
+    plt.setp(axes.get_xticklabels(), rotation=30, horizontalalignment='center')
+    title="Mean Overall Accuracy Across Feature Sets For Emotion Pair " + eps_title
+    plt.title(title,fontsize=18)
+    plt.axhline(y = y[0], color = 'black', linestyle = '--')
+    for i in range(len(x)):
+        plt.annotate(y[i], (-0.1 + i, y[i] +1),fontsize=15)
+    plt.show()
+    table=pd.DataFrame(list(zip(x,y)),columns=['Model','Accuracy'])
+    table=table.set_index('Model')
+    print(table.to_latex())
+    class_tables=[]
+    for j in range(len(classes)):
+        y=[]
+        for i in range(len(models)):
+            t=df[df['Model']==models[i]][classes[j]].values.tolist()
+            y.append(np.mean(t).round(2))
+        x=models
+        y_pos = np.arange(len(x))
+        fig=plt.bar(y_pos,y,align='center',color='gray')
+        plt.xticks(y_pos, x,fontsize=15)
+        plt.yticks(fontsize=15)
+        plt.ylabel('Accuracy',fontsize=15)
+        axes = plt.gca()
+        axes.set_ylim([0,100])
+        plt.setp(axes.get_xticklabels(), rotation=30, horizontalalignment='center')
+        title="Mean Class Accuracy For " + classes_title[j]+ " Across Feature Sets For Emotion Pair " + eps_title
+        plt.title(title,fontsize=18)
+        plt.axhline(y = y[0], color = 'black', linestyle = '--')
+        for i in range(len(x)):
+            plt.annotate(y[i], (-0.1 + i, y[i] +1),fontsize=15)
+        plt.show()
+        table=pd.DataFrame(list(zip(x,y)),columns=['Model',classes_title[j]])
+        table=table.set_index('Model')
+        # print(table)
+        class_tables.append(table)
+    class_table=reduce(lambda x, y: pd.merge(x, y, on = 'Model'), class_tables)
+    print(class_table.to_latex())
+
+
+    #accuracies across classifiers
+    y=[]
+    for i in range(len(data_types)):
+        t=df[df['Feature_Set']==data_types[i]]['Total'].values.tolist()
+        y.append(np.mean(t).round(2))
+    x=data_types_titles
+    y_pos = np.arange(len(x))
+    fig=plt.bar(y_pos,y,align='center',color='gray')
+    plt.xticks(y_pos, x,fontsize=15)
+    plt.yticks(fontsize=15)
+    plt.ylabel('Accuracy',fontsize=15)
+    axes = plt.gca()
+    axes.set_ylim([0,100])
+    plt.setp(axes.get_xticklabels(), rotation=30, horizontalalignment='center')
+    title="Mean Overall Accuracy Across Classifiers For Emotion Pair " + eps_title
+    plt.title(title,fontsize=18)
+    # plt.axhline(y = y[0], color = 'black', linestyle = '--')
+    for i in range(len(x)):
+        plt.annotate(y[i], (-0.1 + i, y[i] +1),fontsize=15)
+    plt.show()
+    table=pd.DataFrame(list(zip(x,y)),columns=['Feature Set','Accuracy'])
+    table=table.set_index('Feature Set')
+    print(table.to_latex())
+    class_tables=[]
+    for j in range(len(classes)):
+        y=[]
+        for i in range(len(data_types)):
+            t=df[df['Feature_Set']==data_types[i]][classes[j]].values.tolist()
+            y.append(np.mean(t).round(2))
+        x=data_types_titles
+        y_pos = np.arange(len(x))
+        fig=plt.bar(y_pos,y,align='center',color='gray')
+        plt.xticks(y_pos, x,fontsize=15)
+        plt.yticks(fontsize=15)
+        plt.ylabel('Accuracy',fontsize=15)
+        axes = plt.gca()
+        axes.set_ylim([0,100])
+        plt.setp(axes.get_xticklabels(), rotation=30, horizontalalignment='center')
+        title="Mean Class Accuracy For " + classes_title[j]+ " Across Classifiers For Emotion Pair " + eps_title
+        plt.title(title,fontsize=18)
+        # plt.axhline(y = y[0], color = 'black', linestyle = '--')
+        for i in range(len(x)):
+            plt.annotate(y[i], (-0.1 + i, y[i] +1),fontsize=15)
+        plt.show()
+        table=pd.DataFrame(list(zip(x,y)),columns=['Feature Set',classes_title[j]])
+        table=table.set_index('Feature Set')
+        # print(table)
+        class_tables.append(table)
+    class_table=reduce(lambda x, y: pd.merge(x, y, on = 'Feature Set'), class_tables)
+    print(class_table.to_latex())
+
+def manova_old_aoi(smote,eye_window,log_window,ep,threshold,models,usercv):
+    data_types=['log','eye','both']
+    if smote:
+        results='/results_smote/'
+    else:
+        results='/results/'
+    if len(ep)==1:
+        type='/single_usercv_new'
+        eps=ep[0]
+        eps_title=eps
+        classes = ['No_emotion',ep[0]]
+        classes_title=['None',ep[0]]
+    else:
+        if usercv:
+            type='/cooccur_usercv_new'
+        else:
+            type='/cooccur'
+        eps=ep[0]+'_'+ep[1]
+        classes = ['No_emotion',ep[0],ep[1],ep[0]+'_'+ ep[1]]
+    folder='/'
+    result_suffix='_'+threshold
+    column_names=['Feature_Set','Model','Total']+classes
+    df=pd.DataFrame(columns=column_names)
+    for model in models:
+        if 'ENSEMBLE' in model:
+            for data in data_types:
+                    with open(dir_path+type+results+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'.pickle', 'rb') as handle:
+                        res=pickle.load(handle)
+                    # print(len(res['confusion_matrices']))
+                    matrices=res['confusion_matrices']
+                    for matrix in matrices:
+                        row=[data,model]
+                        row.append((np.trace(matrix))/matrix.sum()*100)
+                        for i in range(2*len(ep)):
+                            row.append(matrix[i][i]/matrix[i].sum()*100)
+                        df.loc[len(df)] =row
+        else:
+            for data in data_types:
+                    with open(dir_path+type+results+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'_'+data+'.pickle', 'rb') as handle:
+                        res=pickle.load(handle)
+                    # print(len(res['confusion_matrices']))
+                    matrices=res['confusion_matrices']
+                    for matrix in matrices:
+                        row=[data,model]
+                        row.append((np.trace(matrix))/matrix.sum()*100)
+                        for i in range(2*len(ep)):
+                            row.append(matrix[i][i]/matrix[i].sum()*100)
+                        df.loc[len(df)] =row
+    argument='Total'
+    f=open(dir_path+'/stats_results_2016_only_' +eps+'.txt','w')
+    for i in range(len(classes)):
+        argument+=' + '+classes[i]
+    argument+=' ~ Model + Feature_Set'
+    print("MANOVA",argument,file=f)
+    maov = MANOVA.from_formula(argument, data=df)
+    print(maov.mv_test(),file=f)
+    argument='Total'
+    argument+=' ~ C(Model) + C(Feature_Set) + C(Model):C(Feature_Set)'
+    print("2-way ANOVA", argument,file=f)
+    model = ols(argument, data=df).fit()
+    print(sm.stats.anova_lm(model, typ=2),file=f)
+    for i in range(len(classes)):
+        argument=classes[i]
+        argument+=' ~ C(Model) + C(Feature_Set) + C(Model):C(Feature_Set)'
+        print("2-way ANOVA", argument,file=f)
+        model = ols(argument, data=df).fit()
+        print(sm.stats.anova_lm(model, typ=2),file=f)
+    print("\n\nMultiple T Test Analysis across Models",file=f)
+    for i in range(len(models)):
+        for j in range(i+1,len(models)):
+            print('\n',models[i], 'vs',models[j],'\n',file=f)
+            t1=df[df['Model']==models[i]]['Total'].values.tolist()
+            t2=df[df['Model']==models[j]]['Total'].values.tolist()
+            print("Total Accuracy t test",file=f)
+            print(multipletests(ttest_ind(t1,t2)[1]),file=f)
+            for c in range(2*len(ep)):
+                print("Class - ", classes[c],"t test",file=f)
+                t1=df[df['Model']==models[i]][classes[c]].values.tolist()
+                t2=df[df['Model']==models[j]][classes[c]].values.tolist()
+                print(multipletests(ttest_ind(t1,t2)[1]),file=f)
+    print("\n\nMultiple T Test Analysis across Feature Sets",file=f)
+    for i in range(len(data_types)):
+        for j in range(i+1,len(data_types)):
+            print('\n',data_types[i], 'vs',data_types[j],'\n',file=f)
+            t1=df[df['Feature_Set']==data_types[i]]['Total'].values.tolist()
+            t2=df[df['Feature_Set']==data_types[j]]['Total'].values.tolist()
+            print("Total Accuracy t test",file=f)
+            print(multipletests(ttest_ind(t1,t2)[1]),file=f)
+            for c in range(2*len(ep)):
+                print("Class - ", classes[c],"t test",file=f)
+                t1=df[df['Feature_Set']==data_types[i]][classes[c]].values.tolist()
+                t2=df[df['Feature_Set']==data_types[j]][classes[c]].values.tolist()
+                print(multipletests(ttest_ind(t1,t2)[1]),file=f)
+    f.close()
+
+def plots_old_aoi(smote,eye_window,log_window,ep,threshold,models,usercv):
+    data_types=['log','eye','both']
+    data_types_titles=['Interaction','Gaze','Combined']
+    if smote:
+        results='/results_smote/'
+    else:
+        results='/results/'
+    if len(ep)==1:
+        type='/single_usercv_new'
+        eps=ep[0]
+        eps_title=eps
+        classes = ['No_emotion',ep[0]]
+        classes_title=['None',ep[0]]
     else:
         if usercv:
             type='/cooccur_usercv_new'
@@ -472,8 +841,8 @@ def manova(smote,eye_window,log_window,ep,threshold,models,usercv,data_types,yea
         type='/single_usercv_new'
         eps=ep[0]
         eps_title=eps
-        classes = ['None',ep[0]]
-        classes_title=classes
+        classes = ['No_emotion',ep[0]]
+        classes_title=['None',ep[0]]
     else:
         if usercv:
             type='/cooccur_usercv_new'
@@ -599,6 +968,8 @@ def manova(smote,eye_window,log_window,ep,threshold,models,usercv,data_types,yea
             argument+=' ~ Model + Feature_Set + Dataset'
         else:
             argument+=' ~ Model + Feature_Set'
+        # print(argument)
+        # print(df)
         print("MANOVA",argument,file=f)
         maov = MANOVA.from_formula(argument, data=df)
         print(maov.mv_test(),file=f)
@@ -725,6 +1096,163 @@ def manova(smote,eye_window,log_window,ep,threshold,models,usercv,data_types,yea
                     print(multipletests(ttest_ind(t1,t2)[1]),file=f)
     f.close()
 
+def plots_old(smote,eye_window,log_window,ep,threshold,models,usercv):
+    data_types=['log','eye','both']
+    data_types_titles=['Interaction','Gaze','Combined']
+    if smote:
+        results='/results_smote_2014/'
+    else:
+        results='/results/'
+    if len(ep)==1:
+        type='/single_usercv_new'
+        eps=ep[0]
+        eps_title=eps
+        classes = ['No_emotion',ep[0]]
+        classes_title=['None',ep[0]]
+    else:
+        if usercv:
+            type='/cooccur-usercv'
+        else:
+            type='/cooccur'
+        eps=ep[0]+'_'+ep[1]
+        eps_title=ep[0]+' x '+ep[1]
+        classes = ['No_emotion',ep[0],ep[1],ep[0]+'-x-'+ ep[1]]
+        classes_title = ['None',ep[0],ep[1],ep[0]+' and '+ ep[1]]
+    folder='/'
+    result_suffix='_'+threshold
+    column_names=['Feature_Set','Model','Total']+classes
+    df=pd.DataFrame(columns=column_names)
+    for data in data_types:
+        for model in models:
+            if 'ENSEMBLE' in model :
+                with open(dir_path+type+results+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'.pickle', 'rb') as handle:
+                    res=pickle.load(handle)
+            else:
+                with open(dir_path+type+results+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'_'+data+'.pickle', 'rb') as handle:
+                    res=pickle.load(handle)
+                # if model != 'Strat':
+                #     model = model + '_' + str(data)
+            # print(len(res['confusion_matrices']))
+            matrices=res['confusion_matrices']
+            for matrix in matrices:
+                row=[data,model]
+                row.append((np.trace(matrix))/matrix.sum()*100)
+                for i in range(2*len(ep)):
+                    row.append(matrix[i][i]/matrix[i].sum()*100)
+                df.loc[len(df)] =row
+    new_models=[]
+    for model in models:
+        if 'ENSEMBLE' not in model and model != 'Strat':
+            for data in data_types:
+                m = model + '_' + str(data)
+                new_models.append(m)
+        else:
+            m = model
+            new_models.append(m)
+    # models = new_models
+    # accuracies across feature Sets
+    y=[]
+    for i in range(len(models)):
+        t=df[df['Model']==models[i]]['Total'].values.tolist()
+        y.append(np.mean(t).round(2))
+    x=models
+    y_pos = np.arange(len(x))
+    fig=plt.bar(y_pos,y,align='center',color='gray')
+    plt.xticks(y_pos, x,fontsize=15)
+    plt.yticks(fontsize=15)
+    plt.ylabel('Accuracy',fontsize=15)
+    axes = plt.gca()
+    axes.set_ylim([0,100])
+    plt.setp(axes.get_xticklabels(), rotation=30, horizontalalignment='center')
+    title="Mean Overall Accuracy Across Feature Sets For Emotion Pair " + eps_title
+    plt.title(title,fontsize=18)
+    plt.axhline(y = y[0], color = 'black', linestyle = '--')
+    for i in range(len(x)):
+        plt.annotate(y[i], (-0.1 + i, y[i] +1),fontsize=15)
+    plt.show()
+    table=pd.DataFrame(list(zip(x,y)),columns=['Model','Accuracy'])
+    table=table.set_index('Model')
+    print(table.to_latex())
+    class_tables=[]
+    for j in range(len(classes)):
+        y=[]
+        for i in range(len(models)):
+            t=df[df['Model']==models[i]][classes[j]].values.tolist()
+            y.append(np.mean(t).round(2))
+        x=models
+        y_pos = np.arange(len(x))
+        fig=plt.bar(y_pos,y,align='center',color='gray')
+        plt.xticks(y_pos, x,fontsize=15)
+        plt.yticks(fontsize=15)
+        plt.ylabel('Accuracy',fontsize=15)
+        axes = plt.gca()
+        axes.set_ylim([0,100])
+        plt.setp(axes.get_xticklabels(), rotation=30, horizontalalignment='center')
+        title="Mean Class Accuracy For " + classes_title[j]+ " Across Feature Sets For Emotion Pair " + eps_title
+        plt.title(title,fontsize=18)
+        plt.axhline(y = y[0], color = 'black', linestyle = '--')
+        for i in range(len(x)):
+            plt.annotate(y[i], (-0.1 + i, y[i] +1),fontsize=15)
+        plt.show()
+        table=pd.DataFrame(list(zip(x,y)),columns=['Model',classes_title[j]])
+        table=table.set_index('Model')
+        # print(table)
+        class_tables.append(table)
+    class_table=reduce(lambda x, y: pd.merge(x, y, on = 'Model'), class_tables)
+    print(class_table.to_latex())
+
+
+    #accuracies across classifiers
+    y=[]
+    for i in range(len(data_types)):
+        t=df[df['Feature_Set']==data_types[i]]['Total'].values.tolist()
+        y.append(np.mean(t).round(2))
+    x=data_types_titles
+    y_pos = np.arange(len(x))
+    fig=plt.bar(y_pos,y,align='center',color='gray')
+    plt.xticks(y_pos, x,fontsize=15)
+    plt.yticks(fontsize=15)
+    plt.ylabel('Accuracy',fontsize=15)
+    axes = plt.gca()
+    axes.set_ylim([0,100])
+    plt.setp(axes.get_xticklabels(), rotation=30, horizontalalignment='center')
+    title="Mean Overall Accuracy Across Classifiers For Emotion Pair " + eps_title
+    plt.title(title,fontsize=18)
+    # plt.axhline(y = y[0], color = 'black', linestyle = '--')
+    for i in range(len(x)):
+        plt.annotate(y[i], (-0.1 + i, y[i] +1),fontsize=15)
+    plt.show()
+    table=pd.DataFrame(list(zip(x,y)),columns=['Feature Set','Accuracy'])
+    table=table.set_index('Feature Set')
+    print(table.to_latex())
+    class_tables=[]
+    for j in range(len(classes)):
+        y=[]
+        for i in range(len(data_types)):
+            t=df[df['Feature_Set']==data_types[i]][classes[j]].values.tolist()
+            y.append(np.mean(t).round(2))
+        x=data_types_titles
+        y_pos = np.arange(len(x))
+        fig=plt.bar(y_pos,y,align='center',color='gray')
+        plt.xticks(y_pos, x,fontsize=15)
+        plt.yticks(fontsize=15)
+        plt.ylabel('Accuracy',fontsize=15)
+        axes = plt.gca()
+        axes.set_ylim([0,100])
+        plt.setp(axes.get_xticklabels(), rotation=30, horizontalalignment='center')
+        title="Mean Class Accuracy For " + classes_title[j]+ " Across Classifiers For Emotion Pair " + eps_title
+        plt.title(title,fontsize=18)
+        # plt.axhline(y = y[0], color = 'black', linestyle = '--')
+        for i in range(len(x)):
+            plt.annotate(y[i], (-0.1 + i, y[i] +1),fontsize=15)
+        plt.show()
+        table=pd.DataFrame(list(zip(x,y)),columns=['Feature Set',classes_title[j]])
+        table=table.set_index('Feature Set')
+        # print(table)
+        class_tables.append(table)
+    class_table=reduce(lambda x, y: pd.merge(x, y, on = 'Feature Set'), class_tables)
+    print(class_table.to_latex())
+
 def plots(smote,eye_window,log_window,ep,threshold,models,usercv,data_types,years=False,indiv=False):
     data_types_titles=['Interaction','Gaze','Combined'][:len(data_types)]
     if smote:
@@ -735,8 +1263,8 @@ def plots(smote,eye_window,log_window,ep,threshold,models,usercv,data_types,year
         type='/single_usercv_new'
         eps=ep[0]
         eps_title=eps
-        classes = ['None',ep[0]]
-        classes_title=classes
+        classes = ['No_emotion',ep[0]]
+        classes_title=['None',ep[0]]
     else:
         if usercv:
             type='/cooccur_usercv_new'
@@ -889,7 +1417,7 @@ def plots(smote,eye_window,log_window,ep,threshold,models,usercv,data_types,year
             y.append(np.mean(t).round(2))
         x=data_types_titles
         y_pos = np.arange(len(x))
-        print(y,x)
+        # print(y,x)
         fig=plt.bar(y_pos,y,align='center',color='gray')
         plt.xticks(y_pos, x,fontsize=15)
         plt.yticks(fontsize=15)
@@ -1103,10 +1631,10 @@ def manova_non_aoi(smote,eye_window,log_window,ep,threshold,models,usercv,data_t
     else:
         results='/results/'
     if len(ep)==1:
-        type='/single'
+        type='/single_usercv_new'
         eps=ep[0]
-        classes = ['None',ep[0]]
-        classes_title=classes
+        classes = ['No_emotion',ep[0]]
+        classes_title=['None',ep[0]]
     else:
         if usercv:
             type='/cooccur_usercv_new'
@@ -1366,9 +1894,11 @@ def plots_non_aoi(smote,eye_window,log_window,ep,threshold,models,usercv,data_ty
     else:
         results='/results/'
     if len(ep)==1:
-        type='/single'
+        type='/single_usercv_new'
         eps=ep[0]
-        classes = ['None',ep[0]]
+        eps_title=eps
+        classes = ['No_emotion',ep[0]]
+        classes_title=['None',ep[0]]
     else:
         if usercv:
             type='/cooccur_usercv_new'
@@ -1633,10 +2163,11 @@ def new_analysis(smote,eye_window,log_window,ep,threshold,models,usercv,data_typ
     else:
         results='/results/'
     if len(ep)==1:
-        type='/single'
+        type='/single_usercv_new'
         eps=ep[0]
-        classes = ['None',ep[0]]
-        classes_title=classes
+        eps_title=eps
+        classes = ['No_emotion',ep[0]]
+        classes_title=['None',ep[0]]
     else:
         if usercv:
             type='/cooccur_usercv_new'
@@ -1673,7 +2204,7 @@ def new_analysis(smote,eye_window,log_window,ep,threshold,models,usercv,data_typ
                     else:
                         row=[data,model,'Combined AOI']
                     row.append((np.trace(matrix))/matrix.sum()*100)
-                    for i in range(2):
+                    for i in range(2*len(ep)):
                         row.append(matrix[i][i]/matrix[i].sum()*100)
                     df.loc[len(df)] =row
                 if 'ENSEMBLE' in model :
@@ -1691,7 +2222,7 @@ def new_analysis(smote,eye_window,log_window,ep,threshold,models,usercv,data_typ
                 for matrix in matrices:
                     row=[data,model,'Combined Non AOI']
                     row.append((np.trace(matrix))/matrix.sum()*100)
-                    for i in range(2):
+                    for i in range(2*len(ep)):
                         row.append(matrix[i][i]/matrix[i].sum()*100)
                     df.loc[len(df)] =row
                 if 'ENSEMBLE' in model :
@@ -1710,7 +2241,7 @@ def new_analysis(smote,eye_window,log_window,ep,threshold,models,usercv,data_typ
                 for matrix in matrices:
                     row=[data,model,'2014']
                     row.append((np.trace(matrix))/matrix.sum()*100)
-                    for i in range(2):
+                    for i in range(2*len(ep)):
                         row.append(matrix[i][i]/matrix[i].sum()*100)
                     df.loc[len(df)] =row
             else:
@@ -1730,7 +2261,7 @@ def new_analysis(smote,eye_window,log_window,ep,threshold,models,usercv,data_typ
                 for matrix in matrices:
                     row=[data,model]
                     row.append((np.trace(matrix))/matrix.sum()*100)
-                    for i in range(2):
+                    for i in range(2*len(ep)):
                         row.append(matrix[i][i]/matrix[i].sum()*100)
                     df.loc[len(df)] =row
 
@@ -1756,13 +2287,39 @@ def new_analysis(smote,eye_window,log_window,ep,threshold,models,usercv,data_typ
                             classes[2]:['log','log','log'],
                             classes[3]:['log','log','both']
                             }
-    else:
+        labels=['Acc_Overall','Acc_None','Acc_Frus','Acc_Bore','Acc_Both']
+    elif ep==['Curiosity','Anxiety']:
         class_feature_sets={'Total':['eye','eye','eye'],
                             classes[0]:['eye','eye','log'],
                             classes[1]:['eye','eye','eye'],
                             classes[2]:['log','log','log'],
                             classes[3]:['both','both','both']
                             }
+        labels=['Acc_Overall','Acc_None','Acc_Curi','Acc_Anxi','Acc_Both']
+    elif ep==['Frustration']:
+        class_feature_sets={'Total':['log','both','eye'],
+                            classes[0]:['log','both','eye'],
+                            classes[1]:['log','log','both']
+                            }
+        labels=['Acc_Overall','Acc_None','Acc_Frus']
+    elif ep==['Boredom']:
+        class_feature_sets={'Total':['log','eye','eye'],
+                            classes[0]:['both','eye','eye'],
+                            classes[1]:['log','log','both']
+                            }
+        labels=['Acc_Overall','Acc_None','Acc_Bore']
+    elif ep==['Curiosity']:
+        class_feature_sets={'Total':['both','both','both'],
+                            classes[0]:['log','eye','log'],
+                            classes[1]:['both','both','both']
+                            }
+        labels=['Acc_Overall','Acc_None','Acc_Curi']
+    elif ep==['Anxiety']:
+        class_feature_sets={'Total':['eye','eye','eye'],
+                            classes[0]:['eye','eye','eye'],
+                            classes[1]:['eye','log','log']
+                            }
+        labels=['Acc_Overall','Acc_None','Acc_Anxi']
         # print(class_feature_sets)
     for x in ['Total']+classes:
         slice0=(df['Dataset']=='2014') & (df['Feature_Set']==class_feature_sets[x][0])
@@ -1774,10 +2331,6 @@ def new_analysis(smote,eye_window,log_window,ep,threshold,models,usercv,data_typ
         print(len(best_dfs[x]))
         best_dfs[x]['Best_combination']=best_dfs[x]['Dataset']+'_'+best_dfs[x]['Feature_Set']
         # print(best_dfs[x])
-    if ep==['Frustration','Boredom']:
-        labels=['Acc_Overall','Acc_None','Acc_Frus','Acc_Bore','Acc_Both']
-    else:
-        labels=['Acc_Overall','Acc_None','Acc_Curi','Acc_Anxi','Acc_Both']
     original=[]
     original_pattern=[]
     combined_aoi=[]
@@ -1855,7 +2408,7 @@ def new_analysis(smote,eye_window,log_window,ep,threshold,models,usercv,data_typ
 
     # Add some text for labels, title and custom x-axis tick labels, etc.
     ax.set_ylabel('Percentage Accuracies',fontsize=24)
-    ax.set_title(ep[0]+' x ' +ep[1],fontsize=24)
+    ax.set_title(eps_title,fontsize=24)
     ax.set_xticks(x)
     ax.set_xticklabels(labels)
 
@@ -1864,9 +2417,9 @@ def new_analysis(smote,eye_window,log_window,ep,threshold,models,usercv,data_typ
         legend_elements.append((mpatches.Patch(color=color), label))
     for label,hatch in {'log':'/','eye':'.','both':'*'}.items():
         legend_elements.append((mpatches.Patch(facecolor='white',hatch=hatch), label))
-    ax.legend(*zip(*legend_elements),fontsize=15, loc=2)
+    ax.legend(*zip(*legend_elements),fontsize=13, loc=2)
 
-    ax.set_ylim([0,60])
+    ax.set_ylim([0,100])
     plt.yticks(fontsize=19)
     plt.xticks(fontsize=19)
     fig.tight_layout()
@@ -1874,11 +2427,12 @@ def new_analysis(smote,eye_window,log_window,ep,threshold,models,usercv,data_typ
     plt.minorticks_on()
     plt.show()
 
-ep=["Frustration"]
+# ep=["Frustration"]
+# ep=["Boredom"]
 # ep=["Frustration","Boredom"]
 # ep=["Curiosity"]
+ep=["Anxiety"]
 # ep=["Curiosity","Anxiety"]
-# ep=["Boredom"]
 
 smote = True
 # smote = False
@@ -1899,10 +2453,16 @@ usercv=True
 # print('\n')
 # plot_accuracy(smote,'','',ep,'eye','3',models,usercv)
 # anova_class(smote,'','',ep,'both','3',models,usercv)
+
+# print('2014')
+# plots_old(smote,'','',ep,'3',models,usercv)
+# manova_old(smote,'','',ep,'3',models,usercv)
+# print('Combined AOI')
+# manova_old_aoi(smote,'','',ep,'3',models,usercv)
+# plots_old_aoi(smote,'','',ep,'3',models,usercv)
+# print('Combined Non AOI')
 # manova_old_non_aoi(smote,'','',ep,'3',models,usercv)
 # plots_old_non_aoi(smote,'','',ep,'3',models,usercv)
-manova(smote,'','',ep,'3',models,usercv,data_types,True,False)
-plots(smote,'','',ep,'3',models,usercv,data_types,False,True)
 # manova_non_aoi(smote,'','',ep,'3',models,usercv,data_types,True,False)
 # plots_non_aoi(smote,'','',ep,'3',models,usercv,data_types,True,False)
-# new_analysis(smote,'','',ep,'3',models,usercv,data_types,True,False)
+new_analysis(smote,'','',ep,'3',models,usercv,data_types,True,False)

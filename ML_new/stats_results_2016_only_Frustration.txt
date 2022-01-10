@@ -1,0 +1,136 @@
+MANOVA Total + No_emotion + Frustration ~ Model + Feature_Set
+                   Multivariate linear model
+===============================================================
+                                                               
+---------------------------------------------------------------
+       Intercept        Value  Num DF  Den DF   F Value  Pr > F
+---------------------------------------------------------------
+          Wilks' lambda 0.1268 3.0000 952.0000 2186.0199 0.0000
+         Pillai's trace 0.8732 3.0000 952.0000 2186.0199 0.0000
+ Hotelling-Lawley trace 6.8887 3.0000 952.0000 2186.0199 0.0000
+    Roy's greatest root 6.8887 3.0000 952.0000 2186.0199 0.0000
+---------------------------------------------------------------
+                                                               
+---------------------------------------------------------------
+         Model          Value  Num DF   Den DF  F Value  Pr > F
+---------------------------------------------------------------
+          Wilks' lambda 0.6727 9.0000 2317.0685  45.5420 0.0000
+         Pillai's trace 0.3483 9.0000 2862.0000  41.7639 0.0000
+ Hotelling-Lawley trace 0.4554 9.0000 1492.8197  48.1348 0.0000
+    Roy's greatest root 0.3736 3.0000  954.0000 118.7979 0.0000
+---------------------------------------------------------------
+                                                               
+---------------------------------------------------------------
+       Feature_Set       Value  Num DF   Den DF  F Value Pr > F
+---------------------------------------------------------------
+           Wilks' lambda 0.8718 6.0000 1904.0000 22.5386 0.0000
+          Pillai's trace 0.1288 6.0000 1906.0000 21.8589 0.0000
+  Hotelling-Lawley trace 0.1465 6.0000 1267.5571 23.2304 0.0000
+     Roy's greatest root 0.1422 3.0000  953.0000 45.1769 0.0000
+===============================================================
+
+2-way ANOVA Total ~ C(Model) + C(Feature_Set) + C(Model):C(Feature_Set)
+                               sum_sq     df          F        PR(>F)
+C(Model)                  8974.931301    3.0  43.657084  1.979313e-26
+C(Feature_Set)            2543.482456    2.0  18.558531  1.241410e-08
+C(Model):C(Feature_Set)   5568.461683    6.0  13.543435  8.698378e-15
+Residual                 64962.614124  948.0        NaN           NaN
+2-way ANOVA No_emotion ~ C(Model) + C(Feature_Set) + C(Model):C(Feature_Set)
+                                sum_sq     df          F        PR(>F)
+C(Model)                  50468.643014    3.0  89.242527  7.219148e-51
+C(Feature_Set)            25379.713991    2.0  67.317536  4.598754e-28
+C(Model):C(Feature_Set)   36400.882590    6.0  32.183417  2.263556e-35
+Residual                 178705.060733  948.0        NaN           NaN
+2-way ANOVA Frustration ~ C(Model) + C(Feature_Set) + C(Model):C(Feature_Set)
+                                sum_sq     df          F        PR(>F)
+C(Model)                  50166.428852    3.0  61.279209  3.249576e-36
+C(Feature_Set)            21011.918758    2.0  38.499664  8.397979e-17
+C(Model):C(Feature_Set)   34450.579022    6.0  21.041006  2.959357e-23
+Residual                 258694.454681  948.0        NaN           NaN
+
+
+Multiple T Test Analysis across Models
+
+ Strat vs LR 
+
+Total Accuracy t test
+(array([ True]), array([0.00090693]), 0.050000000000000044, 0.05)
+Class -  No_emotion t test
+(array([False]), array([0.15341498]), 0.050000000000000044, 0.05)
+Class -  Frustration t test
+(array([ True]), array([1.49822377e-11]), 0.050000000000000044, 0.05)
+
+ Strat vs RF 
+
+Total Accuracy t test
+(array([ True]), array([0.]), 0.050000000000000044, 0.05)
+Class -  No_emotion t test
+(array([ True]), array([0.]), 0.050000000000000044, 0.05)
+Class -  Frustration t test
+(array([ True]), array([3.14874793e-11]), 0.050000000000000044, 0.05)
+
+ Strat vs SVM 
+
+Total Accuracy t test
+(array([ True]), array([3.33066907e-16]), 0.050000000000000044, 0.05)
+Class -  No_emotion t test
+(array([ True]), array([9.20791107e-07]), 0.050000000000000044, 0.05)
+Class -  Frustration t test
+(array([ True]), array([0.00185936]), 0.050000000000000044, 0.05)
+
+ LR vs RF 
+
+Total Accuracy t test
+(array([ True]), array([1.29300948e-09]), 0.050000000000000044, 0.05)
+Class -  No_emotion t test
+(array([ True]), array([0.]), 0.050000000000000044, 0.05)
+Class -  Frustration t test
+(array([ True]), array([0.]), 0.050000000000000044, 0.05)
+
+ LR vs SVM 
+
+Total Accuracy t test
+(array([ True]), array([6.13280276e-07]), 0.050000000000000044, 0.05)
+Class -  No_emotion t test
+(array([ True]), array([1.51036495e-07]), 0.050000000000000044, 0.05)
+Class -  Frustration t test
+(array([ True]), array([0.00828482]), 0.050000000000000044, 0.05)
+
+ RF vs SVM 
+
+Total Accuracy t test
+(array([False]), array([0.48044899]), 0.050000000000000044, 0.05)
+Class -  No_emotion t test
+(array([ True]), array([6.89054012e-08]), 0.050000000000000044, 0.05)
+Class -  Frustration t test
+(array([ True]), array([2.20934382e-14]), 0.050000000000000044, 0.05)
+
+
+Multiple T Test Analysis across Feature Sets
+
+ log vs eye 
+
+Total Accuracy t test
+(array([ True]), array([9.55987557e-06]), 0.050000000000000044, 0.05)
+Class -  No_emotion t test
+(array([ True]), array([1.02062692e-10]), 0.050000000000000044, 0.05)
+Class -  Frustration t test
+(array([ True]), array([1.5435655e-05]), 0.050000000000000044, 0.05)
+
+ log vs both 
+
+Total Accuracy t test
+(array([ True]), array([1.42736923e-06]), 0.050000000000000044, 0.05)
+Class -  No_emotion t test
+(array([ True]), array([0.]), 0.050000000000000044, 0.05)
+Class -  Frustration t test
+(array([ True]), array([5.19140286e-13]), 0.050000000000000044, 0.05)
+
+ eye vs both 
+
+Total Accuracy t test
+(array([False]), array([0.63446975]), 0.050000000000000044, 0.05)
+Class -  No_emotion t test
+(array([ True]), array([0.0096332]), 0.050000000000000044, 0.05)
+Class -  Frustration t test
+(array([ True]), array([0.00092812]), 0.050000000000000044, 0.05)
