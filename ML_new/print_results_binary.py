@@ -2427,12 +2427,616 @@ def new_analysis(smote,eye_window,log_window,ep,threshold,models,usercv,data_typ
     plt.minorticks_on()
     plt.show()
 
+
+def model_analysis(smote,eye_window,log_window,ep,threshold,models,usercv,data_types,aoi=True,indiv=False):
+    data_types_titles=['Interaction','Gaze','Combined'][:len(data_types)]
+    if smote:
+        results='/results_smote/'
+    else:
+        results='/results/'
+    if len(ep)==1:
+        type='/single_usercv_new'
+        eps=ep[0]
+        eps_title=eps
+        classes = ['No_emotion',ep[0]]
+        classes_title=['None',ep[0]]
+    else:
+        if usercv:
+            type='/cooccur_usercv_new'
+        else:
+            type='/cooccur'
+        eps=ep[0]+'_'+ep[1]
+        eps_title=ep[0]+' x '+ep[1]
+        classes = ['No_emotion',ep[0],ep[1],ep[0]+'_'+ ep[1]]
+        classes_title = ['None',ep[0],ep[1],ep[0]+' and '+ ep[1]]
+    folder='/'
+    result_suffix='_'+threshold
+    if aoi:
+        column_names=['Feature_Set','Model','Dataset','Total']+classes
+    else:
+        column_names=['Feature_Set','Model','Total']+classes
+    df=pd.DataFrame(columns=column_names)
+    for data in data_types:
+        el=True
+        for model in models:
+            if aoi:
+                if 'ENSEMBLE' in model :
+                    if el:
+                        with open(dir_path+type+results+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'.pickle', 'rb') as handle:
+                            res=pickle.load(handle)
+                else:
+                    with open(dir_path+type+results+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'_'+data+'.pickle', 'rb') as handle:
+                        res=pickle.load(handle)
+                # print(len(res['confusion_matrices']))
+                matrices=res['confusion_matrices']
+                for matrix in matrices:
+                    if indiv and model!= 'Strat':
+                    # if indiv:
+                        row=[data,model + '_'+str(data),'Combined AOI']
+                    else:
+                        row=[data,model,'Combined AOI']
+                    row.append((np.trace(matrix))/matrix.sum()*100)
+                    for i in range(2*len(ep)):
+                        row.append(matrix[i][i]/matrix[i].sum()*100)
+                    df.loc[len(df)] =row
+                if 'ENSEMBLE' in model :
+                    if el:
+                        with open(dir_path+type+results+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'.pickle', 'rb') as handle:
+                            res=pickle.load(handle)
+                else:
+                    with open(dir_path+type+results[:-1]+'_non_aoi/'+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'_'+data+'.pickle', 'rb') as handle:
+                        res=pickle.load(handle)
+                    if indiv and model!= 'Strat':
+                    # if indiv:
+                        model = model + '_' + str(data)#toggle this on for individual figures and the below toggle
+                # print(len(res['confusion_matrices']))
+                matrices=res['confusion_matrices']
+                for matrix in matrices:
+                    row=[data,model,'Combined Non AOI']
+                    row.append((np.trace(matrix))/matrix.sum()*100)
+                    for i in range(2*len(ep)):
+                        row.append(matrix[i][i]/matrix[i].sum()*100)
+                    df.loc[len(df)] =row
+                if 'ENSEMBLE' in model :
+                    if el:
+                        with open(dir_path+type+results+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'.pickle', 'rb') as handle:
+                            res=pickle.load(handle)
+                        el=False
+                else:
+                    with open(dir_path+type+results[:-1]+'_2014/'+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'_'+data+'.pickle', 'rb') as handle:
+                        res=pickle.load(handle)
+                    if indiv and model!= 'Strat':
+                    # if indiv:
+                        model = model + '_' + str(data)#toggle this on for individual figures and the below toggle
+                # print(len(res['confusion_matrices']))
+                matrices=res['confusion_matrices']
+                for matrix in matrices:
+                    row=[data,model,'2014']
+                    row.append((np.trace(matrix))/matrix.sum()*100)
+                    for i in range(2*len(ep)):
+                        row.append(matrix[i][i]/matrix[i].sum()*100)
+                    df.loc[len(df)] =row
+            else:
+                if 'ENSEMBLE' in model :
+                    if el:
+                        with open(dir_path+type+results+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'.pickle', 'rb') as handle:
+                            res=pickle.load(handle)
+                        el = False
+                else:
+                    with open(dir_path+type+results+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'_'+data+'.pickle', 'rb') as handle:
+                        res=pickle.load(handle)
+                    if indiv and model!= 'Strat':
+                    # if indiv:
+                        model = model + '_' + str(data)#toggle this on for individual figures and the below toggle
+                # print(len(res['confusion_matrices']))
+                matrices=res['confusion_matrices']
+                for matrix in matrices:
+                    row=[data,model]
+                    row.append((np.trace(matrix))/matrix.sum()*100)
+                    for i in range(2*len(ep)):
+                        row.append(matrix[i][i]/matrix[i].sum()*100)
+                    df.loc[len(df)] =row
+
+    new_models=[]
+    for model in models:
+        if 'ENSEMBLE' not in model and model != 'Strat':
+        # if 'ENSEMBLE' not in model:
+            for data in data_types:
+                m = model + '_' + str(data)
+                new_models.append(m)
+        else:
+            m = model
+            new_models.append(m)
+    if indiv:
+        models = new_models
+    # print(df)
+    best_dfs={}
+    class_feature_sets={}
+    if ep==['Frustration','Boredom']:
+        class_feature_sets={'Total':['log','eye','eye'],
+                            classes[0]:['both','eye','eye'],
+                            classes[1]:['eye','eye','eye'],
+                            classes[2]:['log','log','log'],
+                            classes[3]:['log','log','both']
+                            }
+        labels=['Acc_Overall','Acc_None','Acc_Frus','Acc_Bore','Acc_Both']
+        best_combo=['2014','log']
+    elif ep==['Curiosity','Anxiety']:
+        class_feature_sets={'Total':['eye','eye','eye'],
+                            classes[0]:['eye','eye','log'],
+                            classes[1]:['eye','eye','eye'],
+                            classes[2]:['log','log','log'],
+                            classes[3]:['both','both','both']
+                            }
+        labels=['Acc_Overall','Acc_None','Acc_Curi','Acc_Anxi','Acc_Both']
+        best_combo=['Combined AOI','eye']
+    elif ep==['Frustration']:
+        class_feature_sets={'Total':['log','both','eye'],
+                            classes[0]:['log','both','eye'],
+                            classes[1]:['log','log','both']
+                            }
+        labels=['Acc_Overall','Acc_None','Acc_Frus']
+        best_combo=['2014','log']
+    elif ep==['Boredom']:
+        class_feature_sets={'Total':['log','eye','eye'],
+                            classes[0]:['both','eye','eye'],
+                            classes[1]:['log','log','both']
+                            }
+        labels=['Acc_Overall','Acc_None','Acc_Bore']
+        # best_combo=['2014','log']
+        # best_combo=['Combined AOI','eye']
+        best_combo=['Combined Non AOI','eye']
+    elif ep==['Curiosity']:
+        class_feature_sets={'Total':['both','both','both'],
+                            classes[0]:['log','eye','log'],
+                            classes[1]:['both','both','both']
+                            }
+        labels=['Acc_Overall','Acc_None','Acc_Curi']
+        # best_combo=['2014','both']
+        # best_combo=['Combined AOI','both']
+        best_combo=['Combined Non AOI','both']
+    elif ep==['Anxiety']:
+        class_feature_sets={'Total':['eye','eye','eye'],
+                            classes[0]:['eye','eye','eye'],
+                            classes[1]:['eye','log','log']
+                            }
+        labels=['Acc_Overall','Acc_None','Acc_Anxi']
+        best_combo=['Combined AOI','eye']
+        # print(class_feature_sets)
+    for x in ['Total']+classes:
+        slices=(df['Dataset']==best_combo[0]) & (df['Feature_Set']==best_combo[1])
+        best_dfs[x]=df.loc[slices,['Feature_Set','Model','Dataset',x]]
+
+    rf=[]
+    rf_pattern=[]
+    svm=[]
+    svm_pattern=[]
+    lr=[]
+    lr_pattern=[]
+    strat=[]
+    strat_pattern=[]
+    for x in ['Total']+classes:
+        df = best_dfs[x]
+
+        # print(df)
+        rf_vals = df[df['Model']=='RF']
+        f1=np.unique(rf_vals[['Feature_Set','Dataset']])
+        rf.append(round(np.mean(rf_vals[x]),2))
+        rf_pattern.append(list(f1))
+
+        lr_vals = df[df['Model']=='LR']
+        f2=np.unique(lr_vals[['Feature_Set','Dataset']])
+        lr.append(round(np.mean(lr_vals[x]),2))
+        lr_pattern.append(list(f2))
+
+        svm_vals = df[df['Model']=='SVM']
+        f3=np.unique(svm_vals[['Feature_Set','Dataset']])
+        svm.append(round(np.mean(svm_vals[x]),2))
+        svm_pattern.append(list(f3))
+
+
+        strat_vals = df[df['Model']=='Strat']
+        f4=np.unique(strat_vals[['Feature_Set','Dataset']])
+        strat.append(round(np.mean(strat_vals[x]),2))
+        strat_pattern.append(list(f4))
+
+        t1=rf_vals[x].values.tolist()
+        t2=lr_vals[x].values.tolist()
+        t3=svm_vals[x].values.tolist()
+        t4=strat_vals[x].values.tolist()
+        argument= x+' ~ Model'
+        print("1-way ANOVA", argument)
+        model = ols(argument, data=best_dfs[x]).fit()
+        print(sm.stats.anova_lm(model, typ=2))
+        print(x+" Accuracy t tests")
+        # print(ttest_ind(t1,t3)[1])
+        print(multipletests([ttest_ind(t1,t4)[1],ttest_ind(t2,t4)[1],ttest_ind(t3,t4)[1]],alpha=0.05))
+
+    # print(original)
+    # print(original_pattern)
+    def pat(x):
+        if x=='log':
+            return '/'
+        elif x=='eye':
+            return '.'
+        elif x=='both':
+            return '*'
+    def color(x):
+        if x=='2014':
+            return '#F4D4D4'
+        elif x=='Combined AOI':
+            return '#F1A879'
+        elif x=='Combined Non AOI':
+            return '#CAB8C8'
+    rf_hatch=[pat(x[1]) for x in rf_pattern]
+    rf_color=[color(x[0]) for x in rf_pattern]
+    lr_hatch=[pat(x[1]) for x in lr_pattern]
+    lr_color=[color(x[0]) for x in lr_pattern]
+    svm_hatch=[pat(x[1]) for x in svm_pattern]
+    svm_color=[color(x[0]) for x in svm_pattern]
+    strat_hatch=[pat(x[1]) for x in strat_pattern]
+    strat_color=[color(x[0]) for x in strat_pattern]
+
+    # print(rf_hatch)
+    # print(rf_pattern)
+    # print(rf_color)
+    # exit()
+
+    fig, ax = plt.subplots()
+    x = np.arange(len(labels))  # the label locations
+    width=0.2
+    bar_width=0.18
+    rects1 = ax.bar(x - width, rf, bar_width, label='RF',color=rf_color,hatch=rf_hatch)
+    rects2 = ax.bar(x , lr, bar_width, label='LR',color=lr_color,hatch=lr_hatch)
+    rects3 = ax.bar(x + width, svm, bar_width, label='SVM',color=svm_color,hatch=svm_hatch)
+    rects4 = ax.bar(x + 2*width, strat, bar_width, label='Strat',color=strat_color,hatch=strat_hatch)
+
+    def autolabel(rects,model):
+        """Attach a text label above each bar in *rects*, displaying its height."""
+        for rect in rects:
+            height = rect.get_height()
+            print(rect)
+            print(rect.get_x() + rect.get_width() / 2, height)
+            ax.annotate('{} \n {}'.format(model,height),
+                        xy=(rect.get_x() + rect.get_width() / 2, height),
+                        xytext=(0, 3),  # 3 points vertical offset
+                        textcoords="offset points",
+                        ha='center', va='bottom',fontsize=11)
+
+
+    autolabel(rects1,'RF')
+    autolabel(rects2,'LR')
+    autolabel(rects3,'SVM')
+    autolabel(rects4,'Strat')
+
+    # Add some text for labels, title and custom x-axis tick labels, etc.
+    ax.set_ylabel('Percentage Accuracies',fontsize=24)
+    ax.set_title(eps_title,fontsize=24)
+    ax.set_xticks(x)
+    ax.set_xticklabels(labels)
+
+    legend_elements=[]
+    for label,color in {'2014':'#F4D4D4','Combined AOI':'#F1A879','Combined Non AOI':'#CAB8C8'}.items():
+        legend_elements.append((mpatches.Patch(color=color), label))
+    for label,hatch in {'log':'/','eye':'.','both':'*'}.items():
+        legend_elements.append((mpatches.Patch(facecolor='white',hatch=hatch), label))
+    ax.legend(*zip(*legend_elements),fontsize=12, loc=2)
+
+    ax.set_ylim([0,100])
+    plt.yticks(fontsize=19)
+    plt.xticks(fontsize=19)
+    fig.tight_layout()
+    plt.grid(which='both',axis='y',color='gray', linestyle='--', linewidth=.5)
+    plt.minorticks_on()
+    plt.show()
+
+def compare_ensemble(smote,eye_window,log_window,ep,threshold,models,usercv,data_types,aoi=True,indiv=False):
+    data_types_titles=['Interaction','Gaze','Combined'][:len(data_types)]
+    if smote:
+        results='/results_smote/'
+    else:
+        results='/results/'
+    if len(ep)==1:
+        type='/single_usercv_new'
+        eps=ep[0]
+        eps_title=eps
+        classes = ['No_emotion',ep[0]]
+        classes_title=['None',ep[0]]
+    else:
+        if usercv:
+            type='/cooccur_usercv_new'
+        else:
+            type='/cooccur'
+        eps=ep[0]+'_'+ep[1]
+        eps_title=ep[0]+' x '+ep[1]
+        classes = ['No_emotion',ep[0],ep[1],ep[0]+'_'+ ep[1]]
+        classes_title = ['None',ep[0],ep[1],ep[0]+' and '+ ep[1]]
+    folder='/'
+    result_suffix='_'+threshold
+    if aoi:
+        column_names=['Feature_Set','Model','Dataset','Total']+classes
+    else:
+        column_names=['Feature_Set','Model','Total']+classes
+    df=pd.DataFrame(columns=column_names)
+    for data in data_types:
+        el=True
+        for model in models:
+            if aoi:
+                if 'ENSEMBLE' in model :
+                    if el:
+                        with open(dir_path+type+results+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'.pickle', 'rb') as handle:
+                            res=pickle.load(handle)
+                else:
+                    with open(dir_path+type+results+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'_'+data+'.pickle', 'rb') as handle:
+                        res=pickle.load(handle)
+                # print(len(res['confusion_matrices']))
+                matrices=res['confusion_matrices']
+                for matrix in matrices:
+                    if indiv and model!= 'Strat':
+                    # if indiv:
+                        row=[data,model + '_'+str(data),'Combined AOI']
+                    else:
+                        row=[data,model,'Combined AOI']
+                    row.append((np.trace(matrix))/matrix.sum()*100)
+                    for i in range(2*len(ep)):
+                        row.append(matrix[i][i]/matrix[i].sum()*100)
+                    df.loc[len(df)] =row
+                if 'ENSEMBLE' in model :
+                    if el:
+                        with open(dir_path+type+results+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'.pickle', 'rb') as handle:
+                            res=pickle.load(handle)
+                else:
+                    with open(dir_path+type+results[:-1]+'_non_aoi/'+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'_'+data+'.pickle', 'rb') as handle:
+                        res=pickle.load(handle)
+                    if indiv and model!= 'Strat':
+                    # if indiv:
+                        model = model + '_' + str(data)#toggle this on for individual figures and the below toggle
+                # print(len(res['confusion_matrices']))
+                matrices=res['confusion_matrices']
+                for matrix in matrices:
+                    row=[data,model,'Combined Non AOI']
+                    row.append((np.trace(matrix))/matrix.sum()*100)
+                    for i in range(2*len(ep)):
+                        row.append(matrix[i][i]/matrix[i].sum()*100)
+                    df.loc[len(df)] =row
+                if 'ENSEMBLE' in model :
+                    if el:
+                        with open(dir_path+type+results+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'.pickle', 'rb') as handle:
+                            res=pickle.load(handle)
+                        el=False
+                else:
+                    with open(dir_path+type+results[:-1]+'_2014/'+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'_'+data+'.pickle', 'rb') as handle:
+                        res=pickle.load(handle)
+                    if indiv and model!= 'Strat':
+                    # if indiv:
+                        model = model + '_' + str(data)#toggle this on for individual figures and the below toggle
+                # print(len(res['confusion_matrices']))
+                matrices=res['confusion_matrices']
+                for matrix in matrices:
+                    row=[data,model,'2014']
+                    row.append((np.trace(matrix))/matrix.sum()*100)
+                    for i in range(2*len(ep)):
+                        row.append(matrix[i][i]/matrix[i].sum()*100)
+                    df.loc[len(df)] =row
+            else:
+                if 'ENSEMBLE' in model :
+                    if el:
+                        with open(dir_path+type+results+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'.pickle', 'rb') as handle:
+                            res=pickle.load(handle)
+                        el = False
+                else:
+                    with open(dir_path+type+results+eps+'/'+folder+'/'+model+result_suffix+'_'+eps+'_'+data+'.pickle', 'rb') as handle:
+                        res=pickle.load(handle)
+                    if indiv and model!= 'Strat':
+                    # if indiv:
+                        model = model + '_' + str(data)#toggle this on for individual figures and the below toggle
+                # print(len(res['confusion_matrices']))
+                matrices=res['confusion_matrices']
+                for matrix in matrices:
+                    row=[data,model]
+                    row.append((np.trace(matrix))/matrix.sum()*100)
+                    for i in range(2*len(ep)):
+                        row.append(matrix[i][i]/matrix[i].sum()*100)
+                    df.loc[len(df)] =row
+
+    new_models=[]
+    for model in models:
+        if 'ENSEMBLE' not in model and model != 'Strat':
+        # if 'ENSEMBLE' not in model:
+            for data in data_types:
+                m = model + '_' + str(data)
+                new_models.append(m)
+        else:
+            m = model
+            new_models.append(m)
+    if indiv:
+        models = new_models
+    # print(df)
+    best_dfs={}
+    class_feature_sets={}
+    if ep==['Frustration','Boredom']:
+        class_feature_sets={'Total':['log','eye','eye'],
+                            classes[0]:['both','eye','eye'],
+                            classes[1]:['eye','eye','eye'],
+                            classes[2]:['log','log','log'],
+                            classes[3]:['log','log','both']
+                            }
+        labels=['Acc_Overall','Acc_None','Acc_Frus','Acc_Bore','Acc_Both']
+        best_combo=['2014','log']
+        best_model=['2014','log','RF']
+    elif ep==['Curiosity','Anxiety']:
+        class_feature_sets={'Total':['eye','eye','eye'],
+                            classes[0]:['eye','eye','log'],
+                            classes[1]:['eye','eye','eye'],
+                            classes[2]:['log','log','log'],
+                            classes[3]:['both','both','both']
+                            }
+        labels=['Acc_Overall','Acc_None','Acc_Curi','Acc_Anxi','Acc_Both']
+        best_combo=['Combined AOI','eye']
+        best_model=['Combined AOI','eye','SVM']
+    elif ep==['Frustration']:
+        class_feature_sets={'Total':['log','both','eye'],
+                            classes[0]:['log','both','eye'],
+                            classes[1]:['log','log','both']
+                            }
+        labels=['Acc_Overall','Acc_None','Acc_Frus']
+        best_combo=['2014','log']
+    elif ep==['Boredom']:
+        class_feature_sets={'Total':['log','eye','eye'],
+                            classes[0]:['both','eye','eye'],
+                            classes[1]:['log','log','both']
+                            }
+        labels=['Acc_Overall','Acc_None','Acc_Bore']
+        # best_combo=['2014','log']
+        # best_combo=['Combined AOI','eye']
+        best_combo=['Combined Non AOI','eye']
+    elif ep==['Curiosity']:
+        class_feature_sets={'Total':['both','both','both'],
+                            classes[0]:['log','eye','log'],
+                            classes[1]:['both','both','both']
+                            }
+        labels=['Acc_Overall','Acc_None','Acc_Curi']
+        # best_combo=['2014','both']
+        # best_combo=['Combined AOI','both']
+        best_combo=['Combined Non AOI','both']
+    elif ep==['Anxiety']:
+        class_feature_sets={'Total':['eye','eye','eye'],
+                            classes[0]:['eye','eye','eye'],
+                            classes[1]:['eye','log','log']
+                            }
+        labels=['Acc_Overall','Acc_None','Acc_Anxi']
+        best_combo=['Combined AOI','eye']
+        # print(class_feature_sets)
+    for x in ['Total']+classes:
+        slices=(df['Dataset']==best_combo[0]) & (df['Feature_Set']==best_combo[1])
+        best_dfs[x]=df.loc[slices,['Feature_Set','Model','Dataset',x]]
+
+    four_way=[]
+    four_way_pattern=[]
+    strat=[]
+    strat_pattern=[]
+    ensemble=[]
+    i=-1
+    for x in ['Total']+classes:
+        df = best_dfs[x]
+
+        # print(df)
+        four_way_vals = df[df['Model']==best_model[2]]
+        f1=np.unique(four_way_vals[['Feature_Set','Dataset']])
+        four_way.append(round(np.mean(four_way_vals[x]),2))
+        four_way_pattern.append(list(f1))
+
+        #load ensemble
+        with open(dir_path+'/binary_ensemble'+results+eps+'/'+folder+'/'+'BINARY_ENSEMBLE'+result_suffix+'_'+eps+'.pickle', 'rb') as handle:
+            res=pickle.load(handle)
+        matrices=res['confusion_matrices']
+        accs=[]
+        for matrix in matrices:
+            if i==-1:
+                accs.append((np.trace(matrix))/matrix.sum()*100)
+            else:
+                accs.append(matrix[i][i]/matrix[i].sum()*100)
+        ensemble.append(round(np.mean(accs),2))
+        i+=1
+
+        strat_vals = df[df['Model']=='Strat']
+        f4=np.unique(strat_vals[['Feature_Set','Dataset']])
+        strat.append(round(np.mean(strat_vals[x]),2))
+        strat_pattern.append(list(f4))
+
+        t1=four_way_vals[x].values.tolist()
+        t2=accs
+        t3=strat_vals[x].values.tolist()
+        argument= x+' ~ Model'
+        print("1-way ANOVA", argument)
+        model = ols(argument, data=best_dfs[x]).fit()
+        print(sm.stats.anova_lm(model, typ=2))
+        print(x+" Accuracy t tests")
+        # print(ttest_ind(t1,t3)[1])
+        print(multipletests([ttest_ind(t1,t2)[1],ttest_ind(t2,t3)[1],ttest_ind(t1,t3)[1]],alpha=0.05))
+
+    # print(original)
+    # print(original_pattern)
+    def pat(x):
+        if x=='log':
+            return '/'
+        elif x=='eye':
+            return '.'
+        elif x=='both':
+            return '*'
+    def color(x):
+        if x=='2014':
+            return '#F4D4D4'
+        elif x=='Combined AOI':
+            return '#F1A879'
+        elif x=='Combined Non AOI':
+            return '#CAB8C8'
+    four_way_hatch=[pat(x[1]) for x in four_way_pattern]
+    four_way_color=[color(x[0]) for x in four_way_pattern]
+    strat_hatch=[pat(x[1]) for x in strat_pattern]
+    strat_color=[color(x[0]) for x in strat_pattern]
+
+    # print(rf_hatch)
+    # print(rf_pattern)
+    # print(rf_color)
+    # exit()
+
+    fig, ax = plt.subplots()
+    x = np.arange(len(labels))  # the label locations
+    width=0.3
+    bar_width=0.3
+    rects1 = ax.bar(x - width, four_way, bar_width, label='Best 4-way',color=four_way_color,hatch=four_way_hatch)
+    rects2 = ax.bar(x , ensemble, bar_width, label='ENSEMBLE',color='grey',hatch=None)
+    rects3 = ax.bar(x + width, strat, bar_width, label='Strat',color=strat_color,hatch=strat_hatch)
+
+    def autolabel(rects,model):
+        """Attach a text label above each bar in *rects*, displaying its height."""
+        for rect in rects:
+            height = rect.get_height()
+            print(rect)
+            print(rect.get_x() + rect.get_width() / 2, height)
+            ax.annotate('{} \n {}'.format(model,height),
+                        xy=(rect.get_x() + rect.get_width() / 2, height),
+                        xytext=(0, 3),  # 3 points vertical offset
+                        textcoords="offset points",
+                        ha='center', va='bottom',fontsize=10)
+
+
+    autolabel(rects1,'4-way')
+    autolabel(rects2,'Ensemble')
+    autolabel(rects3,'Strat')
+
+    # Add some text for labels, title and custom x-axis tick labels, etc.
+    ax.set_ylabel('Percentage Accuracies',fontsize=24)
+    ax.set_title(eps_title,fontsize=24)
+    ax.set_xticks(x)
+    ax.set_xticklabels(labels)
+
+    legend_elements=[]
+    for label,color in {'2014':'#F4D4D4','Combined AOI':'#F1A879','Combined Non AOI':'#CAB8C8'}.items():
+        legend_elements.append((mpatches.Patch(color=color), label))
+    for label,hatch in {'log':'/','eye':'.','both':'*'}.items():
+        legend_elements.append((mpatches.Patch(facecolor='white',hatch=hatch), label))
+    ax.legend(*zip(*legend_elements),fontsize=12, loc=2)
+
+    ax.set_ylim([0,100])
+    plt.yticks(fontsize=19)
+    plt.xticks(fontsize=19)
+    fig.tight_layout()
+    plt.grid(which='both',axis='y',color='gray', linestyle='--', linewidth=.5)
+    plt.minorticks_on()
+    plt.show()
+
+
+
+
+
 # ep=["Frustration"]
 # ep=["Boredom"]
 # ep=["Frustration","Boredom"]
 # ep=["Curiosity"]
-ep=["Anxiety"]
-# ep=["Curiosity","Anxiety"]
+# ep=["Anxiety"]
+ep=["Curiosity","Anxiety"]
 
 smote = True
 # smote = False
@@ -2465,4 +3069,6 @@ usercv=True
 # plots_old_non_aoi(smote,'','',ep,'3',models,usercv)
 # manova_non_aoi(smote,'','',ep,'3',models,usercv,data_types,True,False)
 # plots_non_aoi(smote,'','',ep,'3',models,usercv,data_types,True,False)
-new_analysis(smote,'','',ep,'3',models,usercv,data_types,True,False)
+# new_analysis(smote,'','',ep,'3',models,usercv,data_types,True,False)
+# model_analysis(smote,'','',ep,'3',models,usercv,data_types,True,False)
+compare_ensemble(smote,'','',ep,'3',models,usercv,data_types,True,False)

@@ -1767,16 +1767,19 @@ def new_analysis(smote,eye_window,log_window,ep,threshold,models,usercv,data_typ
         best_dfs[x]['Best_combination']=best_dfs[x]['Dataset']+'_'+best_dfs[x]['Feature_Set']
         # print(best_dfs[x])
     if ep==['Frustration','Boredom']:
-        labels=['Acc_Overall','Acc_None','Acc_Frus','Acc_Bore','Acc_Both']
+        labels=['Acc_Overall']
+        # labels=['Acc_Overall','Acc_None','Acc_Frus','Acc_Bore','Acc_Both']
     else:
-        labels=['Acc_Overall','Acc_None','Acc_Curi','Acc_Anxi','Acc_Both']
+        labels=['Acc_Overall']
+        # labels=['Acc_Overall','Acc_None','Acc_Curi','Acc_Anxi','Acc_Both']
     original=[]
     original_pattern=[]
     combined_aoi=[]
     combined_aoi_pattern=[]
     combined_non_aoi=[]
     combined_non_aoi_pattern=[]
-    for x in ['Total']+classes:
+    for x in ['Total']:
+    # for x in ['Total']+classes:
         df = best_dfs[x]
 
         ori = df[df['Dataset']=='2014']
@@ -1799,14 +1802,15 @@ def new_analysis(smote,eye_window,log_window,ep,threshold,models,usercv,data_typ
 
         t1=ori[x].values.tolist()
         t2=comb_aoi[x].values.tolist()
-        t3=comb_non_aoi[x].values.tolist()
+        # t3=comb_non_aoi[x].values.tolist()
         argument= x+' ~ Dataset'
         print("1-way ANOVA", argument)
         model = ols(argument, data=best_dfs[x]).fit()
         print(sm.stats.anova_lm(model, typ=2))
         print(x+" Accuracy t tests")
         # print(ttest_ind(t1,t3)[1])
-        print(multipletests([ttest_ind(t1,t2)[1],ttest_ind(t1,t3)[1],ttest_ind(t2,t3)[1]],alpha=0.05))
+        print(multipletests([ttest_ind(t1,t2)[1]],alpha=0.05))
+        # print(multipletests([ttest_ind(t1,t2)[1],ttest_ind(t1,t3)[1],ttest_ind(t2,t3)[1]],alpha=0.05))
 
     # print(original)
     # print(original_pattern)
@@ -1824,9 +1828,9 @@ def new_analysis(smote,eye_window,log_window,ep,threshold,models,usercv,data_typ
     fig, ax = plt.subplots()
     x = np.arange(len(labels))  # the label locations
     width=0.3
-    rects1 = ax.bar(x - width, original, width, label='2014',color='#F4D4D4',hatch=original_pattern)
-    rects2 = ax.bar(x , combined_aoi, width, label='Combined AOI',color='#F1A879',hatch=combined_aoi_pattern)
-    rects3 = ax.bar(x + width, combined_non_aoi, width, label='Combined Non AOI',color='#CAB8C8',hatch=combined_non_aoi_pattern)
+    rects1 = ax.bar(x - width/2, original, width, label='2014',color='#F4D4D4',hatch=original_pattern)
+    rects2 = ax.bar(x +width/2, combined_aoi, width, label='Combined AOI',color='#F1A879',hatch=combined_aoi_pattern)
+    # rects3 = ax.bar(x + width, combined_non_aoi, width, label='Combined Non AOI',color='#CAB8C8',hatch=combined_non_aoi_pattern)
 
     def autolabel(rects):
         """Attach a text label above each bar in *rects*, displaying its height."""
@@ -1841,9 +1845,9 @@ def new_analysis(smote,eye_window,log_window,ep,threshold,models,usercv,data_typ
                         ha='center', va='bottom',fontsize=11)
 
 
-    autolabel(rects1)
-    autolabel(rects2)
-    autolabel(rects3)
+    # autolabel(rects1)
+    # autolabel(rects2)
+    # autolabel(rects3)
 
     # Add some text for labels, title and custom x-axis tick labels, etc.
     ax.set_ylabel('Percentage Accuracies',fontsize=24)
@@ -1852,7 +1856,8 @@ def new_analysis(smote,eye_window,log_window,ep,threshold,models,usercv,data_typ
     ax.set_xticklabels(labels)
 
     legend_elements=[]
-    for label,color in {'2014':'#F4D4D4','Combined AOI':'#F1A879','Combined Non AOI':'#CAB8C8'}.items():
+    # for label,color in {'2014':'#F4D4D4','Combined AOI':'#F1A879','Combined Non AOI':'#CAB8C8'}.items():
+    for label,color in {'2014':'#F4D4D4','Combined':'#F1A879'}.items():
         legend_elements.append((mpatches.Patch(color=color), label))
     for label,hatch in {'log':'/','eye':'.','both':'*'}.items():
         legend_elements.append((mpatches.Patch(facecolor='white',hatch=hatch), label))
@@ -1866,9 +1871,9 @@ def new_analysis(smote,eye_window,log_window,ep,threshold,models,usercv,data_typ
     plt.minorticks_on()
     plt.show()
 
-# ep=["Frustration","Boredom"]
+ep=["Frustration","Boredom"]
 # ep=["Curiosity"]
-ep=["Curiosity","Anxiety"]
+# ep=["Curiosity","Anxiety"]
 # ep=["Boredom"]
 
 smote = True
