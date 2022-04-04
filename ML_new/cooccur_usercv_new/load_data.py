@@ -27,8 +27,8 @@ emotions = list(d.values())
 result_suffix=result_suffixes[num]
 folder=folders[num]
 
-ep=["Frustration","Boredom"]
-# ep=["Curiosity","Anxiety"]
+# ep=["Frustration","Boredom"]
+ep=["Curiosity","Anxiety"]
 
 eye=pd.read_csv(dir_path+eyefiles_thres[num]+'.csv')
 log=pd.read_csv(dir_path+logfiles_thres[num]+'.csv')
@@ -52,6 +52,24 @@ combined=combined[combined_c]
 # print(combined.shape)
 combined=combined.dropna(thresh=len(emotions),axis=0,subset=emotions)
 combined=combined.dropna(thresh=combined.shape[1],axis=0)
+
+y_temp=combined[ep].to_numpy()
+y=[]
+# print(y_temp)
+for i in range(len(y_temp)):
+    if np.array_equal(y_temp[i],np.array([0,0])):
+        y.append(0)
+    elif np.array_equal(y_temp[i],np.array([1,0])):
+        y.append(1)
+    elif np.array_equal(y_temp[i],np.array([0,1])):
+        y.append(2)
+    elif np.array_equal(y_temp[i],np.array([1,1])):
+        y.append(3)
+
+y=np.array(y)
+
+print(np.unique(y,return_counts=True))
+print(pd.Series(y).value_counts(normalize=True).mul(100))
 
 # print(combined)
 # print(eye.shape)

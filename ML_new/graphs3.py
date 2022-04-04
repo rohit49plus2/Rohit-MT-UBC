@@ -25,8 +25,8 @@ x = np.arange(len(labels))  # the label locations
 width = 0.2  # the width of the bars
 
 fig, ax = plt.subplots()
-rects1 = ax.bar(x - width, d1, width, label='2014',color='#F4D4D4',hatch='/')
-rects2 = ax.bar(x , d2, width, label='2016 + 2014',color='#342A1F',hatch='.')
+rects1 = ax.bar(x - width, d1, width, label='Original Dataset',color='#F4D4D4')
+rects2 = ax.bar(x , d2, width, label='Combined Dataset',color='#342A1F')
 
 
 # Add some text for labels, title and custom x-axis tick labels, etc.
@@ -52,8 +52,8 @@ def autolabel(rects):
                     ha='center', va='bottom',fontsize=12)
 
 
-autolabel(rects1)
-autolabel(rects2)
+# autolabel(rects1)
+# autolabel(rects2)
 #
 # ax.annotate('*',
 #             xy=(0.4, 35.28),color='black',
@@ -112,8 +112,8 @@ x = np.arange(len(labels))  # the label locations
 width = 0.2  # the width of the bars
 
 fig, ax = plt.subplots()
-rects1 = ax.bar(x - width, d1, width, label='2014',color='#F4D4D4',hatch='/')
-rects2 = ax.bar(x , d2, width, label='2016 + 2014',color='#342A1F',hatch='.')
+rects1 = ax.bar(x - width, d1, width, label='Original Dataset',color='#F4D4D4')
+rects2 = ax.bar(x , d2, width, label='Combined Dataset',color='#342A1F')
 
 
 
@@ -128,8 +128,8 @@ plt.yticks(fontsize=19)
 plt.xticks(fontsize=19)
 
 
-autolabel(rects1)
-autolabel(rects2)
+# autolabel(rects1)
+# autolabel(rects2)
 
 # ax.annotate('*',
 #             xy=(0.4, 28.04),color='black',

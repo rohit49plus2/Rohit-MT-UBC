@@ -27,7 +27,7 @@ for threshold in {3,4}:
     # eye_15s.set_index('key')
     eye_full.insert(0,"key",[make_id_tuple(x, y) for x, y in zip(eye_full['Part_id'], eye_full['Sc_id'])]) #add new key system
     eye_full.set_index('key')
-    for eiv in {1,2,3,4,5}:
+    for eiv in {1,2,3,4,5,6,7,8}:
         log_half_temp=pd.read_csv(dir_path+log_half_name+str(eiv)+'.csv',delimiter=',')
         log_half_temp.insert(0,"key",[(id,eiv) for id in log_half_temp['ID']])
         log_half_temp.set_index('key')
@@ -70,3 +70,5 @@ for threshold in {3,4}:
     # merged_15s_full.to_pickle(dir_path+'/Combined_Data_2016_Corrected/data_15s_full_'+str(threshold)+'.pkl')
     merged_full_half.to_pickle(dir_path+'/Combined_Data_2016_Corrected/data_full_half_'+str(threshold)+'.pkl')
     merged_full_full.to_pickle(dir_path+'/Combined_Data_2016_Corrected/data_full_full_'+str(threshold)+'.pkl')
+    print(merged_full_full)
+    print(merged_full_full.shape)

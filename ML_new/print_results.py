@@ -1857,9 +1857,9 @@ def new_analysis(smote,eye_window,log_window,ep,threshold,models,usercv,data_typ
 
     legend_elements=[]
     # for label,color in {'2014':'#F4D4D4','Combined AOI':'#F1A879','Combined Non AOI':'#CAB8C8'}.items():
-    for label,color in {'2014':'#F4D4D4','Combined':'#F1A879'}.items():
+    for label,color in {'Original Dataset':'#F4D4D4','Combined Dataset':'#F1A879'}.items():
         legend_elements.append((mpatches.Patch(color=color), label))
-    for label,hatch in {'log':'/','eye':'.','both':'*'}.items():
+    for label,hatch in {'Interaction':'/','Eye-Tracking':'.','Fusion':'*'}.items():
         legend_elements.append((mpatches.Patch(facecolor='white',hatch=hatch), label))
     ax.legend(*zip(*legend_elements),fontsize=15, loc=2)
 

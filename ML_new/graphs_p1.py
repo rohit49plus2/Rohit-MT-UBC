@@ -26,9 +26,9 @@ x = np.arange(len(labels))  # the label locations
 width = 0.3  # the width of the bars
 
 fig, ax = plt.subplots()
-rects1 = ax.bar(x - width, interaction, width, label='Interaction',color='#F4D4D4',hatch='/')
-rects2 = ax.bar(x , gaze, width, label='Gaze',color='#342A1F',hatch='.')
-rects3 = ax.bar(x + width, combined, width, label='Both',color='#CAB8C8',hatch='*')
+rects1 = ax.bar(x - width, interaction, width, label='Interaction',color=['#F4D4D4','#F1A879'],hatch='/')
+rects2 = ax.bar(x , gaze, width, label='Eye-Tracking',color=['#F4D4D4','#F1A879'],hatch='.')
+rects3 = ax.bar(x + width, combined, width, label='Fusion',color=['#F4D4D4','#F1A879'],hatch='*')
 
 
 # Add some text for labels, title and custom x-axis tick labels, etc.
@@ -54,9 +54,9 @@ def autolabel(rects):
                     ha='center', va='bottom',fontsize=11)
 
 
-autolabel(rects1)
-autolabel(rects2)
-autolabel(rects3)
+# autolabel(rects1)
+# autolabel(rects2)
+# autolabel(rects3)
 
 # ax.annotate('*',
 #             xy=(-0.3, 29.92),color='black',
@@ -120,9 +120,9 @@ x = np.arange(len(labels))  # the label locations
 width = 0.3  # the width of the bars
 
 fig, ax = plt.subplots()
-rects1 = ax.bar(x - width, interaction, width, label='Interaction',color='#F4D4D4',hatch='/')
-rects2 = ax.bar(x , gaze, width, label='Gaze',color='#342A1F',hatch='.')
-rects3 = ax.bar(x + width, combined, width, label='Both',color='#CAB8C8',hatch='*')
+rects1 = ax.bar(x - width, interaction, width, label='Interaction',color=['#F4D4D4','#F1A879'],hatch='/')
+rects2 = ax.bar(x , gaze, width, label='Eye-Tracking',color=['#F4D4D4','#F1A879'],hatch='.')
+rects3 = ax.bar(x + width, combined, width, label='Fusion',color=['#F4D4D4','#F1A879'],hatch='*')
 
 
 # Add some text for labels, title and custom x-axis tick labels, etc.plt.grid(which='both',axis='y',color='gray', linestyle='-', linewidth=.5)
@@ -137,9 +137,9 @@ plt.yticks(fontsize=19)
 plt.xticks(fontsize=19)
 
 
-autolabel(rects1)
-autolabel(rects2)
-autolabel(rects3)
+# autolabel(rects1)
+# autolabel(rects2)
+# autolabel(rects3)
 # ax.annotate('*',
 #             xy=(0.0, 26.26),color='black',
 #             xytext=(0, 1),  # 3 points vertical offset

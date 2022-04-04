@@ -2686,10 +2686,14 @@ def model_analysis(smote,eye_window,log_window,ep,threshold,models,usercv,data_t
     x = np.arange(len(labels))  # the label locations
     width=0.2
     bar_width=0.18
-    rects1 = ax.bar(x - width, rf, bar_width, label='RF',color=rf_color,hatch=rf_hatch)
-    rects2 = ax.bar(x , lr, bar_width, label='LR',color=lr_color,hatch=lr_hatch)
-    rects3 = ax.bar(x + width, svm, bar_width, label='SVM',color=svm_color,hatch=svm_hatch)
-    rects4 = ax.bar(x + 2*width, strat, bar_width, label='Strat',color=strat_color,hatch=strat_hatch)
+    # rects1 = ax.bar(x - width, rf, bar_width, label='RF',color=rf_color,hatch=rf_hatch)
+    # rects2 = ax.bar(x , lr, bar_width, label='LR',color=lr_color,hatch=lr_hatch)
+    # rects3 = ax.bar(x + width, svm, bar_width, label='SVM',color=svm_color,hatch=svm_hatch)
+    # rects4 = ax.bar(x + 2*width, strat, bar_width, label='Strat',color=strat_color,hatch=strat_hatch)
+    rects1 = ax.bar(x - width, rf, bar_width, label='RF',color='#F4D4D4')
+    rects2 = ax.bar(x , lr, bar_width, label='LR',color='#342A1F')
+    rects3 = ax.bar(x + width, svm, bar_width,label='SVM',color='#CAB8C8')
+    rects4 = ax.bar(x + 2*width, strat, bar_width, label='Baseline',color='grey')
 
     def autolabel(rects,model):
         """Attach a text label above each bar in *rects*, displaying its height."""
@@ -2704,10 +2708,10 @@ def model_analysis(smote,eye_window,log_window,ep,threshold,models,usercv,data_t
                         ha='center', va='bottom',fontsize=11)
 
 
-    autolabel(rects1,'RF')
-    autolabel(rects2,'LR')
-    autolabel(rects3,'SVM')
-    autolabel(rects4,'Strat')
+    # autolabel(rects1,'RF')
+    # autolabel(rects2,'LR')
+    # autolabel(rects3,'SVM')
+    # autolabel(rects4,'Strat')
 
     # Add some text for labels, title and custom x-axis tick labels, etc.
     ax.set_ylabel('Percentage Accuracies',fontsize=24)
@@ -2716,10 +2720,11 @@ def model_analysis(smote,eye_window,log_window,ep,threshold,models,usercv,data_t
     ax.set_xticklabels(labels)
 
     legend_elements=[]
-    for label,color in {'2014':'#F4D4D4','Combined AOI':'#F1A879','Combined Non AOI':'#CAB8C8'}.items():
-        legend_elements.append((mpatches.Patch(color=color), label))
-    for label,hatch in {'log':'/','eye':'.','both':'*'}.items():
-        legend_elements.append((mpatches.Patch(facecolor='white',hatch=hatch), label))
+    # for label,color in {'2014':'#F4D4D4','Combined AOI':'#F1A879','Combined Non AOI':'#CAB8C8'}.items():
+    # for label,color in {'2014':'#F4D4D4'}.items():
+    #     legend_elements.append((mpatches.Patch(color=color), label))
+    # for label,hatch in {'log':'/'}.items():
+    #     legend_elements.append((mpatches.Patch(facecolor='white',hatch=hatch), label))
     ax.legend(*zip(*legend_elements),fontsize=12, loc=2)
 
     ax.set_ylim([0,100])
@@ -2985,9 +2990,12 @@ def compare_ensemble(smote,eye_window,log_window,ep,threshold,models,usercv,data
     x = np.arange(len(labels))  # the label locations
     width=0.3
     bar_width=0.3
-    rects1 = ax.bar(x - width, four_way, bar_width, label='Best 4-way',color=four_way_color,hatch=four_way_hatch)
-    rects2 = ax.bar(x , ensemble, bar_width, label='ENSEMBLE',color='grey',hatch=None)
-    rects3 = ax.bar(x + width, strat, bar_width, label='Strat',color=strat_color,hatch=strat_hatch)
+    rects1 = ax.bar(x - width, four_way, bar_width, label='Best 4-way',color='#F4D4D4')
+    rects2 = ax.bar(x , ensemble, bar_width, label='ENSEMBLE',color='#342A1F')
+    rects3 = ax.bar(x + width, strat, bar_width, label='Strat',color='grey')
+    # rects1 = ax.bar(x - width, four_way, bar_width, label='Best 4-way',color=four_way_color,hatch=four_way_hatch)
+    # rects2 = ax.bar(x , ensemble, bar_width, label='ENSEMBLE',color='grey',hatch=None)
+    # rects3 = ax.bar(x + width, strat, bar_width, label='Strat',color=strat_color,hatch=strat_hatch)
 
     def autolabel(rects,model):
         """Attach a text label above each bar in *rects*, displaying its height."""
@@ -3002,9 +3010,9 @@ def compare_ensemble(smote,eye_window,log_window,ep,threshold,models,usercv,data
                         ha='center', va='bottom',fontsize=10)
 
 
-    autolabel(rects1,'4-way')
-    autolabel(rects2,'Ensemble')
-    autolabel(rects3,'Strat')
+    # autolabel(rects1,'4-way')
+    # autolabel(rects2,'Ensemble')
+    # autolabel(rects3,'Strat')
 
     # Add some text for labels, title and custom x-axis tick labels, etc.
     ax.set_ylabel('Percentage Accuracies',fontsize=24)
@@ -3012,14 +3020,15 @@ def compare_ensemble(smote,eye_window,log_window,ep,threshold,models,usercv,data
     ax.set_xticks(x)
     ax.set_xticklabels(labels)
 
-    legend_elements=[]
-    for label,color in {'2014':'#F4D4D4','Combined AOI':'#F1A879','Combined Non AOI':'#CAB8C8'}.items():
-        legend_elements.append((mpatches.Patch(color=color), label))
-    for label,hatch in {'log':'/','eye':'.','both':'*'}.items():
-        legend_elements.append((mpatches.Patch(facecolor='white',hatch=hatch), label))
-    ax.legend(*zip(*legend_elements),fontsize=12, loc=2)
+    # legend_elements=[]
+    # for label,color in {'2014':'#F4D4D4','Combined AOI':'#F1A879','Combined Non AOI':'#CAB8C8'}.items():
+    #     legend_elements.append((mpatches.Patch(color=color), label))
+    # for label,hatch in {'log':'/','eye':'.','both':'*'}.items():
+    #     legend_elements.append((mpatches.Patch(facecolor='white',hatch=hatch), label))
+    # ax.legend(*zip(*legend_elements),fontsize=12, loc=2)
 
     ax.set_ylim([0,100])
+    ax.legend(loc=2,fontsize=15)
     plt.yticks(fontsize=19)
     plt.xticks(fontsize=19)
     fig.tight_layout()
